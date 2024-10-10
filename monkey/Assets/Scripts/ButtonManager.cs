@@ -21,4 +21,9 @@ public class ButtonManager : MonoBehaviour
     {
         SceneManager.LoadScene("NightScene");
     }
+
+    public void returnMenu()
+    {
+        SceneManager.LoadScene("Menu");
+    }
 }
