@@ -9,6 +9,7 @@ TagManager:
   - movePlatform
   - rightWall
   - leftWall
+  - hat
   layers:
   - Default
   - TransparentFX

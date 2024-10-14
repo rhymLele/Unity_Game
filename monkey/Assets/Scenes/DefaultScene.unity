@@ -503,6 +503,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3144903041759042666, guid: a30ab18f8f260be48b0f23793b5f8f14, type: 3}
+      propertyPath: hat
+      value: 
+      objectReference: {fileID: 7103140186130370787, guid: ca4584f12d72aec42b96c0ce7122c169, type: 3}
+    - target: {fileID: 3144903041759042666, guid: a30ab18f8f260be48b0f23793b5f8f14, type: 3}
       propertyPath: move_platformprefab
       value: 
       objectReference: {fileID: 4613586597290038078, guid: 2be64499613ba234cbf0de2be974644b, type: 3}
