@@ -12,3 +12,5 @@ monkey/Logs/AssetImportWorker4-prev.log
 monkey/Logs/AssetImportWorker4.log
 monkey/Logs/AssetImportWorker5-prev.log
 monkey/Logs/AssetImportWorker5.log
+monkey/Logs/shadercompiler-AssetImportWorker0.log
+monkey/Logs/shadercompiler-UnityShaderCompiler.exe0.log
