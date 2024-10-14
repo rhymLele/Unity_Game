@@ -10,6 +10,7 @@ TagManager:
   - rightWall
   - leftWall
   - hat
+  - jetpack
   layers:
   - Default
   - TransparentFX
