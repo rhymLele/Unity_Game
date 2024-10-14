@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BounceScript : MonoBehaviour
+public class PlatformBehaviour : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -15,21 +15,11 @@ public class BounceScript : MonoBehaviour
     {
         
     }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Rigidbody2D playerRb = collision.gameObject.GetComponent<Rigidbody2D>();
-
-        if (playerRb != null)
+        if (collision.gameObject.GetComponent<Rigidbody2D>().velocity.y <= 0)
         {
-            if (playerRb.velocity.y <= 0)
-            {
-                playerRb.AddForce(Vector3.up * 600f);
-            }
-            /*else
-            {
-                Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
-            } */
+            collision.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector3.up*1000f);
         }
     }
 }

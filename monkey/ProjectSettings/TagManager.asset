@@ -6,6 +6,9 @@ TagManager:
   tags:
   - platform
   - bouncePlatform
+  - movePlatform
+  - rightWall
+  - leftWall
   layers:
   - Default
   - TransparentFX
