@@ -15,8 +15,16 @@ public class HatPickup : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    private void FlyUp(Rigidbody2D obj)
+
+    private void FlyUp(Rigidbody2D playerRb)
     {
-        obj.AddForce(Vector3.up * 1200f);
+        // Reset vertical velocity to ensure upward force is effective
+        if (playerRb.velocity.y < 0)
+        {
+            playerRb.velocity = new Vector2(playerRb.velocity.x, 0); // Reset vertical velocity if falling
+        }
+
+        // Apply upward force
+        playerRb.AddForce(Vector2.up * 1200f);
     }
 }

@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 1b1c2890f5309ff4d9a9308e9f577405, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
@@ -275,3 +275,4 @@ MonoBehaviour:
   white_platformprefab: {fileID: 3577139571757213077, guid: 33c24fc542f54ef4cb800a7c80a2fa93, type: 3}
   bouncy_platformprefab: {fileID: 1594530923665745609, guid: 6752c5cc4e5d47148a03d6864a08092f, type: 3}
   move_platformprefab: {fileID: 4818067609505915077, guid: cc91b1f118d24c84399dc2784fafc891, type: 3}
+  hat: {fileID: 0}

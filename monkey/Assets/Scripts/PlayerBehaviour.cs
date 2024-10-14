@@ -74,7 +74,7 @@ public class PlayerBehaviour : MonoBehaviour
 
         scoreText.text = "Score: " + Mathf.Round(topScore).ToString();
 
-        if (rb2d.velocity.y < 0 && transform.position.y < topScore - 20f)
+        if (rb2d.velocity.y < 0 && transform.position.y < topScore - 30f)
         {
             EndGame();
         }
