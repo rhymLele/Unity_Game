@@ -31,8 +31,8 @@ public class ScreenWarpScript : MonoBehaviour
 
     private IEnumerator TeleportCooldown()
     {
-        // Wait for a brief moment before allowing another teleport
-        yield return new WaitForSeconds(0.5f); // Adjust the delay time as necessary
-        isTeleporting = false; // Reset the teleport flag
+
+        yield return new WaitForSeconds(0.5f);
+        isTeleporting = false;
     }
 }

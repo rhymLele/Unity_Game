@@ -9,7 +9,10 @@ public class ButtonManager : MonoBehaviour
     {
         SceneManager.LoadScene("NightScene");
     }
-
+    public void startGame1()
+    {
+        SceneManager.LoadScene("DefaultScene");
+    }
     public void returnMenu()
     {
         SceneManager.LoadScene("Menu");

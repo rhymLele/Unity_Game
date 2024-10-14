@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/NightScene.unity
     guid: 6230c0f9eeb5d084aaa1517b9b517246
+  - enabled: 1
+    path: Assets/Scenes/DefaultScene.unity
+    guid: 19605ffdafc113a459d4aa46da08b37a
   m_configObjects: {}
