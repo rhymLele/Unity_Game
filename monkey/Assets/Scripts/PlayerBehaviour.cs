@@ -7,7 +7,7 @@ public class PlayerBehaviour : MonoBehaviour
 {
     private Rigidbody2D rb2d;
     private float moveInput;
-    private float moveSpeed = 10f;
+    private float moveSpeed = 8f;
 
     private bool isStarted = false;
     private float topScore = 0f;

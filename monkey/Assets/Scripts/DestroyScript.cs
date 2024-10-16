@@ -9,6 +9,7 @@ public class DestroyScript : MonoBehaviour
     public GameObject bouncy_platformprefab;
     public GameObject move_platformprefab;
     public GameObject hat;
+    public GameObject jet;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -82,6 +83,14 @@ public class DestroyScript : MonoBehaviour
             Destroy(collision.gameObject);
         }
         #endregion
+
+        //Jet
+        #region
+        else if (collision.CompareTag("jetpack"))
+        {
+            Destroy(collision.gameObject);
+        }
+        #endregion
     }
 
     private void SpawnWhitePlatformWithHat()
@@ -93,5 +102,10 @@ public class DestroyScript : MonoBehaviour
         {
             Instantiate(hat, new Vector2(platformPosition.x, platformPosition.y + 1f), Quaternion.identity);
         }
+        else if(Random.Range(1,20) == 1)
+        {
+            Instantiate(jet, new Vector2(platformPosition.x, platformPosition.y + 1f), Quaternion.identity);
+        }
+
     }
 }
