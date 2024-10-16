@@ -3,7 +3,15 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - platform
+  - bouncePlatform
+  - movePlatform
+  - rightWall
+  - leftWall
+  - hat
+  - jetpack
+  - enemy
   layers:
   - Default
   - TransparentFX
