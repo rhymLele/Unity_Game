@@ -1347,11 +1347,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7103140186130370787, guid: ca4584f12d72aec42b96c0ce7122c169, type: 3}
     - target: {fileID: 3144903041759042666, guid: a30ab18f8f260be48b0f23793b5f8f14, type: 3}
-<<<<<<< Updated upstream
       propertyPath: jet
       value: 
       objectReference: {fileID: 762491104}
-=======
       propertyPath: enemyPrefab
       value: 
       objectReference: {fileID: 1342565911471621600, guid: 5fab5ec0db705f044a998286d7af8703, type: 3}
@@ -1395,7 +1393,6 @@ PrefabInstance:
       propertyPath: enemyPrefabs.Array.data[6]
       value: 
       objectReference: {fileID: 8603585104297036436, guid: 515e96de4580ede4eb6aa5084127d779, type: 3}
->>>>>>> Stashed changes
     - target: {fileID: 3455245937949447613, guid: a30ab18f8f260be48b0f23793b5f8f14, type: 3}
       propertyPath: m_Name
       value: PlayerObj
@@ -1439,8 +1436,5 @@ SceneRoots:
   - {fileID: 1164598365}
   - {fileID: 1698786847}
   - {fileID: 1962949014}
-<<<<<<< Updated upstream
   - {fileID: 3144386337764008872}
-=======
   - {fileID: 1979541003}
->>>>>>> Stashed changes
