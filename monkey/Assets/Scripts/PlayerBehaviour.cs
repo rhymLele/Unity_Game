@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,8 +8,15 @@ public class PlayerBehaviour : MonoBehaviour
 {
     private Rigidbody2D rb2d;
     private float moveInput;
+<<<<<<< Updated upstream
     private float moveSpeed = 8f;
 
+=======
+    private float moveSpeed = 10f;
+    [SerializeField] private GameObject bullet;
+    [SerializeField] private Transform bulletSpawnPoint;
+    private GameObject bulletInst;
+>>>>>>> Stashed changes
     private bool isStarted = false;
     private float topScore = 0f;
     public Text scoreText;
@@ -45,6 +53,52 @@ public class PlayerBehaviour : MonoBehaviour
         if (isStarted && !gameEnded)
         {
             HandleMovement();
+            HandleShooting();
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("enemy"))
+        {
+            // Get the bounds of the player and enemy
+            Bounds playerBounds = GetComponent<Collider2D>().bounds;
+            Bounds enemyBounds = collision.collider.bounds;
+
+            // Check if player is above the enemy (player's feet touch the enemy's head)
+            bool playerAboveEnemy = playerBounds.min.y > enemyBounds.max.y;
+
+            // Check if player hit the enemy from the side or below (player dies)
+            bool playerHitFromSideOrBelow = !playerAboveEnemy;
+
+            if (playerAboveEnemy)
+            {
+                // Player kills enemy by jumping on top
+                Destroy(collision.gameObject);
+                rb2d.velocity = new Vector2(rb2d.velocity.x, 0);// Reset vertical velocity to avoid stacking forces
+                rb2d.AddForce(new Vector2(0, 1000f));// Add upward force (adjust value for jump height)
+                //rb2d.AddForce(Vector3.up * 600f);
+                Debug.Log("Enemy killed.");
+            }
+            else if (playerHitFromSideOrBelow)
+            {
+                // Player dies if hit from the side or below
+                //Destroy(gameObject);
+                rb2d.AddForce(new Vector2(0, -500f));
+                Rigidbody2D enemyRb = collision.gameObject.GetComponent<Rigidbody2D>();
+                enemyRb.velocity = Vector2.zero;  // Neutralize velocity
+                enemyRb.angularVelocity = 0f;
+                
+                EndGame();
+                Debug.Log("Player died.");
+            }
+        }
+    }
+
+    private void HandleShooting()
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            bulletInst=Instantiate(bullet,bulletSpawnPoint.position,bulletSpawnPoint.rotation);
         }
     }
 
@@ -88,7 +142,7 @@ public class PlayerBehaviour : MonoBehaviour
             rb2d.velocity = new Vector2(moveInput * moveSpeed, rb2d.velocity.y);
         }
     }
-
+    
     private void EndGame()
     {
         gameEnded = true;
