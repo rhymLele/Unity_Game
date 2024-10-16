@@ -9,12 +9,11 @@ public class DestroyScript : MonoBehaviour
     public GameObject bouncy_platformprefab;
     public GameObject move_platformprefab;
     public GameObject hat;
-
     public GameObject jet;
     [SerializeField] private GameObject[] enemyPrefabs;
     private void Start()
     {
-        SpawnInitialEnemy(1);
+        //SpawnInitialEnemy(1);
     }
 
     private void SpawnInitialEnemy(int count)
@@ -31,7 +30,11 @@ public class DestroyScript : MonoBehaviour
         #region
         if (collision.CompareTag("platform"))
         {
-            if (Random.Range(1, 18) == 1)
+            if (Random.Range(1, 10) == 1)
+            {
+                SpawnEnemy2();
+            }
+            else if (Random.Range(1, 18) == 1)
             {
                 Destroy(collision.gameObject);
                 Instantiate(bouncy_platformprefab, new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (5 + Random.Range(0.2f, 1f))), Quaternion.identity);
@@ -108,19 +111,11 @@ public class DestroyScript : MonoBehaviour
 
         //Enemy
         #region
-        else if (collision.CompareTag("platform"))
+        else if (collision.CompareTag("enemy"))
         {
-            if (Random.Range(1, 10) == 1) // Random chance to respawn an enemy
-            {
-                Destroy(collision.gameObject);
-                SpawnEnemy2(); // Call the enemy spawn method
-            }
-            else
-            {
-                // Move the enemy to a new position above the player
-                collision.transform.position = new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (5 + Random.Range(0.2f, 1f)));
-            }
+            Destroy(collision.gameObject);
         }
+        
         #endregion
     }
     private void SpawnWhitePlatformWithHat()

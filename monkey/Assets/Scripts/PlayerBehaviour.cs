@@ -72,7 +72,7 @@ public class PlayerBehaviour : MonoBehaviour
                 // Player kills enemy by jumping on top
                 Destroy(collision.gameObject);
                 rb2d.velocity = new Vector2(rb2d.velocity.x, 0);// Reset vertical velocity to avoid stacking forces
-                rb2d.AddForce(new Vector2(0, 1000f));// Add upward force (adjust value for jump height)
+                rb2d.AddForce(new Vector2(0, 800f));// Add upward force (adjust value for jump height)
                 //rb2d.AddForce(Vector3.up * 600f);
                 Debug.Log("Enemy killed.");
             }
@@ -82,7 +82,9 @@ public class PlayerBehaviour : MonoBehaviour
                 //Destroy(gameObject);
                 rb2d.AddForce(new Vector2(0, -500f));
                 Rigidbody2D enemyRb = collision.gameObject.GetComponent<Rigidbody2D>();
-                enemyRb.velocity = Vector2.zero;  // Neutralize velocity
+                rb2d.gravityScale = 0f;
+                rb2d.velocity = Vector2.zero;
+                enemyRb.velocity = Vector2.zero;
                 enemyRb.angularVelocity = 0f;
                 
                 EndGame();

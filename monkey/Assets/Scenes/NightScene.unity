@@ -313,11 +313,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2211793400973478709, guid: 33c24fc542f54ef4cb800a7c80a2fa93, type: 3}
   m_PrefabInstance: {fileID: 1563367120}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &762491104 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1696190555939184338, guid: 1f8087dcc011cdf4a979da523ef9a51e, type: 3}
-  m_PrefabInstance: {fileID: 3144386337764008872}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &787679605
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1016,11 +1011,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3547291394658338928, guid: 00cf7f53040d8b54984c2a6404fb29a1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.3924463
+      value: 2.44
       objectReference: {fileID: 0}
     - target: {fileID: 3547291394658338928, guid: 00cf7f53040d8b54984c2a6404fb29a1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.011281967
+      value: 6.81
       objectReference: {fileID: 0}
     - target: {fileID: 3547291394658338928, guid: 00cf7f53040d8b54984c2a6404fb29a1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1349,10 +1344,7 @@ PrefabInstance:
     - target: {fileID: 3144903041759042666, guid: a30ab18f8f260be48b0f23793b5f8f14, type: 3}
       propertyPath: jet
       value: 
-      objectReference: {fileID: 762491104}
-      propertyPath: enemyPrefab
-      value: 
-      objectReference: {fileID: 1342565911471621600, guid: 5fab5ec0db705f044a998286d7af8703, type: 3}
+      objectReference: {fileID: 1696190555939184338, guid: 1f8087dcc011cdf4a979da523ef9a51e, type: 3}
     - target: {fileID: 3144903041759042666, guid: a30ab18f8f260be48b0f23793b5f8f14, type: 3}
       propertyPath: platforms.Array.size
       value: 1

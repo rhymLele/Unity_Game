@@ -6,8 +6,8 @@ using UnityEngine;
 public class BulletBehaviour : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] private float BulletSpeed = 15f;
-    [SerializeField] private float DestroyTime = 3f;
+    [SerializeField] private float BulletSpeed = 10f;
+    [SerializeField] private float DestroyTime = 2.5f;
     private Rigidbody2D rb;
     void Start()
     {
