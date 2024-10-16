@@ -25,6 +25,6 @@ public class JetpackPickUp : MonoBehaviour
         }
 
         // Apply upward force
-        playerRb.AddForce(Vector2.up * 1600f);
+        playerRb.AddForce(Vector2.up * 1500f);
     }
 }

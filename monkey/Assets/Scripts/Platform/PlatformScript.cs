@@ -4,18 +4,6 @@ using UnityEngine;
 
 public class BounceScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Rigidbody2D playerRb = collision.gameObject.GetComponent<Rigidbody2D>();
@@ -24,7 +12,7 @@ public class BounceScript : MonoBehaviour
         {
             if (playerRb.velocity.y <= 0)
             {
-                playerRb.AddForce(Vector3.up * 600f);
+                playerRb.AddForce(Vector3.up * 500f);
             }
             /*else
             {

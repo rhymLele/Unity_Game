@@ -515,6 +515,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4613586597290038078, guid: 2be64499613ba234cbf0de2be974644b, type: 3}
     - target: {fileID: 3144903041759042666, guid: a30ab18f8f260be48b0f23793b5f8f14, type: 3}
+      propertyPath: break_platformprefab
+      value: 
+      objectReference: {fileID: 8389560638198761216, guid: edb47b40f761aee4bb8d871808b44c85, type: 3}
+    - target: {fileID: 3144903041759042666, guid: a30ab18f8f260be48b0f23793b5f8f14, type: 3}
       propertyPath: white_platformprefab
       value: 
       objectReference: {fileID: 3903065732775636937, guid: ea5f767f75dae334f9b40a722bde99fb, type: 3}

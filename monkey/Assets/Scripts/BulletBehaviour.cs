@@ -6,7 +6,7 @@ using UnityEngine;
 public class BulletBehaviour : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] private float BulletSpeed = 10f;
+    [SerializeField] private float BulletSpeed = 20f;
     [SerializeField] private float DestroyTime = 2.5f;
     private Rigidbody2D rb;
     void Start()
@@ -37,7 +37,7 @@ public class BulletBehaviour : MonoBehaviour
         if (other.CompareTag("enemy"))
         {
             // Destroy the enemy GameObject
-            Destroy(other.gameObject,0.5f);
+            Destroy(other.gameObject,0f);
 
             // Destroy the bullet itself
             Destroy(gameObject);
