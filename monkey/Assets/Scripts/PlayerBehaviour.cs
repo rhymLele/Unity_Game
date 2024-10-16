@@ -71,6 +71,7 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 // Player kills enemy by jumping on top
                 Destroy(collision.gameObject);
+                topScore += 10;
                 rb2d.velocity = new Vector2(rb2d.velocity.x, 0);// Reset vertical velocity to avoid stacking forces
                 rb2d.AddForce(new Vector2(0, 800f));// Add upward force (adjust value for jump height)
                 //rb2d.AddForce(Vector3.up * 600f);
