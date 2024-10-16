@@ -9,9 +9,8 @@ public class DestroyScript : MonoBehaviour
     public GameObject bouncy_platformprefab;
     public GameObject move_platformprefab;
     public GameObject hat;
-<<<<<<< Updated upstream
+
     public GameObject jet;
-=======
     [SerializeField] private GameObject[] enemyPrefabs;
     private void Start()
     {
@@ -25,7 +24,6 @@ public class DestroyScript : MonoBehaviour
             SpawnEnemy2();
         }
     }
->>>>>>> Stashed changes
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -99,7 +97,6 @@ public class DestroyScript : MonoBehaviour
             Destroy(collision.gameObject);
         }
         #endregion
-<<<<<<< Updated upstream
 
         //Jet
         #region
@@ -108,10 +105,6 @@ public class DestroyScript : MonoBehaviour
             Destroy(collision.gameObject);
         }
         #endregion
-    }
-=======
->>>>>>> Stashed changes
-
 
         //Enemy
         #region
@@ -129,7 +122,6 @@ public class DestroyScript : MonoBehaviour
             }
         }
         #endregion
-
     }
     private void SpawnWhitePlatformWithHat()
     {
@@ -140,7 +132,7 @@ public class DestroyScript : MonoBehaviour
         {
             Instantiate(hat, new Vector2(platformPosition.x, platformPosition.y + 1f), Quaternion.identity);
         }
-        else if(Random.Range(1,20) == 1)
+        else if (Random.Range(1, 20) == 1)
         {
             Instantiate(jet, new Vector2(platformPosition.x, platformPosition.y + 1f), Quaternion.identity);
         }

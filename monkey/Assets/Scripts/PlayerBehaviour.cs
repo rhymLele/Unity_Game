@@ -8,15 +8,12 @@ public class PlayerBehaviour : MonoBehaviour
 {
     private Rigidbody2D rb2d;
     private float moveInput;
-<<<<<<< Updated upstream
     private float moveSpeed = 8f;
 
-=======
-    private float moveSpeed = 10f;
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform bulletSpawnPoint;
     private GameObject bulletInst;
->>>>>>> Stashed changes
+
     private bool isStarted = false;
     private float topScore = 0f;
     public Text scoreText;
