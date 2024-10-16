@@ -80,7 +80,7 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 // Player dies if hit from the side or below
                 //Destroy(gameObject);
-                rb2d.AddForce(new Vector2(0, -500f));
+                //rb2d.AddForce(new Vector2(0, -500f));
                 Rigidbody2D enemyRb = collision.gameObject.GetComponent<Rigidbody2D>();
                 rb2d.gravityScale = 0f;
                 rb2d.velocity = Vector2.zero;

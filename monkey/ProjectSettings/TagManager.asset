@@ -10,11 +10,8 @@ TagManager:
   - rightWall
   - leftWall
   - hat
-<<<<<<< Updated upstream
   - jetpack
-=======
   - enemy
->>>>>>> Stashed changes
   layers:
   - Default
   - TransparentFX
