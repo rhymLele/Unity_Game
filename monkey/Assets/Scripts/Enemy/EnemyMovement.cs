@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 2f;
-    [SerializeField] private float moveDistance = 3f;
+    [SerializeField] private float moveDistance = 6f;
     [SerializeField] private float moveChance = 0.5f; // 50% chance to move
 
     private Vector2 startingPosition;

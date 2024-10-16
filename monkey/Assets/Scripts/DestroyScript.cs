@@ -52,6 +52,10 @@ public class DestroyScript : MonoBehaviour
                 Destroy(collision.gameObject);
                 Instantiate(break_platformprefab, new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (2.5f + Random.Range(0.2f, 1f))), Quaternion.identity);
             }
+            else if(Random.Range(1,10) == 5)
+            {
+                SpawnWhitePlatformWithHat();
+            }
             else
             {
                 collision.transform.position = new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (2.5f + Random.Range(0.2f, 1f)));
@@ -101,6 +105,7 @@ public class DestroyScript : MonoBehaviour
             }
             else if (Random.Range(1, 5) == 1)
             {
+                SpawnWhitePlatformWithHat();
                 SpawnWhitePlatformWithHat();
                 Destroy(collision.gameObject);
             }
