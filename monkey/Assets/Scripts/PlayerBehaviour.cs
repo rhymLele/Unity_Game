@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerBehaviour : MonoBehaviour
@@ -152,10 +153,15 @@ public class PlayerBehaviour : MonoBehaviour
         gameEnded = true;
         rb2d.gravityScale = 0f;
         rb2d.velocity = Vector2.zero;
-        gameOver.gameObject.SetActive(true);
+       // gameOver.gameObject.SetActive(true);
         scoreText.gameObject.SetActive(false);
 
-        gameOver.text = "Game Over! Score: " + Mathf.Round(topScore).ToString();
+        PlayerPrefs.SetFloat("CurrentScore", topScore);
+        PlayerPrefs.Save();
+
+        // Chuyển sang scene Endgame
+        SceneManager.LoadScene("Endgame");
+        /*gameOver.text = "Game Over! Score: " + Mathf.Round(topScore).ToString();
         if (topScore > highScore)
         {
             highScore = topScore; // Cập nhật điểm cao nhất
@@ -177,7 +183,7 @@ public class PlayerBehaviour : MonoBehaviour
         else
         {
             Debug.LogError("GameOverClip chưa được gán trong AudioController!");
-        }
+        }*/
     }
 
     private void RestartGame()
