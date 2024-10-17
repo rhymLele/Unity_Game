@@ -92,6 +92,8 @@ public class PlayerBehaviour : MonoBehaviour
                 Debug.Log("Player died.");
             }
         }
+
+
     }
 
     private void HandleShooting()

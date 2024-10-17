@@ -17,9 +17,21 @@ public class PlatformBehaviour : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<Rigidbody2D>().velocity.y <= 0)
+        Rigidbody2D playerRb = collision.gameObject.GetComponent<Rigidbody2D>();
+        if (playerRb.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector3.up*750f);
+            if (playerRb != null)
+            {
+                if (playerRb.velocity.y <= 0)
+                {
+                    playerRb.AddForce(Vector3.up * 750f);
+                }
+                /*else
+                {
+                    Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
+                } */
+            }
         }
+        
     }
 }

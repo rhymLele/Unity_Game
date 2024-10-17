@@ -13,10 +13,14 @@ public class DestroyScript : MonoBehaviour
     public GameObject hat;
     public GameObject jet;
     [SerializeField] private GameObject[] enemyPrefabs;
+
+    private int random;
     private void Start()
     {
         //SpawnInitialEnemy(1);
+        
     }
+
 
     private void SpawnInitialEnemy(int count)
     {
@@ -26,39 +30,44 @@ public class DestroyScript : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        random = Random.Range(1, 5);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //Platform
         #region
         if (collision.CompareTag("platform"))
         {
-            if (Random.Range(1, 10) == 1)
+            if (Random.Range(1, 7) == 1)
             {
-                Destroy(collision.gameObject);
                 SpawnEnemy2();
             }
-            else if (Random.Range(1, 5) == 1)
+            else if (random == 1)
             {
                 Destroy(collision.gameObject);
-                Instantiate(bouncy_platformprefab, new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (2.5f + Random.Range(0.2f, 1f))), Quaternion.identity);
+                Instantiate(bouncy_platformprefab, new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (1.5f + Random.Range(1, 3))), Quaternion.identity);
             }
-            else if (Random.Range(1, 5) == 2)
+            else if (random == 2)
             {
                 Destroy(collision.gameObject);
-                Instantiate(move_platformprefab, new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (2.5f + Random.Range(0.2f, 1f))), Quaternion.identity);
+                Instantiate(move_platformprefab, new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (1.5f + Random.Range(1, 3))), Quaternion.identity);
             }
-            else if (Random.Range(1, 5) == 4)
+            else if (random == 4)
             {
                 Destroy(collision.gameObject);
-                Instantiate(break_platformprefab, new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (2.5f + Random.Range(0.2f, 1f))), Quaternion.identity);
+                Instantiate(break_platformprefab, new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (1.5f + Random.Range(1, 3))), Quaternion.identity);
             }
-            else if(Random.Range(1,10) == 5)
+            else if(random == 3)
             {
-                SpawnWhitePlatformWithHat();
+                Instantiate(white_platformprefab, new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (1.5f + Random.Range(1, 3))), Quaternion.identity);
+                Destroy(collision.gameObject);
             }
             else
             {
-                collision.transform.position = new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (2.5f + Random.Range(0.2f, 1f)));
+                collision.transform.position = new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (1.5f + Random.Range(1, 3)));
             }
         }
         #endregion
@@ -67,29 +76,26 @@ public class DestroyScript : MonoBehaviour
         #region
         else if (collision.CompareTag("bouncePlatform"))
         {
-            if (Random.Range(1, 10) == 1)
+            if (Random.Range(1, 7) == 1)
             {
                 Destroy(collision.gameObject);
                 SpawnEnemy2();
             }
-            else if (Random.Range(1, 5) == 1)
+            else if (random == 2)
             {
-                SpawnWhitePlatformWithHat();
                 Destroy(collision.gameObject);
+                Instantiate(move_platformprefab, new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (1.5f + Random.Range(1, 3))), Quaternion.identity);
             }
-            else if (Random.Range(1, 5) == 2)
+            else if (random == 4)
             {
                 Destroy(collision.gameObject);
-                Instantiate(move_platformprefab, new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (2.5f + Random.Range(0.2f, 1f))), Quaternion.identity);
-            }
-            else if (Random.Range(1, 5) == 4)
-            {
-                Destroy(collision.gameObject);
-                Instantiate(break_platformprefab, new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (2.5f + Random.Range(0.2f, 1f))), Quaternion.identity);
+                Instantiate(break_platformprefab, new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (1.5f + Random.Range(1, 3))), Quaternion.identity);
             }
             else
             {
-                collision.transform.position = new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (2.5f + Random.Range(0.2f, 1f)));
+                //collision.transform.position = new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (1.5f + Random.Range(1, 3)));
+                Instantiate(white_platformprefab, new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (1.5f + Random.Range(1, 3))), Quaternion.identity);
+                Destroy(collision.gameObject);
             }
         }
         #endregion
@@ -98,30 +104,26 @@ public class DestroyScript : MonoBehaviour
         #region
         else if (collision.CompareTag("movePlatform"))
         {
-            if (Random.Range(1, 10) == 1)
+            if (Random.Range(1, 7) == 1)
             {
                 Destroy(collision.gameObject);
                 SpawnEnemy2();
             }
-            else if (Random.Range(1, 5) == 1)
+            else if (random == 1)
             {
-                SpawnWhitePlatformWithHat();
-                SpawnWhitePlatformWithHat();
                 Destroy(collision.gameObject);
+                Instantiate(bouncy_platformprefab, new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (1.5f + Random.Range(1, 3))), Quaternion.identity);
             }
-            else if (Random.Range(1, 5) == 1)
+            else if (random == 4)
             {
                 Destroy(collision.gameObject);
-                Instantiate(bouncy_platformprefab, new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (2.5f + Random.Range(0.2f, 1f))), Quaternion.identity);
-            }
-            else if (Random.Range(1, 5) == 4)
-            {
-                Destroy(collision.gameObject);
-                Instantiate(break_platformprefab, new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (2.5f + Random.Range(0.2f, 1f))), Quaternion.identity);
+                Instantiate(break_platformprefab, new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (1.5f + Random.Range(1, 3))), Quaternion.identity);
             }
             else
             {
-                collision.transform.position = new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (2.5f + Random.Range(0.2f, 1f)));
+                Destroy(collision.gameObject);
+                //collision.transform.position = new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (1.5f + Random.Range(1, 3)));
+                Instantiate(white_platformprefab, new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (1.5f + Random.Range(1, 3))), Quaternion.identity);
             }
         }
         #endregion
@@ -130,24 +132,26 @@ public class DestroyScript : MonoBehaviour
         #region
         else if (collision.CompareTag("breakPlatform"))
         {
-            if (Random.Range(1, 5) == 1)
+            if (Random.Range(1, 7) == 1)
             {
-                SpawnWhitePlatformWithHat();
                 Destroy(collision.gameObject);
+                SpawnEnemy2();
             }
-            else if (Random.Range(1, 5) == 1)
+            else if (random == 1)
             {
                 Destroy(collision.gameObject);
-                Instantiate(bouncy_platformprefab, new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (2.5f + Random.Range(0.2f, 1f))), Quaternion.identity);
+                Instantiate(bouncy_platformprefab, new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (1.5f + Random.Range(1, 3))), Quaternion.identity);
             }
-            else if (Random.Range(1, 5) == 2)
+            else if (random == 2)
             {
                 Destroy(collision.gameObject);
-                Instantiate(move_platformprefab, new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (2.5f + Random.Range(0.2f, 1f))), Quaternion.identity);
+                Instantiate(move_platformprefab, new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (1.5f + Random.Range(1, 3))), Quaternion.identity);
             }
             else
             {
-                collision.transform.position = new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (2.5f + Random.Range(0.2f, 1f)));
+                //collision.transform.position = new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (1.5f + Random.Range(1, 3)));
+                Instantiate(white_platformprefab, new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (1.5f + Random.Range(1, 3))), Quaternion.identity);
+                Destroy(collision.gameObject);
             }
         }
         #endregion
@@ -173,13 +177,14 @@ public class DestroyScript : MonoBehaviour
         else if (collision.CompareTag("enemy"))
         {
             Destroy(collision.gameObject);
+
         }
         
         #endregion
     }
     private void SpawnWhitePlatformWithHat()
     {
-        Vector2 platformPosition = new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (2.5f + Random.Range(0.2f, 1f)));
+        Vector2 platformPosition = new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (1.5f + Random.Range(1, 3)));
         Instantiate(white_platformprefab, platformPosition, Quaternion.identity);
 
         if (Random.Range(1, 8) == 1)
@@ -195,7 +200,7 @@ public class DestroyScript : MonoBehaviour
     private void SpawnEnemy()
     {
         // Spawn the enemy at a random position above the player
-        Vector2 enemyPosition = new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (5 + Random.Range(0.2f, 1f)));
+        Vector2 enemyPosition = new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (5 + Random.Range(0.1f, 0.5f)));
         int randomIndex = Random.Range(0, enemyPrefabs.Length);
         GameObject randomEnemyPrefab = enemyPrefabs[randomIndex];
         Instantiate(randomEnemyPrefab, enemyPosition, Quaternion.identity);
@@ -209,8 +214,8 @@ public class DestroyScript : MonoBehaviour
         bool spawnAbove = Random.value > 0.5f; // 50% chance to spawn above or below
 
         // Generate a random spawn position
-        float xPosition = Random.Range(-3.5f, 3.5f);
-        float baseYPosition = player.transform.position.y + (10 + Random.Range(0.2f, 1f));
+        float xPosition = Random.Range(-6, 6f);
+        float baseYPosition = player.transform.position.y + (10 + Random.Range(0.1f, 0.5f));
 
         // Determine vertical offset
         if (spawnAbove)
@@ -233,8 +238,8 @@ public class DestroyScript : MonoBehaviour
         int randomIndex = Random.Range(0, enemyPrefabs.Length);
         GameObject randomEnemyPrefab = enemyPrefabs[randomIndex];
         Instantiate(randomEnemyPrefab, spawnPosition, Quaternion.identity);
-        Vector2 platformPosition = new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (2.5f + Random.Range(0.2f, 1f)));
-        Instantiate(white_platformprefab, platformPosition, Quaternion.identity);
+        Instantiate(white_platformprefab, new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (1.5f + Random.Range(1, 3))), Quaternion.identity);
+
     }
 
 }
