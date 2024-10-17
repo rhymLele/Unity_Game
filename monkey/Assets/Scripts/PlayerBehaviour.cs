@@ -16,6 +16,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private bool isStarted = false;
     private float topScore = 0f;
+    private float highScore = 0f;
     public Text scoreText;
     public Text startText;
     public Text gameOver;
@@ -23,7 +24,7 @@ public class PlayerBehaviour : MonoBehaviour
     private bool gameEnded = false;
 
     public GameObject[] platforms;
-
+    private AudioController audioController;
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
@@ -31,6 +32,8 @@ public class PlayerBehaviour : MonoBehaviour
         rb2d.velocity = Vector2.zero;
         scoreText.gameObject.SetActive(false);
         gameOver.gameObject.SetActive(false);
+        audioController = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioController>();
+        highScore = PlayerPrefs.GetFloat("HighScore", 0f);
     }
 
     private void Update()
@@ -108,6 +111,7 @@ public class PlayerBehaviour : MonoBehaviour
         startText.gameObject.SetActive(false);
         rb2d.gravityScale = 4f;
         scoreText.gameObject.SetActive(true);
+        audioController.OnOffMusicBackground();
     }
 
     private void HandleMovement()
@@ -150,7 +154,30 @@ public class PlayerBehaviour : MonoBehaviour
         rb2d.velocity = Vector2.zero;
         gameOver.gameObject.SetActive(true);
         scoreText.gameObject.SetActive(false);
+
         gameOver.text = "Game Over! Score: " + Mathf.Round(topScore).ToString();
+        if (topScore > highScore)
+        {
+            highScore = topScore; // Cập nhật điểm cao nhất
+            PlayerPrefs.SetFloat("HighScore", highScore); // Lưu điểm cao nhất
+            PlayerPrefs.Save();
+            gameOver.text += "\nNew High Score!";
+        }
+        else
+        {
+            gameOver.text += "\nHigh Score: " + Mathf.Round(highScore).ToString();
+        }
+
+
+        audioController.OnOffMusicBackground();
+        if (audioController != null && audioController.gameoverClip != null)
+        {
+            audioController.PlaySFX(audioController.gameoverClip);
+        }
+        else
+        {
+            Debug.LogError("GameOverClip chưa được gán trong AudioController!");
+        }
     }
 
     private void RestartGame()

@@ -12,6 +12,7 @@ TagManager:
   - hat
   - jetpack
   - enemy
+  - Audio
   layers:
   - Default
   - TransparentFX

@@ -1,8 +1,13 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 public class HatPickup : MonoBehaviour
 {
+    private AudioController audioController;
+    private void Start()
+    {
+        audioController = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioController>();
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -11,6 +16,15 @@ public class HatPickup : MonoBehaviour
             if (playerRb != null)
             {
                 FlyUp(playerRb);
+            }
+
+            if (audioController != null && audioController.mubayClip != null)
+            {
+                audioController.PlaySFX(audioController.mubayClip);
+            }
+            else
+            {
+                Debug.LogError("mubayClip chưa được gán trong AudioController!");
             }
             Destroy(gameObject);
         }

@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +7,7 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private float moveSpeed = 2f;
     [SerializeField] private float moveDistance = 3f;
     [SerializeField] private float moveChance = 0.5f; // 50% chance to move
-
+    private AudioController audioController;
     private Vector2 startingPosition;
     private int moveDirection = 1; // 1 for right, -1 for left
     private bool canMove; // Determines if the enemy can move
@@ -15,9 +15,18 @@ public class EnemyMovement : MonoBehaviour
     void Start()
     {
         startingPosition = transform.position;
+        audioController = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioController>();
 
         // Determine if this enemy can move based on the moveChance
         canMove = Random.value < moveChance;
+        if (audioController != null && audioController.quaiClip != null)
+        {
+            audioController.PlaySFX(audioController.quaiClip);
+        }
+        else
+        {
+            Debug.LogError("quaiClip chưa được gán trong AudioController!");
+        }
     }
 
     void Update()

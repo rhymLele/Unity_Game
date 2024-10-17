@@ -1,25 +1,36 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlatformBehaviour : MonoBehaviour
 {
+    private AudioController audioController;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        audioController = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioController>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<Rigidbody2D>().velocity.y <= 0)
+        Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
+        if (rb != null)
         {
-            collision.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector3.up*800f);
+            // Kt khi rơi chạm plat
+            if (rb.velocity.y <= 0)
+            {
+                // Phát âm thanh jumpClip khi va chạm
+                if (audioController.loxoClip != null)
+                {
+                    audioController.PlaySFX(audioController.loxoClip);
+                }
+                else
+                {
+                    Debug.LogError("jumpClip chưa được gán trong AudioController!");
+                }
+                rb.AddForce(Vector2.up * 800f);
+            }
         }
     }
 }
