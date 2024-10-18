@@ -19,7 +19,7 @@ public class Break_PlatScript : MonoBehaviour
         {
             if (playerRb.velocity.y <= 0)
             {
-                playerRb.AddForce(Vector3.up * 500f);
+                playerRb.AddForce(Vector3.up * 400f);
                 StartCoroutine(FadeOutAndDestroy()); // Bắt đầu coroutine để mờ dần và biến mất
             }
         }

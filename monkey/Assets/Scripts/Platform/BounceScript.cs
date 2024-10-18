@@ -24,7 +24,7 @@ public class PlatformBehaviour : MonoBehaviour
             {
                 if (playerRb.velocity.y <= 0)
                 {
-                    playerRb.AddForce(Vector3.up * 750f);
+                    playerRb.AddForce(Vector3.up * 600f);
                 }
                 /*else
                 {

@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class HatPickup : MonoBehaviour
 {
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -13,6 +14,7 @@ public class HatPickup : MonoBehaviour
                 FlyUp(playerRb);
             }
             Destroy(gameObject);
+            
         }
     }
 
@@ -25,6 +27,6 @@ public class HatPickup : MonoBehaviour
         }
 
         // Apply upward force
-        playerRb.AddForce(Vector2.up * 800f);
+        playerRb.AddForce(Vector2.up * 650f);
     }
 }

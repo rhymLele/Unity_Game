@@ -13,6 +13,8 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform bulletSpawnPoint;
     private GameObject bulletInst;
+    public GameObject hatPre;
+    public GameObject jetPre;
 
     private bool isStarted = false;
     private float topScore = 0f;
@@ -93,7 +95,19 @@ public class PlayerBehaviour : MonoBehaviour
             }
         }
 
+    }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("hat"))
+        {
+            Debug.Log("Player touches hat");
+            EquipHat(gameObject);
+        }
+        if (collision.gameObject.CompareTag("jetpack"))
+        {
+            EquipJet(gameObject);
+        }
     }
 
     private void HandleShooting()
@@ -134,6 +148,27 @@ public class PlayerBehaviour : MonoBehaviour
         {
             EndGame();
         }
+    }
+
+    void EquipHat(GameObject player)
+    {
+        // Create the hat instance
+        GameObject hate = Instantiate(hatPre, player.transform);
+
+        // Set the local position relative to the player's position
+        hate.transform.localPosition = new Vector3(0, 0.2f, 0); // Adjust Y value as necessary
+
+        // Destroy the hat after the specified duration
+        Destroy(hate, 1f); // Use 'hate' instead of 'hat'
+    }
+
+    void EquipJet(GameObject player)
+    {
+        GameObject getJet = Instantiate(jetPre, player.transform);
+
+        getJet.transform.localPosition = new Vector3(0.2f, 0, 0);
+
+        Destroy(getJet, 1f); 
     }
 
     void FixedUpdate()

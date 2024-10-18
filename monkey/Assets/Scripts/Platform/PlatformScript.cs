@@ -12,7 +12,7 @@ public class BounceScript : MonoBehaviour
         {
             if (playerRb.velocity.y <= 0)
             {
-                playerRb.AddForce(Vector3.up * 500f);
+                playerRb.AddForce(Vector3.up * 400f);
             }
             /*else
             {
