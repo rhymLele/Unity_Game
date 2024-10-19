@@ -40,11 +40,11 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (!isStarted)
+            if (playerStatus == true)
             {
                 StartGame();
             }
-            else if (gameEnded&&playerStatus==false)
+            else if (playerStatus == false)
             {
                 RestartGame();
             }
