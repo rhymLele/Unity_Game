@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerBehaviour : MonoBehaviour
@@ -9,7 +10,6 @@ public class PlayerBehaviour : MonoBehaviour
     private Rigidbody2D rb2d;
     private float moveInput;
     private float moveSpeed = 8f;
-
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform bulletSpawnPoint;
     private GameObject bulletInst;
@@ -25,9 +25,10 @@ public class PlayerBehaviour : MonoBehaviour
     private bool gameEnded = false;
 
     public GameObject[] platforms;
-
+    private bool playerStatus;
     void Start()
     {
+        playerStatus = true;
         rb2d = GetComponent<Rigidbody2D>();
         rb2d.gravityScale = 0f;
         rb2d.velocity = Vector2.zero;
@@ -43,17 +44,26 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 StartGame();
             }
-            else if (gameEnded)
+            else if (gameEnded&&playerStatus==false)
             {
-                //RestartGame();
+                RestartGame();
             }
-        }
 
+        }
         if (isStarted && !gameEnded)
         {
             HandleMovement();
             HandleShooting();
         }
+        //if(Input.GetKeyDown(KeyCode.O) && playerStatus == false)
+        //{
+        //    SceneManager.LoadScene("NightScene");
+        //}
+    }
+    private void RestartGame()
+    {
+        // Reload the scene to reset everything
+        SceneManager.LoadScene("NightScene");
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -121,6 +131,7 @@ public class PlayerBehaviour : MonoBehaviour
     private void StartGame()
     {
         isStarted = true;
+        playerStatus = true;
         startText.gameObject.SetActive(false);
         rb2d.gravityScale = 4f;
         scoreText.gameObject.SetActive(true);
@@ -183,30 +194,11 @@ public class PlayerBehaviour : MonoBehaviour
     private void EndGame()
     {
         gameEnded = true;
+        playerStatus = false;
         rb2d.gravityScale = 0f;
         rb2d.velocity = Vector2.zero;
         gameOver.gameObject.SetActive(true);
         scoreText.gameObject.SetActive(false);
         gameOver.text = "Game Over! Score: " + Mathf.Round(topScore).ToString();
-    }
-
-    private void RestartGame()
-    {
-        gameEnded = false;
-        topScore = 0f;
-        rb2d.gravityScale = 0f;
-        rb2d.velocity = Vector2.zero;
-
-        transform.position = new Vector2(0, 0);
-
-        //Instantiate(platforms[0], new Vector2(0, rb2d.position.y -2), Quaternion.identity);
-
-        for (int i = 1; i < platforms.Length; i++)
-        {
-            //Instantiate(platforms[i], new Vector2(Random.Range(-3.5f, 3.5f),Random.Range(1f,3f)), Quaternion.identity);
-        }
-
-        scoreText.gameObject.SetActive(true);
-        gameOver.gameObject.SetActive(false);
     }
 }
