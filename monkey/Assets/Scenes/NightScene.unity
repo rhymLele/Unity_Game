@@ -1361,6 +1361,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7851823294852046829, guid: 8441132f2c411244fb7324cd421d6133, type: 3}
     - target: {fileID: 5400773580219289722, guid: a30ab18f8f260be48b0f23793b5f8f14, type: 3}
+      propertyPath: jetPre
+      value: 
+      objectReference: {fileID: 6988239158373929291, guid: 2347e57127799534f8f49bfc4ede71af, type: 3}
+    - target: {fileID: 5400773580219289722, guid: a30ab18f8f260be48b0f23793b5f8f14, type: 3}
       propertyPath: gameOver
       value: 
       objectReference: {fileID: 2059884842}
