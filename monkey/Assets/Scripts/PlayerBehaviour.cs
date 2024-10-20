@@ -112,7 +112,7 @@ public class PlayerBehaviour : MonoBehaviour
         startText.gameObject.SetActive(false);
         rb2d.gravityScale = 4f;
         scoreText.gameObject.SetActive(true);
-        audioController.OnOffMusicBackground();
+        //audioController.OnOffMusicBackground();
     }
 
     private void HandleMovement()
@@ -158,14 +158,12 @@ public class PlayerBehaviour : MonoBehaviour
 
         PlayerPrefs.SetFloat("CurrentScore", topScore);
         PlayerPrefs.Save();
-
-        // Chuyển sang scene Endgame
         SceneManager.LoadScene("Endgame");
         /*gameOver.text = "Game Over! Score: " + Mathf.Round(topScore).ToString();
         if (topScore > highScore)
         {
-            highScore = topScore; // Cập nhật điểm cao nhất
-            PlayerPrefs.SetFloat("HighScore", highScore); // Lưu điểm cao nhất
+            highScore = topScore;
+            PlayerPrefs.SetFloat("HighScore", highScore);
             PlayerPrefs.Save();
             gameOver.text += "\nNew High Score!";
         }

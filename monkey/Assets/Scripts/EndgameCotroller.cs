@@ -14,23 +14,20 @@ public class EndgameController : MonoBehaviour
 
     private float currentScore;
     private List<ScoreEntry> leaderboard = new List<ScoreEntry>();
-    private const int MaxEntries = 5; // Số mục tối đa trong leaderboard
+    private const int MaxEntries = 10;
 
     void Start()
     {
         audioController = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioController>();
 
-        // Lấy điểm hiện tại từ PlayerPrefs
         currentScore = Mathf.RoundToInt(PlayerPrefs.GetFloat("CurrentScore", 0f));
 
-        // Tải leaderboard từ PlayerPrefs
         LoadLeaderboard();
 
-        // Hiển thị điểm hiện tại và high score (nếu có)
+        // Hiển thị điểm hiện tại và high score
         scoreText.text = "Your Score: " + currentScore;
         DisplayHighScore();
 
-        // Phát âm thanh game over nếu có
         if (audioController != null && audioController.gameoverClip != null)
         {
             audioController.PlaySFX(audioController.gameoverClip);
@@ -39,8 +36,7 @@ public class EndgameController : MonoBehaviour
         {
             Debug.LogError("GameOverClip chưa được gán trong AudioController!");
         }
-
-        // Hiển thị nút và input cho người chơi nhập tên
+        nameInput.text = GetLastPlayerNameOrDefault();
         nameInput.gameObject.SetActive(true);
         saveButton.gameObject.SetActive(true);
         saveButton.onClick.RemoveAllListeners();
@@ -50,12 +46,13 @@ public class EndgameController : MonoBehaviour
     // Lưu điểm và tên vào leaderboard
     private void SaveScore()
     {
-        string playerName = nameInput.text;
-
+        string playerName = string.IsNullOrWhiteSpace(nameInput.text) ?
+                        GetLastPlayerNameOrDefault() :
+                        nameInput.text;
+        PlayerPrefs.SetString("LastPlayerName", playerName);
         // Thêm điểm mới vào leaderboard
         leaderboard.Add(new ScoreEntry { Name = playerName, Score = currentScore });
 
-        // Sắp xếp danh sách theo điểm giảm dần
         leaderboard.Sort((a, b) => b.Score.CompareTo(a.Score));
 
         // Giới hạn số mục trong leaderboard
@@ -63,18 +60,27 @@ public class EndgameController : MonoBehaviour
         {
             leaderboard.RemoveAt(leaderboard.Count - 1);
         }
-
-        // Lưu lại leaderboard vào PlayerPrefs
         SaveLeaderboard();
-
-        // Cập nhật giao diện
         DisplayHighScore();
 
-        // Ẩn input và nút lưu sau khi hoàn thành
-        nameInput.gameObject.SetActive(false);
-        saveButton.gameObject.SetActive(false);
+        //nameInput.gameObject.SetActive(false);
+        //saveButton.gameObject.SetActive(false);
     }
+    private string GetLastPlayerNameOrDefault()
+    {
+        string lastPlayerName = PlayerPrefs.GetString("LastPlayerName", "");
 
+        if (!string.IsNullOrEmpty(lastPlayerName))
+        {
+            return lastPlayerName;
+        }
+
+        if (leaderboard.Count > 0)
+        {
+            return leaderboard[0].Name;
+        }
+        return "Player";
+    }
     // Hiển thị điểm cao nhất từ leaderboard
     private void DisplayHighScore()
     {
