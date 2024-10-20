@@ -883,7 +883,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a4bd40ac4d11a94884a5c4b54e3dbd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NhacNen: {fileID: 0}
+  NhacNen: {fileID: 86825781}
   AmluongNNen: {fileID: 0}
   AmluongSFX: {fileID: 980609504}
   vfxAudioSource: {fileID: 1484983630}
@@ -1209,7 +1209,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -607.3238, y: 469}
-  m_SizeDelta: {x: 265.3524, y: 40}
+  m_SizeDelta: {x: 270, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &980609504
 MonoBehaviour:

@@ -23,19 +23,20 @@ public class AudioController : MonoBehaviour
             audioSources[0].Play();
         else
             audioSources[0].Stop();
-
+        float savedVolume = PlayerPrefs.GetFloat("Amluong", 1f);
+        audioSources[0].volume = savedVolume;
         // Kiểm tra nếu Scrollbar được gán trong Inspector
         if (AmluongNNen != null)
         {
-            audioSources[0].volume = PlayerPrefs.GetFloat("Amluong", 1f);
-            AmluongNNen.value = audioSources[0].volume;
+            AmluongNNen.value = savedVolume;
             AmluongNNen.onValueChanged.AddListener(delegate { Thietlapanluongnhacnen(); });
         }
 
+        float savedSFXVolume = PlayerPrefs.GetFloat("AmluongSFX", 1f);
+        vfxAudioSource.volume = savedSFXVolume;
         if (AmluongSFX != null)
         {
-            vfxAudioSource.volume = PlayerPrefs.GetFloat("AmluongSFX", 1f);
-            AmluongSFX.value = vfxAudioSource.volume;
+            AmluongSFX.value = savedSFXVolume;
             AmluongSFX.onValueChanged.AddListener(delegate { ThietlapanluongSFX(); });
         }
 
@@ -48,7 +49,7 @@ public class AudioController : MonoBehaviour
         if (AmluongNNen != null)
         {
             audioSources[0].volume = AmluongNNen.value;
-            PlayerPrefs.SetFloat("Amluong", audioSources[0].volume);
+            PlayerPrefs.SetFloat("Amluong", AmluongNNen.value);
             PlayerPrefs.Save();
         }
     }
@@ -58,7 +59,7 @@ public class AudioController : MonoBehaviour
         if (AmluongSFX != null)
         {
             vfxAudioSource.volume = AmluongSFX.value;
-            PlayerPrefs.SetFloat("AmluongSFX", vfxAudioSource.volume);
+            PlayerPrefs.SetFloat("AmluongSFX", AmluongSFX.value);
             PlayerPrefs.Save();
         }
     }
@@ -86,7 +87,7 @@ public class AudioController : MonoBehaviour
             float scrollAmount = Input.mouseScrollDelta.y * 0.1f;
             AmluongNNen.value = Mathf.Clamp(AmluongNNen.value + scrollAmount, 0f, 1f);
         }
-        else if (AmluongSFX != null && IsMouseOverScrollbar(AmluongSFX))
+        else if (IsMouseOverScrollbar(AmluongSFX))
         {
             float scrollAmount = Input.mouseScrollDelta.y * 0.1f;
             AmluongSFX.value = Mathf.Clamp(AmluongSFX.value + scrollAmount, 0f, 1f);
