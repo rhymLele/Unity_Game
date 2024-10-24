@@ -1,9 +1,14 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class JetpackPickUp : MonoBehaviour
 {
+    private AudioController audioController;
+    private void Start()
+    {
+        audioController = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioController>();
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -12,6 +17,14 @@ public class JetpackPickUp : MonoBehaviour
             if (playerRb != null)
             {
                 FlyUp(playerRb);
+            }
+            if (audioController != null && audioController.baloClip != null)
+            {
+                audioController.PlaySFX(audioController.baloClip);
+            }
+            else
+            {
+                Debug.LogError("baloClip chưa được gán trong AudioController!");
             }
             Destroy(gameObject);
         }

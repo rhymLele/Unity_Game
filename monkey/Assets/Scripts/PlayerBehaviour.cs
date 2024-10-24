@@ -18,6 +18,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private bool isStarted = false;
     private float topScore = 0f;
+    private float highScore = 0f;
     public Text scoreText;
     public Text startText;
     public Text gameOver;
@@ -25,6 +26,7 @@ public class PlayerBehaviour : MonoBehaviour
     //private bool gameEnded = false;
 
     public GameObject[] platforms;
+    private AudioController audioController;
     private bool playerStatus;
 
     private int leftRight;
@@ -37,6 +39,8 @@ public class PlayerBehaviour : MonoBehaviour
         rb2d.velocity = Vector2.zero;
         scoreText.gameObject.SetActive(false);
         gameOver.gameObject.SetActive(false);
+        audioController = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioController>();
+        highScore = PlayerPrefs.GetFloat("HighScore", 0f);
         isEquipped = false;
     }
 
@@ -141,6 +145,7 @@ public class PlayerBehaviour : MonoBehaviour
         startText.gameObject.SetActive(false);
         rb2d.gravityScale = 4f;
         scoreText.gameObject.SetActive(true);
+        //audioController.OnOffMusicBackground();
     }
 
     private void HandleMovement()
@@ -214,8 +219,34 @@ public class PlayerBehaviour : MonoBehaviour
         playerStatus = false;
         rb2d.gravityScale = 0f;
         rb2d.velocity = Vector2.zero;
-        gameOver.gameObject.SetActive(true);
+       // gameOver.gameObject.SetActive(true);
         scoreText.gameObject.SetActive(false);
-        gameOver.text = "Game Over! Score: " + Mathf.Round(topScore).ToString();
+
+        PlayerPrefs.SetFloat("CurrentScore", topScore);
+        PlayerPrefs.Save();
+        SceneManager.LoadScene("Endgame");
+        /*gameOver.text = "Game Over! Score: " + Mathf.Round(topScore).ToString();
+        if (topScore > highScore)
+        {
+            highScore = topScore;
+            PlayerPrefs.SetFloat("HighScore", highScore);
+            PlayerPrefs.Save();
+            gameOver.text += "\nNew High Score!";
+        }
+        else
+        {
+            gameOver.text += "\nHigh Score: " + Mathf.Round(highScore).ToString();
+        }
+
+
+        audioController.OnOffMusicBackground();
+        if (audioController != null && audioController.gameoverClip != null)
+        {
+            audioController.PlaySFX(audioController.gameoverClip);
+        }
+        else
+        {
+            Debug.LogError("GameOverClip chưa được gán trong AudioController!");
+        }*/
     }
 }
