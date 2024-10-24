@@ -162,8 +162,7 @@ public class DestroyScript : MonoBehaviour
         switch (random)
         {
             case 1:
-            case 3:
-            case 5:
+            case 3:   
                 Instantiate(white_platformprefab, new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (1.5f + Random.Range(0f, 0.5f))), Quaternion.identity);
                 break;
             case 4:
@@ -173,6 +172,10 @@ public class DestroyScript : MonoBehaviour
             case 2:
                 //case 5:
                 Instantiate(bouncy_platformprefab, new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (1.5f + Random.Range(0f, 0.5f))), Quaternion.identity);
+                break;
+            case 5:
+                Instantiate(white_platformprefab, new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (1.5f + Random.Range(0f, 0.5f))), Quaternion.identity);
+                SpawnEnemy2();
                 break;
             default:
                 collision.transform.position = new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (1.5f + Random.Range(0f, 0.5f)));
