@@ -11,6 +11,15 @@ public class Moving_PlatScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        int checkSide = Random.Range(1, 3);
+        if(checkSide == 1)
+        {
+            movingRight = false;
+        }
+        else
+        {
+            movingRight = true;
+        }
     }
 
     // Update is called once per frame
@@ -33,5 +42,7 @@ public class Moving_PlatScript : MonoBehaviour
                 movingRight = true;
             }
         }
+
     }
+
 }

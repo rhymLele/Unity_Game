@@ -1,9 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class JetpackPickUp : MonoBehaviour
+public class HatPickup : MonoBehaviour
 {
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -14,17 +14,19 @@ public class JetpackPickUp : MonoBehaviour
                 FlyUp(playerRb);
             }
             Destroy(gameObject);
+            
         }
     }
 
     private void FlyUp(Rigidbody2D playerRb)
     {
+        // Reset vertical velocity to ensure upward force is effective
         if (playerRb.velocity.y < 0)
         {
-            playerRb.velocity = new Vector2(playerRb.velocity.x, 0); 
+            playerRb.velocity = new Vector2(playerRb.velocity.x, 0); // Reset vertical velocity if falling
         }
 
         // Apply upward force
-        playerRb.AddForce(Vector2.up * 1600f);
+        playerRb.AddForce(Vector2.up * 650f);
     }
 }

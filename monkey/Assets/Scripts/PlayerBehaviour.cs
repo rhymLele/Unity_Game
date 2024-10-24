@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerBehaviour : MonoBehaviour
@@ -9,49 +10,60 @@ public class PlayerBehaviour : MonoBehaviour
     private Rigidbody2D rb2d;
     private float moveInput;
     private float moveSpeed = 8f;
-
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform bulletSpawnPoint;
     private GameObject bulletInst;
+    public GameObject hatPre;
+    public GameObject jetPre;
 
     private bool isStarted = false;
     private float topScore = 0f;
     public Text scoreText;
     public Text startText;
     public Text gameOver;
-
-    private bool gameEnded = false;
+    private bool isEquipped;
+    //private bool gameEnded = false;
 
     public GameObject[] platforms;
+    private bool playerStatus;
+
+    private int leftRight;
 
     void Start()
     {
+        playerStatus = true;
         rb2d = GetComponent<Rigidbody2D>();
         rb2d.gravityScale = 0f;
         rb2d.velocity = Vector2.zero;
         scoreText.gameObject.SetActive(false);
         gameOver.gameObject.SetActive(false);
+        isEquipped = false;
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (!isStarted)
+            if (playerStatus==true)
             {
                 StartGame();
             }
-            else if (gameEnded)
+            else if (playerStatus==false)
             {
-                //RestartGame();
+                RestartGame();
             }
-        }
 
-        if (isStarted && !gameEnded)
+        }
+        if (playerStatus&&isStarted)
         {
             HandleMovement();
             HandleShooting();
         }
+    }
+    private void RestartGame()
+    {
+        // Reload the scene to reset everything
+        SceneManager.LoadScene("NightScene");
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -71,7 +83,7 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 // Player kills enemy by jumping on top
                 Destroy(collision.gameObject);
-                topScore += 10;
+                //topScore += 10;
                 rb2d.velocity = new Vector2(rb2d.velocity.x, 0);// Reset vertical velocity to avoid stacking forces
                 rb2d.AddForce(new Vector2(0, 800f));// Add upward force (adjust value for jump height)
                 //rb2d.AddForce(Vector3.up * 600f);
@@ -92,6 +104,26 @@ public class PlayerBehaviour : MonoBehaviour
                 Debug.Log("Player died.");
             }
         }
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("hat"))
+        {
+            Debug.Log("Player touches hat");
+            if(!isEquipped)
+            {
+                EquipHat(gameObject);
+            }
+            
+        }
+        if (collision.gameObject.CompareTag("jetpack"))
+        {
+            if (!isEquipped)
+            { EquipJet(gameObject); }
+            
+        }
     }
 
     private void HandleShooting()
@@ -105,6 +137,7 @@ public class PlayerBehaviour : MonoBehaviour
     private void StartGame()
     {
         isStarted = true;
+        playerStatus = true;
         startText.gameObject.SetActive(false);
         rb2d.gravityScale = 4f;
         scoreText.gameObject.SetActive(true);
@@ -115,10 +148,12 @@ public class PlayerBehaviour : MonoBehaviour
         if (moveInput < 0)
         {
             this.GetComponent<SpriteRenderer>().flipX = true;
+            leftRight = 1;
         }
         else
         {
             this.GetComponent<SpriteRenderer>().flipX = false;
+            leftRight = -1;
         }
 
         if (rb2d.velocity.y > 0 && transform.position.y > topScore)
@@ -134,9 +169,39 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
+    void EquipHat(GameObject player)
+    {
+        // Create the hat instance
+        GameObject hate = Instantiate(hatPre, player.transform);
+
+        // Set the local position relative to the player's position
+        hate.transform.localPosition = new Vector3(0, 0.2f, 0); // Adjust Y value as necessary
+
+        // Destroy the hat after the specified duration
+        Destroy(hate, 1f); // Use 'hate' instead of 'hat'
+        isEquipped = false;
+    }
+
+    void EquipJet(GameObject player)
+    {
+        GameObject getJet = Instantiate(jetPre, player.transform);
+        float offsetX = 0.2f;
+        if (leftRight ==-1) // Moving left
+        {
+            getJet.transform.localPosition = new Vector3(-offsetX, 0, 0);
+        }
+        else // Moving right or stationary
+        {
+            getJet.transform.localPosition = new Vector3(offsetX, 0, 0);
+        }
+
+        Destroy(getJet, 1.1f);
+        isEquipped = false;
+    }
+
     void FixedUpdate()
     {
-        if (isStarted && !gameEnded)
+        if (isStarted && playerStatus)
         {
             moveInput = Input.GetAxis("Horizontal");
             rb2d.velocity = new Vector2(moveInput * moveSpeed, rb2d.velocity.y);
@@ -145,31 +210,12 @@ public class PlayerBehaviour : MonoBehaviour
     
     private void EndGame()
     {
-        gameEnded = true;
+        //gameEnded = true;
+        playerStatus = false;
         rb2d.gravityScale = 0f;
         rb2d.velocity = Vector2.zero;
         gameOver.gameObject.SetActive(true);
         scoreText.gameObject.SetActive(false);
         gameOver.text = "Game Over! Score: " + Mathf.Round(topScore).ToString();
-    }
-
-    private void RestartGame()
-    {
-        gameEnded = false;
-        topScore = 0f;
-        rb2d.gravityScale = 0f;
-        rb2d.velocity = Vector2.zero;
-
-        transform.position = new Vector2(0, 0);
-
-        //Instantiate(platforms[0], new Vector2(0, rb2d.position.y -2), Quaternion.identity);
-
-        for (int i = 1; i < platforms.Length; i++)
-        {
-            //Instantiate(platforms[i], new Vector2(Random.Range(-3.5f, 3.5f),Random.Range(1f,3f)), Quaternion.identity);
-        }
-
-        scoreText.gameObject.SetActive(true);
-        gameOver.gameObject.SetActive(false);
     }
 }

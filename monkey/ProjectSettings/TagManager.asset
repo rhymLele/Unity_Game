@@ -12,6 +12,7 @@ TagManager:
   - hat
   - jetpack
   - enemy
+  - breakPlatform
   layers:
   - Default
   - TransparentFX
