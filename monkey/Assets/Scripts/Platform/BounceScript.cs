@@ -29,8 +29,9 @@ public class PlatformBehaviour : MonoBehaviour
                 {
                     Debug.LogError("jumpClip chưa được gán trong AudioController!");
                 }
-                rb.AddForce(Vector2.up * 800f);
+                rb.AddForce(Vector2.up * 600f);
             }
         }
+        
     }
 }

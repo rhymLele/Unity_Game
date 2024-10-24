@@ -25,7 +25,7 @@ public class BounceScript : MonoBehaviour
         {
             if (playerRb.velocity.y <= 0)
             {
-                playerRb.AddForce(Vector3.up * 600f);
+                playerRb.AddForce(Vector3.up * 400f);
                 if (audioController.jumpClip != null)
                 {
                     audioController.PlaySFX(audioController.jumpClip);

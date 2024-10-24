@@ -27,6 +27,7 @@ public class HatPickup : MonoBehaviour
                 Debug.LogError("mubayClip chưa được gán trong AudioController!");
             }
             Destroy(gameObject);
+            
         }
     }
 
@@ -39,6 +40,6 @@ public class HatPickup : MonoBehaviour
         }
 
         // Apply upward force
-        playerRb.AddForce(Vector2.up * 1200f);
+        playerRb.AddForce(Vector2.up * 650f);
     }
 }
