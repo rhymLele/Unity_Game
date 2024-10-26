@@ -93,16 +93,16 @@ public class BulletBehaviour : MonoBehaviour
     {
         
     }
-    public void SetNormalBulletType()
-    {
-        bulletType = BulletType.Normal;
-        InitializeBulletStats();
-    }
-    public void SetPhysicsBulletType()
-    {
-        bulletType = BulletType.Physics;
-        InitializeBulletStats(); 
-    }
+    //public void SetNormalBulletType()
+    //{
+    //    bulletType = BulletType.Normal;
+    //    InitializeBulletStats();
+    //}
+    //public void SetPhysicsBulletType()
+    //{
+    //    bulletType = BulletType.Physics;
+    //    InitializeBulletStats(); 
+    //}
     private void OnTriggerEnter2D(Collider2D other)
     {
         // Check if the bullet collided with an enemy
