@@ -2389,6 +2389,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gametext
       objectReference: {fileID: 0}
+    - target: {fileID: 6926358942185386697, guid: a915ab5475384a546bea79115cc53856, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7892732151324768146, guid: a915ab5475384a546bea79115cc53856, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

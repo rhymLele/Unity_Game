@@ -30,7 +30,7 @@ public class PlayerBehaviour : MonoBehaviour
     private bool playerStatus;
 
     private int leftRight;
-
+    [SerializeField] GameObject pauseMenu;
     void Start()
     {
         playerStatus = true;
@@ -42,6 +42,7 @@ public class PlayerBehaviour : MonoBehaviour
         audioController = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioController>();
         highScore = PlayerPrefs.GetFloat("HighScore", 0f);
         isEquipped = false;
+        pauseMenu = GameObject.Find("pauseMenu");
     }
 
     private void Update()
@@ -55,7 +56,17 @@ public class PlayerBehaviour : MonoBehaviour
             else if (playerStatus==false)
             {
                 RestartGame();
-            }
+            } 
+
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if(pauseMenu!=null)
+            {
+              
+                pauseMenu.SetActive(true);
+            }    
+            
 
         }
         if (playerStatus&&isStarted)

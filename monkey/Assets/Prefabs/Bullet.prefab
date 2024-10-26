@@ -161,3 +161,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff10727e270ae23449a8b1534231fe85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DestroyTime: 2.5
+  normalBulletSpeed: 20
+  physicsBulletSpeed: 17.5
+  physicsBulletGravity: 3
+  bulletType: 1
