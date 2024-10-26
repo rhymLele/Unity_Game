@@ -25,7 +25,7 @@ public class EnemyMovement : MonoBehaviour
         }
         else
         {
-            Debug.LogError("quaiClip chưa được gán trong AudioController!");
+            //Debug.LogError("quaiClip chưa được gán trong AudioController!");
         }
     }
 

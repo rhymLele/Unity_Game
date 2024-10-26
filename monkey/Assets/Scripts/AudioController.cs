@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class AudioController : MonoBehaviour
 {
     AudioSource[] audioSources;
-    public Toggle NhacNen;
+    public Toggle NhacNen, SFXToggle;
     public Scrollbar AmluongNNen, AmluongSFX;
 
     public AudioSource vfxAudioSource;
@@ -40,6 +40,11 @@ public class AudioController : MonoBehaviour
             AmluongSFX.onValueChanged.AddListener(delegate { ThietlapanluongSFX(); });
         }
 
+        int SFXEnabled = PlayerPrefs.GetInt("SFXEnabled", 1);
+        if (SFXToggle != null) SFXToggle.isOn = (SFXEnabled == 1);
+        if (SFXToggle != null)
+            SFXToggle.onValueChanged.AddListener(delegate { OnOffSFX(); });
+
         if (NhacNen != null)
             NhacNen.onValueChanged.AddListener(delegate { OnOffMusicBackground(); });
     }
@@ -67,6 +72,7 @@ public class AudioController : MonoBehaviour
     public void OnOffMusicBackground()
     {
         if (audioSources.Length == 0) return;
+
         if (NhacNen != null && NhacNen.isOn)
         {
             audioSources[0].Play();
@@ -78,6 +84,18 @@ public class AudioController : MonoBehaviour
             PlayerPrefs.SetInt("MusicBackground", 0);
         }
         PlayerPrefs.Save();
+    }
+
+    public void OnOffSFX()
+    {
+        if (SFXToggle != null)
+        {
+            bool isEnabled = SFXToggle.isOn;
+            PlayerPrefs.SetInt("SFXEnabled", isEnabled ? 1 : 0);
+            PlayerPrefs.Save();
+
+            vfxAudioSource.mute = !isEnabled;
+        }
     }
 
     void Update()
@@ -106,9 +124,9 @@ public class AudioController : MonoBehaviour
 
     public void PlaySFX(AudioClip sfxclip)
     {
-        if (sfxclip == null)
+        if (sfxclip == null || vfxAudioSource.mute)
         {
-            Debug.LogError("SFX clip is null");
+            //Debug.LogError("SFX clip is null or SFX is disabled");
             return;
         }
 
