@@ -120,7 +120,17 @@ public class EndgameController : MonoBehaviour
             leaderboard.Add(new ScoreEntry { Name = name, Score = score });
         }
     }
-
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SceneManager.LoadScene("NightScene");
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("Menu");
+        }
+    }
     public void ReturnToMenu()
     {
         SceneManager.LoadScene("Menu");
