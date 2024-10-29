@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7019428223332364732}
   - component: {fileID: 2399656315907646076}
   - component: {fileID: 2688578685738290005}
+  - component: {fileID: 2100406635618585542}
   m_Layer: 0
   m_Name: w_plat
   m_TagString: platform
@@ -130,7 +131,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.57, y: 0.03}
+  m_Size: {x: 0.58, y: 0.03}
   m_EdgeRadius: 0
 --- !u!251 &2399656315907646076
 PlatformEffector2D:
@@ -163,3 +164,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93f33944744a48c45982d0bb862996bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!50 &2100406635618585542
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3577139571757213077}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 5

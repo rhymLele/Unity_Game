@@ -120,7 +120,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.000000029802322, y: -0.08541179}
+  m_Offset: {x: -0.00709863, y: -0.052285135}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -131,7 +131,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.34750813, y: 0.46037674}
+  m_Size: {x: 0.33331093, y: 0.39412344}
   m_EdgeRadius: 0
 --- !u!50 &819745790359985091
 Rigidbody2D:
@@ -175,6 +175,7 @@ MonoBehaviour:
   bullet: {fileID: 0}
   bulletSpawnPoint: {fileID: 0}
   hatPre: {fileID: 7103140186130370787, guid: ca4584f12d72aec42b96c0ce7122c169, type: 3}
+  jetPre: {fileID: 0}
   scoreText: {fileID: 0}
   startText: {fileID: 0}
   gameOver: {fileID: 0}
@@ -184,6 +185,7 @@ MonoBehaviour:
   - {fileID: 3577139571757213077, guid: 33c24fc542f54ef4cb800a7c80a2fa93, type: 3}
   - {fileID: 3577139571757213077, guid: 33c24fc542f54ef4cb800a7c80a2fa93, type: 3}
   - {fileID: 3577139571757213077, guid: 33c24fc542f54ef4cb800a7c80a2fa93, type: 3}
+  pauseMenu: {fileID: 0}
 --- !u!1 &6967927161110923843
 GameObject:
   m_ObjectHideFlags: 0

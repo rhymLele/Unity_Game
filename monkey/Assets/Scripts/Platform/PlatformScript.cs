@@ -11,12 +11,6 @@ public class BounceScript : MonoBehaviour
         audioController = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioController>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Rigidbody2D playerRb = collision.gameObject.GetComponent<Rigidbody2D>();
@@ -35,10 +29,11 @@ public class BounceScript : MonoBehaviour
                     Debug.LogError("jumpClip chưa được gán trong AudioController!");
                 }
             }
-            /*else
+            else
             {
-                Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
-            } */
+
+            }
+
         }
     }
 }
