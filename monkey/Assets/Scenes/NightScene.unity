@@ -2793,7 +2793,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 819745790359985091, guid: a30ab18f8f260be48b0f23793b5f8f14, type: 3}
       propertyPath: m_GravityScale
-      value: 10
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2067593630604609072, guid: a30ab18f8f260be48b0f23793b5f8f14, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2915,6 +2915,14 @@ PrefabInstance:
       propertyPath: bulletSpawnPoint
       value: 
       objectReference: {fileID: 417512817}
+    - target: {fileID: 8297639479295661750, guid: a30ab18f8f260be48b0f23793b5f8f14, type: 3}
+      propertyPath: m_Size.y
+      value: 0.44939032
+      objectReference: {fileID: 0}
+    - target: {fileID: 8297639479295661750, guid: a30ab18f8f260be48b0f23793b5f8f14, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.07991858
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
