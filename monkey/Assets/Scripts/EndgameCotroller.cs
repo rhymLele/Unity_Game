@@ -43,29 +43,6 @@ public class EndgameController : MonoBehaviour
         saveButton.onClick.AddListener(SaveScore);
     }
 
-    // Lưu điểm và tên vào leaderboard
-    private void SaveScore()
-    {
-        string playerName = string.IsNullOrWhiteSpace(nameInput.text) ?
-                        GetLastPlayerNameOrDefault() :
-                        nameInput.text;
-        PlayerPrefs.SetString("LastPlayerName", playerName);
-        // Thêm điểm mới vào leaderboard
-        leaderboard.Add(new ScoreEntry { Name = playerName, Score = currentScore });
-
-        leaderboard.Sort((a, b) => b.Score.CompareTo(a.Score));
-
-        // Giới hạn số mục trong leaderboard
-        if (leaderboard.Count > MaxEntries)
-        {
-            leaderboard.RemoveAt(leaderboard.Count - 1);
-        }
-        SaveLeaderboard();
-        DisplayHighScore();
-
-        //nameInput.gameObject.SetActive(false);
-        //saveButton.gameObject.SetActive(false);
-    }
     private string GetLastPlayerNameOrDefault()
     {
         string lastPlayerName = PlayerPrefs.GetString("LastPlayerName", "");
@@ -123,7 +100,32 @@ public class EndgameController : MonoBehaviour
 
     public void ReturnToMenu()
     {
+        //SaveScore();
         SceneManager.LoadScene("Menu");
+    }
+
+    // Lưu điểm và tên vào leaderboard
+    private void SaveScore()
+    {
+        string playerName = string.IsNullOrWhiteSpace(nameInput.text) ?
+                        GetLastPlayerNameOrDefault() :
+                        nameInput.text;
+        PlayerPrefs.SetString("LastPlayerName", playerName);
+        // Thêm điểm mới vào leaderboard
+        leaderboard.Add(new ScoreEntry { Name = playerName, Score = currentScore });
+
+        leaderboard.Sort((a, b) => b.Score.CompareTo(a.Score));
+
+        // Giới hạn số mục trong leaderboard
+        if (leaderboard.Count > MaxEntries)
+        {
+            leaderboard.RemoveAt(leaderboard.Count - 1);
+        }
+        SaveLeaderboard();
+        DisplayHighScore();
+
+        //nameInput.gameObject.SetActive(false);
+        //saveButton.gameObject.SetActive(false);
     }
 
     // Lớp phụ để chứa điểm và tên người chơi
