@@ -16,6 +16,7 @@ public class DestroyScript : MonoBehaviour
 
     private int random;
     //private int platformNum = 10;
+    public static bool isEquipped;
     private void Start()
     {
         //SpawnInitialEnemy(1);
@@ -42,99 +43,38 @@ public class DestroyScript : MonoBehaviour
         if (collision.CompareTag("platform") || collision.CompareTag("bouncePlatform") ||
             collision.CompareTag("movePlatform"))
         {
-            SpawnPlatforms(collision);
-            Destroy(collision.gameObject);
+            if (!isEquipped)  // Chỉ tác động nếu không có hat/jet
+            {
+                SpawnPlatforms(collision);
+                Destroy(collision.gameObject);
+            }
         }
 
-        // Các loại va chạm khác
+        if (collision.CompareTag("hat") || collision.CompareTag("jetpack"))
+        {
+            collision.gameObject.SetActive(false);  
+            Destroy(collision.gameObject);
+            EquipItem();  // Bật trạng thái isEquipped
+        }
+
         if (collision.CompareTag("enemy"))
         {
             Destroy(collision.gameObject);
         }
-        else if (collision.CompareTag("hat"))
-        {
-            Destroy(collision.gameObject);
-        }
-        else if (collision.CompareTag("jetpack"))
-        {
-            Destroy(collision.gameObject);
-        }
     }
 
-    /*private void OnTriggerEnter2D(Collider2D collision)
+    public void EquipItem()
     {
-        //Platform
-        #region
-        if (collision.CompareTag("platform"))
-        {
-
-            SpawnPlatforms(collision);
-            Destroy(collision.gameObject);
-            Debug.Log("Platform");
-        }
-        #endregion
-
-        //Bounce
-        #region
-        else if (collision.CompareTag("bouncePlatform"))
-        {
-
-            SpawnPlatforms(collision);
-            Destroy(collision.gameObject);
-            //Debug.Log("B_Platform");
-        }
-        #endregion
-
-        //Move
-        #region
-        else if (collision.CompareTag("movePlatform"))
-        {
-
-            SpawnPlatforms(collision);
-            Destroy(collision.gameObject);
-            //Debug.Log("M_Platform");
-        }
-        #endregion
-
-        //Break
-        #region
-        else if (collision.CompareTag("breakPlatform"))
-        {
-
-            SpawnPlatforms(collision);
-            Destroy(collision.gameObject);
-            //Debug.Log("Br_Platform");
-        }
-        #endregion
-
-        //Enemy
-        #region
-        else if (collision.CompareTag("enemy"))
-        {
-            Destroy(collision.gameObject);
-            //SpawnPlatforms(collision);
-        }
-        #endregion
-
-        //Hat
-        #region
-        else if (collision.CompareTag("hat"))
-        {
-            Destroy(collision.gameObject);
-        }
-        #endregion
-
-        //Jet
-        #region
-        else if (collision.CompareTag("jetpack"))
-        {
-            Destroy(collision.gameObject);
-        }
-        #endregion
-
+        isEquipped = true;  // Set isEquipped to true
+        StartCoroutine(ResetEquipAfterTime(10f));  // Reset to false after 5 seconds
     }
 
-*/
+    private IEnumerator ResetEquipAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+        isEquipped = false;  // Reset to false after time has passed
+    }
+
     private void SpawnWhitePlatformWithHat()
     {
         Vector2 platformPosition = new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (1.5f + Random.Range(0f, 0.5f)));
@@ -175,7 +115,10 @@ public class DestroyScript : MonoBehaviour
                 break;
             case 5:
                 Instantiate(white_platformprefab, new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (1.5f + Random.Range(0f, 0.5f))), Quaternion.identity);
-                SpawnEnemy2();
+                if (!isEquipped)  // Only spawn enemy if not equipped
+                {
+                    SpawnEnemy2();
+                } 
                 break;
             default:
                 collision.transform.position = new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (1.5f + Random.Range(0f, 0.5f)));
@@ -199,7 +142,7 @@ public class DestroyScript : MonoBehaviour
         bool spawnAbove = Random.value > 0.5f; // 50% chance to spawn above or below
 
         // Generate a random spawn position
-        float xPosition = Random.Range(-6, 6f);
+        float xPosition = Random.Range(-3f, 3f);
         float baseYPosition = player.transform.position.y + (10 + Random.Range(0.1f, 0.5f));
 
         // Determine vertical offset
@@ -223,40 +166,7 @@ public class DestroyScript : MonoBehaviour
         int randomIndex = Random.Range(0, enemyPrefabs.Length);
         GameObject randomEnemyPrefab = enemyPrefabs[randomIndex];
         Instantiate(randomEnemyPrefab, spawnPosition, Quaternion.identity);
+        Debug.Log("Enemy spawned!");
     }
 
 }
-
-
-/*
-            if (Random.Range(1, 5) == 1)
-            {
-                SpawnEnemy2();
-            }
-            else if (random == 1)
-            {
-                Destroy(collision.gameObject);
-                SpawnWhitePlatformWithHat()
-                
-            }
-            else if (random == 2)
-            {
-                Destroy(collision.gameObject);
-                Instantiate(move_platformprefab, new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (1.5f + Random.Range(0f, 0.5f))), Quaternion.identity);
-            }
-            else if(random == 3)
-            {
-                Destroy(collision.gameObject);
-                Instantiate(bouncy_platformprefab, new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (1.5f + Random.Range(0f, 0.5f))), Quaternion.identity);
-            }
-            else if (random == 4)
-            {
-                Destroy(collision.gameObject);
-                Instantiate(break_platformprefab, new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (1.5f + Random.Range(0f, 0.5f))), Quaternion.identity);
-            }
-            else
-            {
-                collision.transform.position = new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (1.5f + Random.Range(0f, 0.5f)));
-            }
- 
- */

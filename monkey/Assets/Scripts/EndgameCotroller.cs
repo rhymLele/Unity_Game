@@ -42,7 +42,13 @@ public class EndgameController : MonoBehaviour
         saveButton.onClick.RemoveAllListeners();
         saveButton.onClick.AddListener(SaveScore);
     }
-
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space)
+        ){
+            SceneManager.LoadScene("NightScene");
+        }
+    }
     private string GetLastPlayerNameOrDefault()
     {
         string lastPlayerName = PlayerPrefs.GetString("LastPlayerName", "");

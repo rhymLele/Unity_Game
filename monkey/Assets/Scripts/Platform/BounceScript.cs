@@ -14,24 +14,26 @@ public class PlatformBehaviour : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
-        if (rb != null)
+        if (collision.gameObject.CompareTag("Player") && !DestroyScript.isEquipped)
         {
-            // Kt khi rơi chạm plat
-            if (rb.velocity.y <= 0)
+            Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
+            if (rb != null)
             {
-                // Phát âm thanh jumpClip khi va chạm
-                if (audioController.loxoClip != null)
+                // Kt khi rơi chạm plat
+                if (rb.velocity.y <= 0)
                 {
-                    audioController.PlaySFX(audioController.loxoClip);
+                    // Phát âm thanh jumpClip khi va chạm
+                    if (audioController.loxoClip != null)
+                    {
+                        audioController.PlaySFX(audioController.loxoClip);
+                    }
+                    else
+                    {
+                        Debug.LogError("jumpClip chưa được gán trong AudioController!");
+                    }
+                    rb.AddForce(Vector2.up * 600f);
                 }
-                else
-                {
-                    Debug.LogError("jumpClip chưa được gán trong AudioController!");
-                }
-                rb.AddForce(Vector2.up * 600f);
             }
         }
-        
     }
 }

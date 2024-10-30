@@ -19,26 +19,29 @@ public class BounceScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Rigidbody2D playerRb = collision.gameObject.GetComponent<Rigidbody2D>();
-
-        if (playerRb != null)
+        if (collision.gameObject.CompareTag("Player") && !DestroyScript.isEquipped)
         {
-            if (playerRb.velocity.y <= 0)
+            Rigidbody2D playerRb = collision.gameObject.GetComponent<Rigidbody2D>();
+
+            if (playerRb != null)
             {
-                playerRb.AddForce(Vector3.up * 400f);
-                if (audioController.jumpClip != null)
+                if (playerRb.velocity.y <= 0)
                 {
-                    audioController.PlaySFX(audioController.jumpClip);
+                    playerRb.AddForce(Vector3.up * 400f);
+                    if (audioController.jumpClip != null)
+                    {
+                        audioController.PlaySFX(audioController.jumpClip);
+                    }
+                    else
+                    {
+                        Debug.LogError("jumpClip chưa được gán trong AudioController!");
+                    }
                 }
-                else
+                /*else
                 {
-                    Debug.LogError("jumpClip chưa được gán trong AudioController!");
-                }
+                    Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
+                } */
             }
-            /*else
-            {
-                Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
-            } */
         }
     }
 }

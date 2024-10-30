@@ -2,15 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMovement : MonoBehaviour
+public class EnemyMovement : MonoBehaviour,IDamgable
 {
     [SerializeField] private float moveSpeed = 2f;
-    [SerializeField] private float moveDistance = 1f;
+    [SerializeField] private float moveDistance = 0.8f;
     [SerializeField] private float moveChance = 0.5f; // 50% chance to move
     private AudioController audioController;
     private Vector2 startingPosition;
     private int moveDirection = 1; // 1 for right, -1 for left
     private bool canMove; // Determines if the enemy can move
+    private float currentHealth;
+
+    public void Damage(float damage)
+    {
+        currentHealth -= damage;
+        if (currentHealth <= 0)
+        {
+            Destroy(gameObject,1f);
+        }
+    }
 
     void Start()
     {
@@ -27,6 +37,7 @@ public class EnemyMovement : MonoBehaviour
         {
             //Debug.LogError("quaiClip chưa được gán trong AudioController!");
         }
+        currentHealth = Random.Range(1f, 3f);
     }
 
     void Update()

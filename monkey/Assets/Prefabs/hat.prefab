@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 850310290951322726}
   - component: {fileID: 1282882704316482466}
   - component: {fileID: 7413260805987745998}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: hat
   m_TagString: hat
   m_Icon: {fileID: 0}
@@ -118,7 +118,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.004594311, y: 0}
+  m_Offset: {x: -0.0045942366, y: -0.052887753}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -129,7 +129,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.32918862, y: 0.27}
+  m_Size: {x: 0.23493323, y: 0.14327884}
   m_EdgeRadius: 0
 --- !u!114 &7413260805987745998
 MonoBehaviour:
