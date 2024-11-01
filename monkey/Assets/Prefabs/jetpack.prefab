@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7376985567974954330}
   - component: {fileID: 8880692559184314895}
   - component: {fileID: 4732225413251763930}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: jetpack
   m_TagString: jetpack
   m_Icon: {fileID: 0}

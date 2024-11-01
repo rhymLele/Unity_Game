@@ -20,16 +20,8 @@ public class DestroyScript : MonoBehaviour
     private void Start()
     {
         //SpawnInitialEnemy(1);
+        isEquipped = false;
         
-    }
-
-
-    private void SpawnInitialEnemy(int count)
-    {
-        for (int i = 0; i < count; i++)
-        {
-            SpawnEnemy2();
-        }
     }
 
     private void Update()
@@ -39,11 +31,10 @@ public class DestroyScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Kiểm tra các loại va chạm và spawn sàn mới
         if (collision.CompareTag("platform") || collision.CompareTag("bouncePlatform") ||
             collision.CompareTag("movePlatform"))
         {
-            if (!isEquipped)  // Chỉ tác động nếu không có hat/jet
+            if (!isEquipped)
             {
                 SpawnPlatforms(collision);
                 Destroy(collision.gameObject);
@@ -54,7 +45,7 @@ public class DestroyScript : MonoBehaviour
         {
             collision.gameObject.SetActive(false);  
             Destroy(collision.gameObject);
-            EquipItem();  // Bật trạng thái isEquipped
+            EquipItem();
         }
 
         if (collision.CompareTag("enemy"))
@@ -65,14 +56,14 @@ public class DestroyScript : MonoBehaviour
 
     public void EquipItem()
     {
-        isEquipped = true;  // Set isEquipped to true
-        StartCoroutine(ResetEquipAfterTime(10f));  // Reset to false after 5 seconds
+        isEquipped = true;
+        StartCoroutine(ResetEquipAfterTime(4f));
     }
 
     private IEnumerator ResetEquipAfterTime(float time)
     {
         yield return new WaitForSeconds(time);
-        isEquipped = false;  // Reset to false after time has passed
+        isEquipped = false; 
     }
 
     private void SpawnWhitePlatformWithHat()
@@ -115,15 +106,25 @@ public class DestroyScript : MonoBehaviour
                 break;
             case 5:
                 Instantiate(white_platformprefab, new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (1.5f + Random.Range(0f, 0.5f))), Quaternion.identity);
-                if (!isEquipped)  // Only spawn enemy if not equipped
+                if (!isEquipped)
                 {
-                    SpawnEnemy2();
-                } 
+                    StartCoroutine(spawnEnemy(5f));
+                }
+                else 
+                { 
+                
+                }
                 break;
             default:
                 collision.transform.position = new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (1.5f + Random.Range(0f, 0.5f)));
                 break;
         }
+    }
+
+    private IEnumerator spawnEnemy(float time)
+    {
+        yield return new WaitForSeconds(time);
+        SpawnEnemy2();
     }
     private void SpawnEnemy()
     {
@@ -143,7 +144,7 @@ public class DestroyScript : MonoBehaviour
 
         // Generate a random spawn position
         float xPosition = Random.Range(-3f, 3f);
-        float baseYPosition = player.transform.position.y + (10 + Random.Range(0.1f, 0.5f));
+        float baseYPosition = player.transform.position.y + (15 + Random.Range(0.1f, 0.5f));
 
         // Determine vertical offset
         if (spawnAbove)
