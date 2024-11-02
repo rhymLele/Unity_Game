@@ -32,10 +32,6 @@ public class BounceScript : MonoBehaviour
                     {
                         audioController.PlaySFX(audioController.jumpClip);
                     }
-                    else
-                    {
-                        Debug.LogError("jumpClip chưa được gán trong AudioController!");
-                    }
                 }
                 /*else
                 {

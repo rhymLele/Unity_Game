@@ -19,14 +19,16 @@ public class DestroyScript : MonoBehaviour
     public static bool isEquipped;
     private void Start()
     {
-        //SpawnInitialEnemy(1);
         isEquipped = false;
-        
     }
 
     private void Update()
     {
         random = Random.Range(1, 7);
+        if(isEquipped)
+        {
+            DestroyAllEnemies();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -63,7 +65,18 @@ public class DestroyScript : MonoBehaviour
     private IEnumerator ResetEquipAfterTime(float time)
     {
         yield return new WaitForSeconds(time);
-        isEquipped = false; 
+        isEquipped = false;
+        StartCoroutine(spawnEnemy());
+    }
+
+    private void DestroyAllEnemies()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("enemy");
+        foreach (GameObject enemy in enemies)
+        {
+            Destroy(enemy);
+        }
+        Debug.Log("détroy");
     }
 
     private void SpawnWhitePlatformWithHat()
@@ -72,21 +85,24 @@ public class DestroyScript : MonoBehaviour
         if(Random.Range(1,3) == 1)
         {
             Instantiate(white_platformprefab, platformPosition, Quaternion.identity);
-            if (Random.Range(1, 10) == 1)
+            if (!isEquipped)
             {
-                Instantiate(hat, new Vector2(platformPosition.x, platformPosition.y + 1f), Quaternion.identity);
+                if (Random.Range(1, 10) == 1)
+                {
+                    Instantiate(hat, new Vector2(platformPosition.x, platformPosition.y + 1f), Quaternion.identity);
+                }
+                else if (Random.Range(1, 20) == 1)
+                {
+                    Instantiate(jet, new Vector2(platformPosition.x, platformPosition.y + 1f), Quaternion.identity);
+                }
             }
-            else if (Random.Range(1, 20) == 1)
-            {
-                Instantiate(jet, new Vector2(platformPosition.x, platformPosition.y + 1f), Quaternion.identity);
-            }
+            else { }
         }
         else
         {
             Instantiate(move_platformprefab, platformPosition, Quaternion.identity);
         }
     }
-
     private void SpawnPlatforms(Collider2D collision)
     {
         Vector2 platformPosition = new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (1.5f + Random.Range(0f, 0.5f)));
@@ -108,9 +124,9 @@ public class DestroyScript : MonoBehaviour
                 Instantiate(white_platformprefab, new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (1.5f + Random.Range(0f, 0.5f))), Quaternion.identity);
                 if (!isEquipped)
                 {
-                    StartCoroutine(spawnEnemy(5f));
+                    StartCoroutine(spawnEnemy());
                 }
-                else 
+                else
                 { 
                 
                 }
@@ -120,19 +136,10 @@ public class DestroyScript : MonoBehaviour
                 break;
         }
     }
-
-    private IEnumerator spawnEnemy(float time)
+    private IEnumerator spawnEnemy()
     {
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSeconds(5f);
         SpawnEnemy2();
-    }
-    private void SpawnEnemy()
-    {
-        // Spawn the enemy at a random position above the player
-        Vector2 enemyPosition = new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (5 + Random.Range(0.1f, 0.5f)));
-        int randomIndex = Random.Range(0, enemyPrefabs.Length);
-        GameObject randomEnemyPrefab = enemyPrefabs[randomIndex];
-        Instantiate(randomEnemyPrefab, enemyPosition, Quaternion.identity);
     }
     private void SpawnEnemy2()
     {
