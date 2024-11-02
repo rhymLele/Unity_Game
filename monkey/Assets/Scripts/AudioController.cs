@@ -8,7 +8,6 @@ public class AudioController : MonoBehaviour
     AudioSource[] audioSources;
     public Toggle NhacNen, SFXToggle;
     public Slider AmluongNNen, AmluongSFX; 
-    public Image slidingAreaImage, SFXFill;
     public AudioSource vfxAudioSource;
     public AudioClip jumpClip, gameoverClip, loxoClip, mubayClip, quaiClip, baloClip, bandanClip;
 
@@ -106,9 +105,34 @@ public class AudioController : MonoBehaviour
 
     void Update()
     {
-
+        HandleMouseScroll();
+    }
+    private void HandleMouseScroll()
+    {
+        // Kiểm tra nếu con trỏ chuột đang ở trên Slider AmluongNNen
+        if (IsMouseOverSlider(AmluongNNen))
+        {
+            float scrollAmount = Input.mouseScrollDelta.y * 0.1f; // Điều chỉnh tốc độ cuộn
+            AmluongNNen.value = Mathf.Clamp(AmluongNNen.value + scrollAmount, 0f, 1f); // Giới hạn giá trị giữa 0 và 1
+            Thietlapanluongnhacnen(); // Gọi hàm cập nhật âm lượng
+        }
+        else if (IsMouseOverSlider(AmluongSFX))
+        {
+            float scrollAmount = Input.mouseScrollDelta.y * 0.1f; // Điều chỉnh tốc độ cuộn
+            AmluongSFX.value = Mathf.Clamp(AmluongSFX.value + scrollAmount, 0f, 1f); // Giới hạn giá trị giữa 0 và 1
+            ThietlapanluongSFX(); // Gọi hàm cập nhật âm lượng SFX
+        }
     }
 
+    private bool IsMouseOverSlider(Slider slider)
+    {
+        if (slider == null) return false;
+
+        Vector2 localMousePos = Input.mousePosition;
+        RectTransform sliderRect = slider.GetComponent<RectTransform>();
+
+        return RectTransformUtility.RectangleContainsScreenPoint(sliderRect, localMousePos, Camera.main);
+    }
     public void PlaySFX(AudioClip sfxclip)
     {
         if (sfxclip == null || vfxAudioSource.mute)
