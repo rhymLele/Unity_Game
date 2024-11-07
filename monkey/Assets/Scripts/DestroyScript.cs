@@ -40,12 +40,13 @@ public class DestroyScript : MonoBehaviour
             {
                 SpawnPlatforms(collision);
                 Destroy(collision.gameObject);
+
             }
         }
 
         if (collision.CompareTag("hat") || collision.CompareTag("jetpack"))
         {
-            collision.gameObject.SetActive(false);  
+            collision.gameObject.SetActive(false);
             Destroy(collision.gameObject);
             EquipItem();
         }
@@ -58,7 +59,7 @@ public class DestroyScript : MonoBehaviour
 
     public void EquipItem()
     {
-        isEquipped = true;
+        isEquipped=true;
         StartCoroutine(ResetEquipAfterTime(4f));
     }
 

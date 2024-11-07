@@ -6,19 +6,19 @@ public class EnemyMovement : MonoBehaviour,IDamgable
 {
     [SerializeField] private float moveSpeed = 2f;
     [SerializeField] private float moveDistance = 0.8f;
-    [SerializeField] private float moveChance = 0.5f; // 50% chance to move
+    [SerializeField] private float moveChance = 0.5f;
     private AudioController audioController;
     private Vector2 startingPosition;
-    private int moveDirection = 1; // 1 for right, -1 for left
-    private bool canMove; // Determines if the enemy can move
-    private float currentHealth;
+    private int moveDirection = 1;
+    private bool canMove;
+    private int currentHealth;
 
-    public void Damage(float damage)
+    public void Damage(int damage)
     {
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
-            Destroy(gameObject,1f);
+            Destroy(gameObject);
         }
     }
 
@@ -37,7 +37,7 @@ public class EnemyMovement : MonoBehaviour,IDamgable
         {
             //Debug.LogError("quaiClip chưa được gán trong AudioController!");
         }
-        currentHealth = Random.Range(1f, 3f);
+        currentHealth = Random.Range(1, 3);
     }
 
     void Update()

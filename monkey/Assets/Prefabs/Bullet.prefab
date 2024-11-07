@@ -166,4 +166,4 @@ MonoBehaviour:
   physicsDamage: 2
   normalDamage: 1
   DestroyTime: 2.5
-  type: 0
+  type: 1

@@ -5,5 +5,5 @@ using UnityEngine;
 public interface IDamgable 
 {
     // Start is called before the first frame update
-     public void Damage(float damage);
+     public void Damage(int damage);
 }

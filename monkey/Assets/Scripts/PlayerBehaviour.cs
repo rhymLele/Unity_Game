@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class PlayerBehaviour : MonoBehaviour
 {
+    private Collider2D playerCollider;
     private Rigidbody2D rb2d;
     private float moveInput;
     private float moveSpeed = 8f;
@@ -23,6 +24,7 @@ public class PlayerBehaviour : MonoBehaviour
     public Text startText;
     public Text gameOver;
     private bool isEquipped;
+
     //private bool gameEnded = false;
 
     public GameObject[] platforms;
@@ -34,6 +36,7 @@ public class PlayerBehaviour : MonoBehaviour
     void Start()
     {
         playerStatus = true;
+        playerCollider = GetComponent<Collider2D>();
         rb2d = GetComponent<Rigidbody2D>();
         rb2d.gravityScale = 0f;
         rb2d.velocity = Vector2.zero;
@@ -73,31 +76,22 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("enemy"))
         {
-            // Get the bounds of the player and enemy
             Bounds playerBounds = GetComponent<Collider2D>().bounds;
             Bounds enemyBounds = collision.collider.bounds;
 
-            // Check if player is above the enemy (player's feet touch the enemy's head)
             bool playerAboveEnemy = playerBounds.min.y > enemyBounds.max.y;
 
-            // Check if player hit the enemy from the side or below (player dies)
             bool playerHitFromSideOrBelow = !playerAboveEnemy;
 
             if (playerAboveEnemy)
             {
-                // Player kills enemy by jumping on top
                 Destroy(collision.gameObject);
-                //topScore += 10;
-                rb2d.velocity = new Vector2(rb2d.velocity.x, 0);// Reset vertical velocity to avoid stacking forces
-                rb2d.AddForce(new Vector2(0, 800f));// Add upward force (adjust value for jump height)
-                //rb2d.AddForce(Vector3.up * 600f);
+                rb2d.velocity = new Vector2(rb2d.velocity.x, 0);
+                rb2d.AddForce(new Vector2(0, 800f));
                 Debug.Log("Enemy killed.");
             }
             else if (playerHitFromSideOrBelow)
             {
-                // Player dies if hit from the side or below
-                //Destroy(gameObject);
-                //rb2d.AddForce(new Vector2(0, -500f));
                 Rigidbody2D enemyRb = collision.gameObject.GetComponent<Rigidbody2D>();
                 rb2d.gravityScale = 0f;
                 rb2d.velocity = Vector2.zero;
@@ -116,21 +110,28 @@ public class PlayerBehaviour : MonoBehaviour
         if (collision.gameObject.CompareTag("hat"))
         {
             Debug.Log("Player touches hat");
-            if(!isEquipped)
+            if (!isEquipped)
             {
                 EquipHat(gameObject);
             }
-            
+            else
+            {
+                Destroy(collision.gameObject);
+            }
         }
         if (collision.gameObject.CompareTag("jetpack"))
         {
+            Debug.Log("Player touches jetpack");
             if (!isEquipped)
             { EquipJet(gameObject); }
-            
+            else
+            {
+                Destroy(collision.gameObject);
+            }
         }
     }
 
-    private void HandleShooting()
+        private void HandleShooting()
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
@@ -176,32 +177,30 @@ public class PlayerBehaviour : MonoBehaviour
 
     void EquipHat(GameObject player)
     {
-        // Create the hat instance
+        playerCollider.enabled = false;
         GameObject hate = Instantiate(hatPre, player.transform);
-
-        // Set the local position relative to the player's position
-        hate.transform.localPosition = new Vector3(0, 0.2f, 0); // Adjust Y value as necessary
-
-        // Destroy the hat after the specified duration
-        Destroy(hate, 1f); // Use 'hate' instead of 'hat'
+        hate.transform.localPosition = new Vector3(0, 0.2f, 0);
+        Destroy(hate, 1f);
         isEquipped = false;
+        StartCoroutine(ReactivatePlayer(1f));
     }
 
     void EquipJet(GameObject player)
     {
+        playerCollider.enabled = false;
         GameObject getJet = Instantiate(jetPre, player.transform);
         float offsetX = 0.2f;
-        if (leftRight ==-1) // Moving left
+        if (leftRight == -1)
         {
             getJet.transform.localPosition = new Vector3(-offsetX, 0, 0);
         }
-        else // Moving right or stationary
+        else
         {
             getJet.transform.localPosition = new Vector3(offsetX, 0, 0);
         }
-
         Destroy(getJet, 1.1f);
         isEquipped = false;
+        StartCoroutine(ReactivatePlayer(1.1f));
     }
 
     void FixedUpdate()
@@ -212,7 +211,12 @@ public class PlayerBehaviour : MonoBehaviour
             rb2d.velocity = new Vector2(moveInput * moveSpeed, rb2d.velocity.y);
         }
     }
-    
+
+    private IEnumerator ReactivatePlayer(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        playerCollider.enabled = true;
+    }
     private void EndGame()
     {
         //gameEnded = true;
@@ -225,28 +229,5 @@ public class PlayerBehaviour : MonoBehaviour
         PlayerPrefs.SetFloat("CurrentScore", topScore);
         PlayerPrefs.Save();
         SceneManager.LoadScene("Endgame");
-        /*gameOver.text = "Game Over! Score: " + Mathf.Round(topScore).ToString();
-        if (topScore > highScore)
-        {
-            highScore = topScore;
-            PlayerPrefs.SetFloat("HighScore", highScore);
-            PlayerPrefs.Save();
-            gameOver.text += "\nNew High Score!";
-        }
-        else
-        {
-            gameOver.text += "\nHigh Score: " + Mathf.Round(highScore).ToString();
-        }
-
-
-        audioController.OnOffMusicBackground();
-        if (audioController != null && audioController.gameoverClip != null)
-        {
-            audioController.PlaySFX(audioController.gameoverClip);
-        }
-        else
-        {
-            Debug.LogError("GameOverClip chưa được gán trong AudioController!");
-        }*/
     }
 }
