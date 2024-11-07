@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -31,8 +32,11 @@ public class PlayerBehaviour : MonoBehaviour
 
     private int leftRight;
 
+
     void Start()
     {
+       
+
         playerStatus = true;
         rb2d = GetComponent<Rigidbody2D>();
         rb2d.gravityScale = 0f;
@@ -46,6 +50,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void Update()
     {
+     
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (playerStatus==true)

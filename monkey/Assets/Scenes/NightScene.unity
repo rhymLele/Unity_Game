@@ -830,7 +830,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.90188676, g: 0.21611245, b: 0.21611245, a: 1}
+  m_Color: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -838,7 +838,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 0f7a81e66649136418122b9e10f6752c, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
@@ -2498,6 +2498,18 @@ MonoBehaviour:
   - {fileID: 21300000, guid: f441cc0bf38bcfe4ab11b7f35d2c424e, type: 3}
   - {fileID: 21300000, guid: 4b7fcc60659d7474981b39478fabb7ef, type: 3}
   - {fileID: 21300000, guid: af4903aaf9ce50a4fb891ab42eafcea2, type: 3}
+  playerskin:
+  - {fileID: 21300000, guid: 1b1c2890f5309ff4d9a9308e9f577405, type: 3}
+  - {fileID: 21300000, guid: e71bcbf8edbb8ba4b94b761b99db67ca, type: 3}
+  - {fileID: 21300000, guid: f4068083ef42b774e8d7b39c2ed4b076, type: 3}
+  - {fileID: 21300000, guid: c90542052996b6343b6c27ed1e6016fb, type: 3}
+  - {fileID: 21300000, guid: 8c25bd311e5acb44faa768f0b890cf38, type: 3}
+  bulletSkin:
+  - {fileID: 21300000, guid: 349f78724eea30740aa376e26aedf274, type: 3}
+  - {fileID: 21300000, guid: a0818e2335cd78d46a34d6c46a000eb6, type: 3}
+  - {fileID: 21300000, guid: 390aaf627bc686447bd4cce9dd049c43, type: 3}
+  - {fileID: 21300000, guid: 390aaf627bc686447bd4cce9dd049c43, type: 3}
+  - {fileID: 21300000, guid: 390aaf627bc686447bd4cce9dd049c43, type: 3}
 --- !u!1 &1230478195
 GameObject:
   m_ObjectHideFlags: 0
@@ -2677,7 +2689,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.90188676, g: 0.21611245, b: 0.21611245, a: 1}
+  m_Color: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2685,7 +2697,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 0f7a81e66649136418122b9e10f6752c, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
@@ -3723,6 +3735,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6891520254354148949, guid: a915ab5475384a546bea79115cc53856, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 0f7a81e66649136418122b9e10f6752c, type: 3}
+    - target: {fileID: 6891520254354148949, guid: a915ab5475384a546bea79115cc53856, type: 3}
+      propertyPath: m_FontData.m_FontStyle
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7193077650998494665, guid: a915ab5475384a546bea79115cc53856, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -3750,6 +3770,34 @@ PrefabInstance:
     - target: {fileID: 7892732151324768146, guid: a915ab5475384a546bea79115cc53856, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8447391754444011644, guid: a915ab5475384a546bea79115cc53856, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8447391754444011644, guid: a915ab5475384a546bea79115cc53856, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8447391754444011644, guid: a915ab5475384a546bea79115cc53856, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8447391754444011644, guid: a915ab5475384a546bea79115cc53856, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 0f7a81e66649136418122b9e10f6752c, type: 3}
+    - target: {fileID: 8447391754444011644, guid: a915ab5475384a546bea79115cc53856, type: 3}
+      propertyPath: m_FontData.m_MaxSize
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 8447391754444011644, guid: a915ab5475384a546bea79115cc53856, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8447391754444011644, guid: a915ab5475384a546bea79115cc53856, type: 3}
+      propertyPath: m_FontData.m_FontStyle
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8684303638694500088, guid: a915ab5475384a546bea79115cc53856, type: 3}
       propertyPath: m_Camera
@@ -3913,6 +3961,30 @@ PrefabInstance:
       propertyPath: bulletSpawnPoint
       value: 
       objectReference: {fileID: 417512817}
+    - target: {fileID: 5400773580219289722, guid: a30ab18f8f260be48b0f23793b5f8f14, type: 3}
+      propertyPath: playerSkin.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5400773580219289722, guid: a30ab18f8f260be48b0f23793b5f8f14, type: 3}
+      propertyPath: playerSkin.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 02906cf392668eb498bcdcfe025bdfdd, type: 3}
+    - target: {fileID: 5400773580219289722, guid: a30ab18f8f260be48b0f23793b5f8f14, type: 3}
+      propertyPath: playerSkin.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 1b1c2890f5309ff4d9a9308e9f577405, type: 3}
+    - target: {fileID: 5400773580219289722, guid: a30ab18f8f260be48b0f23793b5f8f14, type: 3}
+      propertyPath: playerSkin.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: c90542052996b6343b6c27ed1e6016fb, type: 3}
+    - target: {fileID: 5400773580219289722, guid: a30ab18f8f260be48b0f23793b5f8f14, type: 3}
+      propertyPath: playerSkin.Array.data[3]
+      value: 
+      objectReference: {fileID: 21300000, guid: e71bcbf8edbb8ba4b94b761b99db67ca, type: 3}
+    - target: {fileID: 5400773580219289722, guid: a30ab18f8f260be48b0f23793b5f8f14, type: 3}
+      propertyPath: playerSkin.Array.data[4]
+      value: 
+      objectReference: {fileID: 21300000, guid: c34ae28d2c07bdd44945107b7e33ea20, type: 3}
     - target: {fileID: 6967927161110923843, guid: a30ab18f8f260be48b0f23793b5f8f14, type: 3}
       propertyPath: m_Layer
       value: 6
