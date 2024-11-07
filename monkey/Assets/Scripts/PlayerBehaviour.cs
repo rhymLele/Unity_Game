@@ -70,6 +70,10 @@ public class PlayerBehaviour : MonoBehaviour
         {
             HandleMovement();
             HandleShooting();
+            if (!isEquipped)
+            {
+                rb2d.gravityScale = 4f;
+            }
         }
     }
     private void RestartGame()
@@ -118,6 +122,7 @@ public class PlayerBehaviour : MonoBehaviour
             if (!isEquipped)
             {
                 EquipHat(gameObject);
+                
             }
             else
             {
@@ -182,6 +187,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     void EquipHat(GameObject player)
     {
+        rb2d.gravityScale = 6f;
         playerCollider.enabled = false;
         GameObject hate = Instantiate(hatPre, player.transform);
         hate.transform.localPosition = new Vector3(0, 0.2f, 0);
@@ -192,6 +198,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     void EquipJet(GameObject player)
     {
+        rb2d.gravityScale = 7f;
         playerCollider.enabled = false;
         GameObject getJet = Instantiate(jetPre, player.transform);
         float offsetX = 0.2f;
@@ -219,6 +226,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private IEnumerator ReactivatePlayer(float waitTime)
     {
+
         yield return new WaitForSeconds(waitTime);
         playerCollider.enabled = true;
     }

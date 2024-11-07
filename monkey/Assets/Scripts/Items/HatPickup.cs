@@ -40,6 +40,6 @@ public class HatPickup : MonoBehaviour
         }
 
         // Apply upward force
-        playerRb.AddForce(Vector2.up * 650f);
+        playerRb.AddForce(Vector2.up * 700f);
     }
 }

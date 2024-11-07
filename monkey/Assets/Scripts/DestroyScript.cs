@@ -17,6 +17,10 @@ public class DestroyScript : MonoBehaviour
     private int random;
     //private int platformNum = 10;
     public static bool isEquipped;
+
+    private int currentEnemyCount = 0;
+    private const int maxEnemyCount = 5;
+
     private void Start()
     {
         isEquipped = false;
@@ -25,10 +29,6 @@ public class DestroyScript : MonoBehaviour
     private void Update()
     {
         random = Random.Range(1, 7);
-        if(isEquipped)
-        {
-            DestroyAllEnemies();
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -48,12 +48,14 @@ public class DestroyScript : MonoBehaviour
         {
             collision.gameObject.SetActive(false);
             Destroy(collision.gameObject);
+            RemoveAllEnemies();
             EquipItem();
         }
 
         if (collision.CompareTag("enemy"))
         {
             Destroy(collision.gameObject);
+            currentEnemyCount--;
         }
     }
 
@@ -70,14 +72,14 @@ public class DestroyScript : MonoBehaviour
         StartCoroutine(spawnEnemy());
     }
 
-    private void DestroyAllEnemies()
+    void RemoveAllEnemies()
     {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("enemy");
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
         foreach (GameObject enemy in enemies)
         {
             Destroy(enemy);
         }
-        Debug.Log("détroy");
     }
 
     private void SpawnWhitePlatformWithHat()
@@ -144,38 +146,42 @@ public class DestroyScript : MonoBehaviour
     }
     private void SpawnEnemy2()
     {
-        Vector2 spawnPosition;
-        float verticalOffset;
-
-        // Randomly decide whether to spawn above or below the platform
-        bool spawnAbove = Random.value > 0.5f; // 50% chance to spawn above or below
-
-        // Generate a random spawn position
-        float xPosition = Random.Range(-3f, 3f);
-        float baseYPosition = player.transform.position.y + (15 + Random.Range(0.1f, 0.5f));
-
-        // Determine vertical offset
-        if (spawnAbove)
+        if (currentEnemyCount >= maxEnemyCount)
         {
-            verticalOffset = Random.Range(1f, 3f); // Spawn 1 to 3 units above
-            spawnPosition = new Vector2(xPosition, baseYPosition + verticalOffset);
+            return;
         }
         else
         {
-            verticalOffset = Random.Range(1f, 3f); // Spawn 1 to 3 units below
-            spawnPosition = new Vector2(xPosition, baseYPosition - verticalOffset);
-        }
+            Vector2 spawnPosition;
+            float verticalOffset;
+            bool spawnAbove = Random.value > 0.5f;
+            float xPosition = Random.Range(-3f, 3f);
+            float baseYPosition = player.transform.position.y + (15 + Random.Range(0.1f, 0.5f));
 
-        // Ensure the enemy is not spawning too low (e.g., below ground level)
-        if (spawnPosition.y < 0) // Adjust this condition based on your ground level
-        {
-            spawnPosition.y = 0; // Clamp to ground level if below
-        }
+            if (spawnAbove)
+            {
+                verticalOffset = Random.Range(1f, 3f);
+                spawnPosition = new Vector2(xPosition, baseYPosition + verticalOffset);
+            }
+            else
+            {
+                verticalOffset = Random.Range(1f, 3f);
+                spawnPosition = new Vector2(xPosition, baseYPosition - verticalOffset);
+            }
 
-        int randomIndex = Random.Range(0, enemyPrefabs.Length);
-        GameObject randomEnemyPrefab = enemyPrefabs[randomIndex];
-        Instantiate(randomEnemyPrefab, spawnPosition, Quaternion.identity);
-        Debug.Log("Enemy spawned!");
+            if (spawnPosition.y < 0)
+            {
+                spawnPosition.y = 0;
+            }
+
+            int randomIndex = Random.Range(0, enemyPrefabs.Length);
+            GameObject randomEnemyPrefab = enemyPrefabs[randomIndex];
+            GameObject enemy = Instantiate(randomEnemyPrefab, spawnPosition, Quaternion.identity);
+
+            currentEnemyCount++;
+            Debug.Log("Enemy" + currentEnemyCount + "spawned!");
+
+        }
     }
 
 }
