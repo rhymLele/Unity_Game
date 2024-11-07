@@ -25,26 +25,26 @@ public class BackgroundManager : MonoBehaviour
         spriteRenderer.sprite = backgrounds[randomIndex];
         spritePlayer.sprite = playerskin[randomIndex];
         //spriteBullet.sprite =bulletSkin[randomIndex];  
-        //if (bullet != null)
-        //{
-        //    spriteBullet = bullet.GetComponent<SpriteRenderer>();
-        //    // Set the bullet sprite based on the random index
-        //    spriteBullet.sprite = bulletSkin[randomIndex];
-        //    // Get the BulletBehaviour component
-        //    BulletBehaviour bulletBehaviour = bullet.GetComponent<BulletBehaviour>();
-        //    if (bulletBehaviour != null)
-        //    {
-        //        // Set the bullet type based on the random index
-        //        if (randomIndex == 0 || randomIndex == 1 )
-        //        {
-        //            bulletBehaviour.SetBulletType(BulletBehaviour.bulletType.Normal);
-        //        }
-        //        else
-        //        {
-        //            bulletBehaviour.SetBulletType(BulletBehaviour.bulletType.Physics);
-        //        }
-        //    }
-        //}
+        if (bullet != null)
+        {
+            //spriteBullet = bullet.GetComponent<SpriteRenderer>();
+            // Set the bullet sprite based on the random index
+            //spriteBullet.sprite = bulletSkin[randomIndex];
+            // Get the BulletBehaviour component
+            BulletBehaviour bulletBehaviour = bullet.GetComponent<BulletBehaviour>();
+            if (bulletBehaviour != null)
+            {
+               // Set the bullet type based on the random index
+                if (randomIndex == 0 || randomIndex == 1 )
+                {
+                    bulletBehaviour.SetBulletType(BulletBehaviour.bulletType.Normal);
+                }
+                else
+                {
+                    bulletBehaviour.SetBulletType(BulletBehaviour.bulletType.Physics);
+                }
+            }
+        }
     }
     private void Update()
     {
