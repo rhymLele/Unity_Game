@@ -2468,12 +2468,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 40
-    m_FontStyle: 0
+    m_Font: {fileID: 12800000, guid: 0f7a81e66649136418122b9e10f6752c, type: 3}
+    m_FontSize: 59
+    m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 0
-    m_MaxSize: 40
+    m_MaxSize: 59
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1

@@ -14,6 +14,8 @@ public class BulletBehaviour : MonoBehaviour
     private int damage;
     private Rigidbody2D rb;
     private AudioController audioController;
+    SpriteRenderer spriteRenderer;
+    public Sprite[] els; 
     public enum bulletType
     {
         Normal,Physics
@@ -33,6 +35,7 @@ public class BulletBehaviour : MonoBehaviour
     }
     void Start()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         audioController = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioController>();
         if (audioController != null && audioController.bandanClip != null)
@@ -61,10 +64,12 @@ public class BulletBehaviour : MonoBehaviour
         if (type == bulletType.Physics)
         {
             rb.gravityScale = 4f;
+            //spriteRenderer.sprite=els[0];
         }
         else if (type == bulletType.Normal)
         {
             rb.gravityScale = 0f;
+            //spriteRenderer.sprite = els[1];
         }
     }
     private void SetDestroyTime()
@@ -102,5 +107,10 @@ public class BulletBehaviour : MonoBehaviour
             // Destroy the bullet itself
             Destroy(gameObject);
         }
+    }
+    public void SetBulletType(bulletType newType)
+    {
+        type = newType;
+        initialBulletStats(); // Initialize stats based on the new type
     }
 }
