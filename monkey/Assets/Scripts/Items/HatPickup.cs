@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class HatPickup : MonoBehaviour
 {
-    private AudioController audioController;
+    private AudioController audioController; public float ascentSpeedReduction = 0.5f; //
     private void Start()
     {
         audioController = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioController>();
@@ -36,7 +36,8 @@ public class HatPickup : MonoBehaviour
         // Reset vertical velocity to ensure upward force is effective
         if (playerRb.velocity.y < 0)
         {
-            playerRb.velocity = new Vector2(playerRb.velocity.x, 0); // Reset vertical velocity if falling
+            playerRb.velocity = new Vector2(playerRb.velocity.x, 0f); // Reset vertical velocity if falling
+           
         }
 
         // Apply upward force

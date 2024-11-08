@@ -14,6 +14,7 @@ public class PlayerBehaviour : MonoBehaviour
     private float moveSpeed = 8f;
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform bulletSpawnPoint;
+    private bool isShooting;
     private GameObject bulletInst;
     public GameObject hatPre;
     public GameObject jetPre;
@@ -34,23 +35,41 @@ public class PlayerBehaviour : MonoBehaviour
 
     private int leftRight;
 
+    private int state;
+    private string STATE_ANIMATION = "state";
+    private Animator animator;
+    private bool isJumping;
 
     void Start()
     {
-       
-
-        playerStatus = true;
+    
+        animator = GetComponent<Animator>();
         playerCollider = GetComponent<Collider2D>();
         rb2d = GetComponent<Rigidbody2D>();
+        audioController = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioController>();
+        playerStatus = true;
+        state = 2;
         rb2d.gravityScale = 0f;
         rb2d.velocity = Vector2.zero;
         scoreText.gameObject.SetActive(false);
         gameOver.gameObject.SetActive(false);
-        audioController = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioController>();
+       
         highScore = PlayerPrefs.GetFloat("HighScore", 0f);
         isEquipped = false;
+        isShooting= false;
+        isJumping = false;
     }
-
+    void playAnimator()
+    {
+        if(isShooting)
+        {
+            state = 1;
+        }else if(isJumping)
+        {
+            state=2;
+        }
+        animator.SetInteger(STATE_ANIMATION, state);    
+    }
     private void Update()
     {
      
@@ -59,6 +78,7 @@ public class PlayerBehaviour : MonoBehaviour
             if (playerStatus==true)
             {
                 StartGame();
+                isJumping = true;
             }
             else if (playerStatus==false)
             {
@@ -145,6 +165,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
+            isShooting = true;
             bulletInst=Instantiate(bullet,bulletSpawnPoint.position,bulletSpawnPoint.rotation);
         }
     }
@@ -187,7 +208,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     void EquipHat(GameObject player)
     {
-        rb2d.gravityScale = 6f;
+        rb2d.gravityScale = 2f;
         playerCollider.enabled = false;
         GameObject hate = Instantiate(hatPre, player.transform);
         hate.transform.localPosition = new Vector3(0, 0.2f, 0);
@@ -195,7 +216,7 @@ public class PlayerBehaviour : MonoBehaviour
         isEquipped = false;
         StartCoroutine(ReactivatePlayer(1f));
     }
-
+    
     void EquipJet(GameObject player)
     {
         rb2d.gravityScale = 7f;
@@ -222,6 +243,7 @@ public class PlayerBehaviour : MonoBehaviour
             moveInput = Input.GetAxis("Horizontal");
             rb2d.velocity = new Vector2(moveInput * moveSpeed, rb2d.velocity.y);
         }
+        //playAnimator();
     }
 
     private IEnumerator ReactivatePlayer(float waitTime)
