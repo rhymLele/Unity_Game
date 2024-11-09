@@ -36,7 +36,7 @@ public class PlayerBehaviour : MonoBehaviour
     private bool playerStatus;
 
     private int leftRight;
-
+    private float timer=0;
 
     void Start()
     {
@@ -56,7 +56,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void Update()
     {
-     
+        timer += Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (playerStatus==true)
@@ -72,7 +72,13 @@ public class PlayerBehaviour : MonoBehaviour
         if (playerStatus&&isStarted)
         {
             HandleMovement();
-            HandleShooting();
+            //if (timer > 1)
+            //{
+            //    timer = 0;
+                HandleShooting();
+            //}
+ 
+            HandleBullet();
             if (!isEquipped)
             {
                 rb2d.gravityScale = 4f;
@@ -147,12 +153,19 @@ public class PlayerBehaviour : MonoBehaviour
     private void HandleShooting()
     {
         if (Input.GetKeyDown(KeyCode.K))
-        {
-            bulletInst = Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
-
-            // Lấy sprite bắn từ BackgroundManager
+        {           
             Sprite shootSprite = backgroundManager.GetPlayerShootSprite();
             if (shootSprite != null)
+            bulletInst=Instantiate(bullet,bulletSpawnPoint.position,bulletSpawnPoint.rotation);
+        }
+        
+    }
+    void HandleBullet()
+    {
+        if (Input.GetKeyDown(KeyCode.P) && bullet != null)
+        {
+            BulletBehaviour bulletBehaviour = bullet.GetComponent<BulletBehaviour>();
+            if (bulletBehaviour != null)
             {
                 GetComponent<SpriteRenderer>().sprite = shootSprite;
             }
