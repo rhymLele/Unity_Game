@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class AudioController : MonoBehaviour
@@ -9,11 +10,12 @@ public class AudioController : MonoBehaviour
     public Toggle NhacNen, SFXToggle;
     public Slider AmluongNNen, AmluongSFX; 
     public AudioSource vfxAudioSource;
-    public AudioClip jumpClip, gameoverClip, loxoClip, mubayClip, quaiClip, baloClip, bandanClip;
+    public AudioClip jumpClip, gameoverClip, loxoClip, mubayClip, quaiClip, baloClip, bandanClip, buttonClip;
 
 
     void Start()
     {
+        DontDestroyOnLoad(gameObject);
         audioSources = GetComponents<AudioSource>();
         if (audioSources.Length == 0) return;
 
@@ -49,7 +51,10 @@ public class AudioController : MonoBehaviour
 
         if (NhacNen != null)
             NhacNen.onValueChanged.AddListener(delegate { OnOffMusicBackground(); });
-
+        if (vfxAudioSource == null)
+        {
+            vfxAudioSource = gameObject.AddComponent<AudioSource>();
+        }
     }
 
     public void Thietlapanluongnhacnen()
@@ -142,4 +147,12 @@ public class AudioController : MonoBehaviour
 
         vfxAudioSource.PlayOneShot(sfxclip);
     }
+
+    public void PlayButtonClickSound()
+    {
+        PlaySFX(buttonClip);
+    }
+
+
+
 }

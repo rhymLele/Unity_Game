@@ -492,6 +492,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1006731800}
+        m_TargetAssemblyTypeName: AudioController, Assembly-CSharp
+        m_MethodName: PlayButtonClickSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &453606832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1277,13 +1289,14 @@ MonoBehaviour:
   AmluongNNen: {fileID: 1268143853}
   AmluongSFX: {fileID: 0}
   vfxAudioSource: {fileID: 1336565652}
-  jumpClip: {fileID: 0}
-  gameoverClip: {fileID: 0}
-  loxoClip: {fileID: 0}
-  mubayClip: {fileID: 0}
-  quaiClip: {fileID: 0}
-  baloClip: {fileID: 0}
-  bandanClip: {fileID: 0}
+  jumpClip: {fileID: 8300000, guid: a52f5997e4823cb41bb0273eecbe6ede, type: 3}
+  gameoverClip: {fileID: 8300000, guid: 4a137ab32aab9bd49a9801adc88d7e94, type: 3}
+  loxoClip: {fileID: 8300000, guid: 584bd349dd9382749995dcd6f60e8f1d, type: 3}
+  mubayClip: {fileID: 8300000, guid: 0d2d6345ea7dc514e91a771d91ada16c, type: 3}
+  quaiClip: {fileID: 8300000, guid: d3023e0a1b81d5f488547049e6c79215, type: 3}
+  baloClip: {fileID: 8300000, guid: 7816ae2f524c43b45aa9033b5239b1c1, type: 3}
+  bandanClip: {fileID: 8300000, guid: fb9cd36cfffcbbc48bf6a9d59e7f29a7, type: 3}
+  buttonClip: {fileID: 8300000, guid: 5390f1e47ab7701428f33e7b8ba7dcfb, type: 3}
 --- !u!82 &1006731801
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1481,6 +1494,18 @@ MonoBehaviour:
       - m_Target: {fileID: 70802039}
         m_TargetAssemblyTypeName: ButtonSetting, Assembly-CSharp
         m_MethodName: OnSettingButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1006731800}
+        m_TargetAssemblyTypeName: AudioController, Assembly-CSharp
+        m_MethodName: PlayButtonClickSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2574,6 +2599,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1280336665}
         m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
         m_MethodName: startGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1006731800}
+        m_TargetAssemblyTypeName: AudioController, Assembly-CSharp
+        m_MethodName: PlayButtonClickSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
