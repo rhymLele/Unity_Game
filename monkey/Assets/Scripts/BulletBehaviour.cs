@@ -16,7 +16,9 @@ public class BulletBehaviour : MonoBehaviour
     private Rigidbody2D rb;
     private AudioController audioController;
     SpriteRenderer spriteRenderer;
-    public Sprite[] els; 
+    public Sprite[] els;
+    private GameObject enemy;
+    public float force = 5;
     public enum bulletType
     {
         Normal,Physics
@@ -72,6 +74,18 @@ public class BulletBehaviour : MonoBehaviour
         {
             rb.gravityScale = 0f;
             spriteRenderer.sprite = els[1];
+            AutoShoot();
+        }
+    }
+    private void AutoShoot()
+    {
+        enemy = GameObject.FindGameObjectWithTag("enemy");
+        if (enemy != null)
+        {
+            Vector3 direction = enemy.transform.position - transform.position;
+            rb.velocity = new Vector2(direction.x, direction.y).normalized * force;
+            float rot = Mathf.Atan2(-direction.y, -direction.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0, 0, rot + 90);
         }
     }
     private void SetDestroyTime()
