@@ -14,6 +14,9 @@ public class PlayerBehaviour : MonoBehaviour
     private float moveSpeed = 8f;
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform bulletSpawnPoint;
+    [SerializeField] private Sprite normalSprite;
+    [SerializeField] private Sprite shootSprite;
+    private SpriteRenderer spriteRenderer;
     private GameObject bulletInst;
     public GameObject hatPre;
     public GameObject jetPre;
@@ -26,7 +29,7 @@ public class PlayerBehaviour : MonoBehaviour
     public Text gameOver;
     private bool isEquipped;
 
-    //private bool gameEnded = false;
+    private BackgroundManager backgroundManager;
 
     public GameObject[] platforms;
     private AudioController audioController;
@@ -37,8 +40,6 @@ public class PlayerBehaviour : MonoBehaviour
 
     void Start()
     {
-       
-
         playerStatus = true;
         playerCollider = GetComponent<Collider2D>();
         rb2d = GetComponent<Rigidbody2D>();
@@ -49,6 +50,8 @@ public class PlayerBehaviour : MonoBehaviour
         audioController = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioController>();
         highScore = PlayerPrefs.GetFloat("HighScore", 0f);
         isEquipped = false;
+
+        backgroundManager = FindObjectOfType<BackgroundManager>();
     }
 
     private void Update()
@@ -141,22 +144,26 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-        private void HandleShooting()
+    private void HandleShooting()
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
-            bulletInst=Instantiate(bullet,bulletSpawnPoint.position,bulletSpawnPoint.rotation);
-        }
-        if (Input.GetKeyDown(KeyCode.P) && bullet != null)
-        {
-            BulletBehaviour bulletBehaviour = bullet.GetComponent<BulletBehaviour>();
-            if (bulletBehaviour != null)
+            bulletInst = Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+
+            // Lấy sprite bắn từ BackgroundManager
+            Sprite shootSprite = backgroundManager.GetPlayerShootSprite();
+            if (shootSprite != null)
             {
-                bulletBehaviour.ToggleBulletType();
+                GetComponent<SpriteRenderer>().sprite = shootSprite;
             }
-            else
+        }
+        if (Input.GetKeyUp(KeyCode.K))
+        {
+            // Đặt lại sprite bình thường
+            Sprite normalSprite = backgroundManager.GetPlayerNormalSprite();
+            if (normalSprite != null)
             {
-                Debug.LogError("BulletBehaviour component is missing on bullet!");
+                GetComponent<SpriteRenderer>().sprite = normalSprite;
             }
         }
     }

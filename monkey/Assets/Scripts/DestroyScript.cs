@@ -108,7 +108,7 @@ public class DestroyScript : MonoBehaviour
     }
     private void SpawnPlatforms(Collider2D collision)
     {
-        Vector2 platformPosition = new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (3.5f + Random.Range(0f, 0.5f)));
+        Vector2 platformPosition = new Vector2(Random.Range(-6f, 6f), player.transform.position.y + (3.5f + Random.Range(0f, 0.5f)));
         switch (random)
         {
             case 1:
