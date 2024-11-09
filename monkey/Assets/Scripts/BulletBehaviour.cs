@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static BulletBehaviour;
 
 public class BulletBehaviour : MonoBehaviour
 {
@@ -33,6 +34,7 @@ public class BulletBehaviour : MonoBehaviour
             SetStraightVelocity();damage = normalDamage;
         }
     }
+    
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -64,12 +66,12 @@ public class BulletBehaviour : MonoBehaviour
         if (type == bulletType.Physics)
         {
             rb.gravityScale = 4f;
-            //spriteRenderer.sprite=els[0];
+            spriteRenderer.sprite = els[0];
         }
         else if (type == bulletType.Normal)
         {
             rb.gravityScale = 0f;
-            //spriteRenderer.sprite = els[1];
+            spriteRenderer.sprite = els[1];
         }
     }
     private void SetDestroyTime()
@@ -112,5 +114,13 @@ public class BulletBehaviour : MonoBehaviour
     {
         type = newType;
         initialBulletStats(); // Initialize stats based on the new type
+    }
+    public void ToggleBulletType()
+    {
+        // Toggle between Normal and Physics bullet types
+        type = (type == bulletType.Normal) ? bulletType.Physics : bulletType.Normal;
+        initialBulletStats(); // Reinitialize stats based on the new type
+        setRBSStats();
+        Debug.Log("Bullet type switched to: " + type);
     }
 }

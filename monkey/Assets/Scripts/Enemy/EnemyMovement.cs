@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour,IDamgable
 {
     [SerializeField] private float moveSpeed = 2f;
-    [SerializeField] private float moveDistance = 0.8f;
+    [SerializeField] private float moveDistance = 0.2f;
     [SerializeField] private float moveChance = 0.5f;
     private AudioController audioController;
     private Vector2 startingPosition;

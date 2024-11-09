@@ -147,6 +147,18 @@ public class PlayerBehaviour : MonoBehaviour
         {
             bulletInst=Instantiate(bullet,bulletSpawnPoint.position,bulletSpawnPoint.rotation);
         }
+        if (Input.GetKeyDown(KeyCode.P) && bullet != null)
+        {
+            BulletBehaviour bulletBehaviour = bullet.GetComponent<BulletBehaviour>();
+            if (bulletBehaviour != null)
+            {
+                bulletBehaviour.ToggleBulletType();
+            }
+            else
+            {
+                Debug.LogError("BulletBehaviour component is missing on bullet!");
+            }
+        }
     }
 
     private void StartGame()
