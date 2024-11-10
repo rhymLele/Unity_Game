@@ -153,12 +153,23 @@ public class PlayerBehaviour : MonoBehaviour
     private void HandleShooting()
     {
         if (Input.GetKeyDown(KeyCode.K))
-        {           
+        {
+            bulletInst = Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+
             Sprite shootSprite = backgroundManager.GetPlayerShootSprite();
             if (shootSprite != null)
-            bulletInst=Instantiate(bullet,bulletSpawnPoint.position,bulletSpawnPoint.rotation);
+            {
+                GetComponent<SpriteRenderer>().sprite = shootSprite;
+            }
         }
-        
+        if (Input.GetKeyUp(KeyCode.K))
+        {
+            Sprite normalSprite = backgroundManager.GetPlayerNormalSprite();
+            if (normalSprite != null)
+            {
+                GetComponent<SpriteRenderer>().sprite = normalSprite;
+            }
+        }
     }
     void HandleBullet()
     {
@@ -167,16 +178,11 @@ public class PlayerBehaviour : MonoBehaviour
             BulletBehaviour bulletBehaviour = bullet.GetComponent<BulletBehaviour>();
             if (bulletBehaviour != null)
             {
-                GetComponent<SpriteRenderer>().sprite = shootSprite;
+                bulletBehaviour.ToggleBulletType();
             }
-        }
-        if (Input.GetKeyUp(KeyCode.K))
-        {
-            // Đặt lại sprite bình thường
-            Sprite normalSprite = backgroundManager.GetPlayerNormalSprite();
-            if (normalSprite != null)
+            else
             {
-                GetComponent<SpriteRenderer>().sprite = normalSprite;
+                Debug.LogError("BulletBehaviour component is missing on bullet!");
             }
         }
     }
