@@ -54,6 +54,15 @@ public class PlayerBehaviour : MonoBehaviour
         backgroundManager = FindObjectOfType<BackgroundManager>();
     }
 
+    void FixedUpdate()
+    {
+        if (isStarted && playerStatus)
+        {
+            moveInput = Input.GetAxis("Horizontal");
+            rb2d.velocity = new Vector2(moveInput * moveSpeed, rb2d.velocity.y);
+        }
+    }
+
     private void Update()
     {
         timer += Time.deltaTime;
@@ -85,11 +94,7 @@ public class PlayerBehaviour : MonoBehaviour
             }
         }
     }
-    private void RestartGame()
-    {
-        // Reload the scene to reset everything
-        SceneManager.LoadScene("NightScene");
-    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("enemy"))
@@ -171,7 +176,7 @@ public class PlayerBehaviour : MonoBehaviour
             }
         }
     }
-    void HandleBullet()
+    private void HandleBullet()
     {
         if (Input.GetKeyDown(KeyCode.P) && bullet != null)
         {
@@ -186,17 +191,6 @@ public class PlayerBehaviour : MonoBehaviour
             }
         }
     }
-
-    private void StartGame()
-    {
-        isStarted = true;
-        playerStatus = true;
-        startText.gameObject.SetActive(false);
-        rb2d.gravityScale = 4f;
-        scoreText.gameObject.SetActive(true);
-        //audioController.OnOffMusicBackground();
-    }
-
     private void HandleMovement()
     {
         if (moveInput < 0)
@@ -223,6 +217,34 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
+    private void StartGame()
+    {
+        isStarted = true;
+        playerStatus = true;
+        startText.gameObject.SetActive(false);
+        rb2d.gravityScale = 4f;
+        scoreText.gameObject.SetActive(true);
+        //audioController.OnOffMusicBackground();
+    }
+    private void RestartGame()
+    {
+        // Reload the scene to reset everything
+        SceneManager.LoadScene("NightScene");
+    }
+    private void EndGame()
+    {
+        //gameEnded = true;
+        playerStatus = false;
+        rb2d.gravityScale = 0f;
+        rb2d.velocity = Vector2.zero;
+        // gameOver.gameObject.SetActive(true);
+        scoreText.gameObject.SetActive(false);
+
+        PlayerPrefs.SetFloat("CurrentScore", topScore);
+        PlayerPrefs.Save();
+        SceneManager.LoadScene("Endgame");
+    }
+
     void EquipHat(GameObject player)
     {
         rb2d.gravityScale = 6f;
@@ -233,7 +255,6 @@ public class PlayerBehaviour : MonoBehaviour
         isEquipped = false;
         StartCoroutine(ReactivatePlayer(1f));
     }
-
     void EquipJet(GameObject player)
     {
         rb2d.gravityScale = 7f;
@@ -252,33 +273,11 @@ public class PlayerBehaviour : MonoBehaviour
         isEquipped = false;
         StartCoroutine(ReactivatePlayer(1.1f));
     }
-
-    void FixedUpdate()
-    {
-        if (isStarted && playerStatus)
-        {
-            moveInput = Input.GetAxis("Horizontal");
-            rb2d.velocity = new Vector2(moveInput * moveSpeed, rb2d.velocity.y);
-        }
-    }
-
     private IEnumerator ReactivatePlayer(float waitTime)
     {
 
         yield return new WaitForSeconds(waitTime);
         playerCollider.enabled = true;
     }
-    private void EndGame()
-    {
-        //gameEnded = true;
-        playerStatus = false;
-        rb2d.gravityScale = 0f;
-        rb2d.velocity = Vector2.zero;
-       // gameOver.gameObject.SetActive(true);
-        scoreText.gameObject.SetActive(false);
 
-        PlayerPrefs.SetFloat("CurrentScore", topScore);
-        PlayerPrefs.Save();
-        SceneManager.LoadScene("Endgame");
-    }
 }
