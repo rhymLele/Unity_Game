@@ -48,7 +48,6 @@ public class DestroyScript : MonoBehaviour
         {
             collision.gameObject.SetActive(false);
             Destroy(collision.gameObject);
-            RemoveAllEnemies();
             EquipItem();
         }
 
@@ -70,16 +69,6 @@ public class DestroyScript : MonoBehaviour
         yield return new WaitForSeconds(time);
         isEquipped = false;
         StartCoroutine(spawnEnemy());
-    }
-
-    void RemoveAllEnemies()
-    {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-
-        foreach (GameObject enemy in enemies)
-        {
-            Destroy(enemy);
-        }
     }
 
     private void SpawnWhitePlatformWithHat()

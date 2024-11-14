@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMovement : MonoBehaviour,IDamgable
+public class EnemyMovement : MonoBehaviour, IDamgable
 {
     [SerializeField] private float moveSpeed = 2f;
     [SerializeField] private float moveDistance = 0.2f;
@@ -13,12 +13,20 @@ public class EnemyMovement : MonoBehaviour,IDamgable
     private bool canMove;
     private int currentHealth;
 
+    private Rigidbody2D enemybd;
+    private Collider2D enemycl;
+
     public void Damage(int damage)
     {
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
-            Destroy(gameObject);
+            enemybd.gravityScale = 5f;
+            enemybd.velocity = Vector2.zero;
+            enemybd.AddForce(new Vector2(0, 10f), ForceMode2D.Impulse);
+            enemycl.enabled = false;
+
+            StartCoroutine(DestroyAfterDelay(1.5f));
         }
     }
 
@@ -27,16 +35,20 @@ public class EnemyMovement : MonoBehaviour,IDamgable
         startingPosition = transform.position;
         audioController = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioController>();
 
+        enemybd = GetComponent<Rigidbody2D>();
+        enemybd.gravityScale = 0f;
+        enemybd.velocity = Vector2.zero;
+        enemycl = GetComponent<Collider2D>();
+        enemycl.enabled = true;
+
         // Determine if this enemy can move based on the moveChance
         canMove = Random.value < moveChance;
+
         if (audioController != null && audioController.quaiClip != null)
         {
             audioController.PlaySFX(audioController.quaiClip);
         }
-        else
-        {
-            //Debug.LogError("quaiClip chưa được gán trong AudioController!");
-        }
+
         currentHealth = Random.Range(1, 3);
     }
 
@@ -54,5 +66,11 @@ public class EnemyMovement : MonoBehaviour,IDamgable
                 moveDirection *= -1;
             }
         }
+    }
+
+    private IEnumerator DestroyAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Destroy(gameObject); // Hủy đối tượng này
     }
 }
