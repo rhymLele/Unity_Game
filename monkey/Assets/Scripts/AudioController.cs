@@ -69,13 +69,16 @@ public class AudioController : MonoBehaviour
     {
         if (currentSceneName == "Menu" && scene.name == "NightScene")
         {
-            if (audioSources.Length > 0)
+            if (audioSources.Length > 0 && audioSources[0] != null)
                 audioSources[0].Stop();
         }
 
         currentSceneName = scene.name;
 
-        OnOffMusicBackground();
+        if (audioSources.Length > 0 && audioSources[0] != null)
+        {
+            OnOffMusicBackground();
+        }
     }
 
     public void Thietlapanluongnhacnen()

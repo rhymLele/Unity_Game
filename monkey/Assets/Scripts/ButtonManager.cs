@@ -47,8 +47,12 @@ public class ButtonManager : MonoBehaviour
         {
             audioController.PlayButtonClick();
         }
-        pauseMenu.SetActive(true);
-        Time.timeScale = 0;
+        if (pauseMenu != null)
+        {
+            bool isActive = pauseMenu.activeSelf;
+            pauseMenu.SetActive(!isActive); 
+            Time.timeScale = isActive ? 1 : 0;
+        }
     }
     public void Resume()
     {
