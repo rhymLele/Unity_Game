@@ -9,6 +9,11 @@ public class ButtonSetting : MonoBehaviour
     // This method will be called when the Setting button is clicked
     public void OnSettingButtonClick()
     {
+        AudioController audioController = FindObjectOfType<AudioController>();
+        if (audioController != null)
+        {
+            audioController.PlayButtonClick();
+        }
         // Toggle the menu panel visibility
         if (menuPanal != null)
         {
@@ -16,4 +21,5 @@ public class ButtonSetting : MonoBehaviour
             menuPanal.SetActive(!isActive);  // Show if hidden, hide if shown
         }
     }
+
 }

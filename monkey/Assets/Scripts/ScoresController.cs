@@ -7,6 +7,17 @@ public class ScoresController : MonoBehaviour
 {
     public void LoadLeaderboardScene()
     {
-        SceneManager.LoadScene("LoadLeaderboard");
+        AudioController audioController = FindObjectOfType<AudioController>();
+
+        if (audioController != null)
+        {
+
+            audioController.PlayButtonClickAndChangeScene("LoadLeaderboard");
+        }
+        else
+        {
+            SceneManager.LoadScene("LoadLeaderboard");
+        }
+
     }
 }

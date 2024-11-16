@@ -7,6 +7,17 @@ public class BackButtonController : MonoBehaviour
 {
     public void LoadMenuScene()
     {
-        SceneManager.LoadScene("Menu");
+        AudioController audioController = FindObjectOfType<AudioController>();
+
+        if (audioController != null)
+        {
+
+            audioController.PlayButtonClickAndChangeScene("Menu");
+        }
+        else
+        {
+            SceneManager.LoadScene("Menu");
+        }
+
     }
 }
