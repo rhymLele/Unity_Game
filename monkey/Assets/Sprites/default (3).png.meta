@@ -3935,10 +3935,10 @@ TextureImporter:
       name: default (3)_182
       rect:
         serializedVersion: 2
-        x: 435
-        y: 75
-        width: 57
-        height: 15
+        x: 419
+        y: 59
+        width: 90
+        height: 42
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

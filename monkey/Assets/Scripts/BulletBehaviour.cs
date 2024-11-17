@@ -17,7 +17,7 @@ public class BulletBehaviour : MonoBehaviour
     private AudioController audioController;
     SpriteRenderer spriteRenderer;
     public Sprite[] els;
-    private GameObject enemy;
+    private GameObject enemy,player;
     public float force = 5;
     public enum bulletType
     {
@@ -80,12 +80,19 @@ public class BulletBehaviour : MonoBehaviour
     private void AutoShoot()
     {
         enemy = GameObject.FindGameObjectWithTag("enemy");
-        if (enemy != null)
+        player = GameObject.FindGameObjectWithTag("Player");
+        if (enemy != null && !player)
         {
-            Vector3 direction = enemy.transform.position - transform.position;
-            rb.velocity = new Vector2(direction.x, direction.y).normalized * force;
-            float rot = Mathf.Atan2(-direction.y, -direction.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0, 0, rot + 90);
+            float distance=Vector2.Distance(enemy.transform.position, player.transform.position);
+            Debug.Log(distance);
+            if(distance <10)
+            {
+                Vector3 direction = enemy.transform.position - transform.position;
+                rb.velocity = new Vector2(direction.x, direction.y).normalized * force;
+                float rot = Mathf.Atan2(-direction.y, -direction.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.Euler(0, 0, rot + 90);
+            }    
+           
         }
     }
     private void SetDestroyTime()

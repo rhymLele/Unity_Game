@@ -2,36 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovePlatform : MonoBehaviour
+public class OffsetPlatform : MonoBehaviour
 {
     private Vector2 offset;
     [SerializeField] private float moveDistance = 3.0f;   // Distance to move the platform
     [SerializeField] private float speed = 2.5f;          // Speed of movement
     private bool moveRight = true;      // Direction control
-
-    void OnMouseDown()
-    {
-        // Calculate the offset between the mouse position and the platform's position
-        offset =(Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition)-(Vector2)transform.position;
-    }
-
-    void OnMouseDrag()
-    {
-       transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition)-offset;
-    }
-
-    
-
+    [SerializeField] private float minX = -6.5f;          // Minimum x boundary
+    [SerializeField] private float maxX = 6.5f;
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Check if the colliding object is the player
-        //if (collision.gameObject.CompareTag("Player"))
-        //{
-        //    // Toggle the direction each time the player touches the platform
-        //    moveRight = !moveRight;
-        //    // Start moving the platform
-        //    StartCoroutine(MovePlat());
-        //}
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            moveRight = !moveRight;
+            StartCoroutine(MovePlat());
+        }
         if (collision.gameObject.CompareTag("Player") && !DestroyScript.isEquipped)
         {
             Rigidbody2D playerRb = collision.gameObject.GetComponent<Rigidbody2D>();
@@ -41,15 +26,7 @@ public class MovePlatform : MonoBehaviour
                 if (playerRb.velocity.y <= 0)
                 {
                     playerRb.AddForce(Vector3.up * 400f);
-                    //if (audioController.jumpClip != null)
-                    //{
-                    //    audioController.PlaySFX(audioController.jumpClip);
-                    //}
                 }
-                /*else
-                {
-                    Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
-                } */
             }
         }
 
@@ -60,15 +37,29 @@ public class MovePlatform : MonoBehaviour
         Vector3 targetPosition;
 
         if (moveRight)
+        {
             targetPosition = transform.position + new Vector3(moveDistance, 0, 0); // Move right
+        }
         else
+        {
             targetPosition = transform.position - new Vector3(moveDistance, 0, 0); // Move left
+        }
+
+        // Ensure the target position is within bounds
+        targetPosition.x = Mathf.Clamp(targetPosition.x, minX, maxX);
 
         while (Vector3.Distance(transform.position, targetPosition) > 0.01f)
         {
             // Move towards the target position
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
             yield return null;
+        }
+
+        // Check if the platform reached the boundary and reverse direction if needed
+        if (transform.position.x <= minX || transform.position.x >= maxX)
+        {
+            moveRight = !moveRight;
+            StartCoroutine(MovePlat()); 
         }
     }
 

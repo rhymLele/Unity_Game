@@ -17,7 +17,6 @@ public class PlayerBehaviour : MonoBehaviour
     private GameObject bulletInst;
     public GameObject hatPre;
     public GameObject jetPre;
-
     private bool isStarted = false;
     private float topScore = 0f;
     private float highScore = 0f;
@@ -25,7 +24,7 @@ public class PlayerBehaviour : MonoBehaviour
     public Text startText;
     public Text gameOver;
     private bool isEquipped;
-
+    GameObject getJet;
     //private bool gameEnded = false;
 
     public GameObject[] platforms;
@@ -69,12 +68,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (playerStatus&&isStarted)
         {
             HandleMovement();
-            //if (timer > 1)
-            //{
-            //    timer = 0;
-                HandleShooting();
-            //}
- 
+            HandleShooting();
             HandleBullet();
             if (!isEquipped)
             {
@@ -151,7 +145,11 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
-            bulletInst=Instantiate(bullet,bulletSpawnPoint.position,bulletSpawnPoint.rotation);
+            if (timer > 0.3)
+            {
+                timer = 0;
+                bulletInst = Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+            }
         }
         
     }
@@ -222,45 +220,48 @@ public class PlayerBehaviour : MonoBehaviour
     {
         rb2d.gravityScale = 7f;
         playerCollider.enabled = false;
-        GameObject getJet = Instantiate(jetPre, player.transform);
-        float offsetX = 0.2f;
-        if (leftRight == -1)
-        {
-            getJet.transform.localPosition = new Vector3(-offsetX, 0, 0);
-        }
-        else
-        {
-            getJet.transform.localPosition = new Vector3(offsetX, 0, 0);
-        }
+        getJet = Instantiate(jetPre, player.transform);
+        UpdateJetPosition(getJet); // Đặt vị trí ban đầu
         Destroy(getJet, 1.1f);
         isEquipped = false;
         StartCoroutine(ReactivatePlayer(1.1f));
     }
-
+    void UpdateJetPosition(GameObject Jret)
+    {
+        float offsetX = 0.2f;
+        if (Jret != null)
+        {
+            if (leftRight == -1)
+            {
+                Jret.transform.localPosition = new Vector3(-offsetX, 0, 0);
+            }
+            else
+            {
+                Jret.transform.localPosition = new Vector3(offsetX, 0, 0);
+            }
+        }
+    }
     void FixedUpdate()
     {
         if (isStarted && playerStatus)
         {
             moveInput = Input.GetAxis("Horizontal");
             rb2d.velocity = new Vector2(moveInput * moveSpeed, rb2d.velocity.y);
+            if(getJet != null)     UpdateJetPosition(getJet);
         }
     }
 
     private IEnumerator ReactivatePlayer(float waitTime)
     {
-
         yield return new WaitForSeconds(waitTime);
         playerCollider.enabled = true;
     }
     private void EndGame()
     {
-        //gameEnded = true;
         playerStatus = false;
         rb2d.gravityScale = 0f;
         rb2d.velocity = Vector2.zero;
-       // gameOver.gameObject.SetActive(true);
         scoreText.gameObject.SetActive(false);
-
         PlayerPrefs.SetFloat("CurrentScore", topScore);
         PlayerPrefs.Save();
         SceneManager.LoadScene("Endgame");

@@ -20,7 +20,7 @@ public class BackgroundManager : MonoBehaviour
             spritePlayer = player.GetComponent<SpriteRenderer>();
         }
         randomIndex = Random.Range(0, backgrounds.Length);
-        Debug.Log(randomIndex);
+        Debug.Log("Map"+randomIndex);
         spriteRenderer.sprite = backgrounds[randomIndex];
         spritePlayer.sprite = playerskin[randomIndex];
     }
