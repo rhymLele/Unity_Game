@@ -28,6 +28,7 @@ public class PlayerBehaviour : MonoBehaviour
     public Text gameOver;
     private bool isEquipped;
     GameObject getJet;
+    BackgroundManager backgroundManager;
     //private bool gameEnded = false;
 
     public GameObject[] platforms;
@@ -52,13 +53,13 @@ public class PlayerBehaviour : MonoBehaviour
 
         backgroundManager = FindObjectOfType<BackgroundManager>();
     }
-
     void FixedUpdate()
     {
         if (isStarted && playerStatus)
         {
             moveInput = Input.GetAxis("Horizontal");
             rb2d.velocity = new Vector2(moveInput * moveSpeed, rb2d.velocity.y);
+            if (getJet != null) UpdateJetPosition(getJet);
         }
     }
 
@@ -264,30 +265,11 @@ public class PlayerBehaviour : MonoBehaviour
             }
         }
     }
-    void FixedUpdate()
-    {
-        if (isStarted && playerStatus)
-        {
-            moveInput = Input.GetAxis("Horizontal");
-            rb2d.velocity = new Vector2(moveInput * moveSpeed, rb2d.velocity.y);
-            if(getJet != null)     UpdateJetPosition(getJet);
-        }
-    }
-
+    
     private IEnumerator ReactivatePlayer(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
         playerCollider.enabled = true;
-    }
-    private void EndGame()
-    {
-        playerStatus = false;
-        rb2d.gravityScale = 0f;
-        rb2d.velocity = Vector2.zero;
-        scoreText.gameObject.SetActive(false);
-        PlayerPrefs.SetFloat("CurrentScore", topScore);
-        PlayerPrefs.Save();
-        SceneManager.LoadScene("Endgame");
     }
 
 }
