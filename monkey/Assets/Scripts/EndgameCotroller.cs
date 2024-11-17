@@ -107,7 +107,18 @@ public class EndgameController : MonoBehaviour
     public void ReturnToMenu()
     {
         //SaveScore();
-        SceneManager.LoadScene("Menu");
+        AudioController audioController = FindObjectOfType<AudioController>();
+
+        if (audioController != null)
+        {
+
+            audioController.PlayButtonClickAndChangeScene("Menu");
+        }
+        else
+        {
+            SceneManager.LoadScene("Menu");
+        }
+
     }
 
     // Lưu điểm và tên vào leaderboard
@@ -129,6 +140,12 @@ public class EndgameController : MonoBehaviour
         }
         SaveLeaderboard();
         DisplayHighScore();
+        AudioController audioController = FindObjectOfType<AudioController>();
+
+        if (audioController != null)
+        {
+            audioController.PlayButtonClick();
+        }
 
         //nameInput.gameObject.SetActive(false);
         //saveButton.gameObject.SetActive(false);

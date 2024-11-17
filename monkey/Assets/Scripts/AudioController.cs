@@ -8,16 +8,19 @@ public class AudioController : MonoBehaviour
 {
     AudioSource[] audioSources;
     public Toggle NhacNen, SFXToggle;
-    public Slider AmluongNNen, AmluongSFX; 
+    public Slider AmluongNNen, AmluongSFX;
     public AudioSource vfxAudioSource;
     public AudioClip jumpClip, gameoverClip, loxoClip, mubayClip, quaiClip, baloClip, bandanClip, buttonClip;
 
+    private string currentSceneName;
 
     void Start()
     {
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
         audioSources = GetComponents<AudioSource>();
         if (audioSources.Length == 0) return;
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
 
         int MusicBackground = PlayerPrefs.GetInt("MusicBackground", 1);
         if (NhacNen != null) NhacNen.isOn = (MusicBackground == 1);
@@ -51,9 +54,30 @@ public class AudioController : MonoBehaviour
 
         if (NhacNen != null)
             NhacNen.onValueChanged.AddListener(delegate { OnOffMusicBackground(); });
+
         if (vfxAudioSource == null)
         {
             vfxAudioSource = gameObject.AddComponent<AudioSource>();
+        }
+
+
+        currentSceneName = SceneManager.GetActiveScene().name;
+    }
+
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (currentSceneName == "Menu" && scene.name == "NightScene")
+        {
+            if (audioSources.Length > 0 && audioSources[0] != null)
+                audioSources[0].Stop();
+        }
+
+        currentSceneName = scene.name;
+
+        if (audioSources.Length > 0 && audioSources[0] != null)
+        {
+            OnOffMusicBackground();
         }
     }
 
@@ -74,10 +98,8 @@ public class AudioController : MonoBehaviour
             vfxAudioSource.volume = AmluongSFX.value;
             PlayerPrefs.SetFloat("AmluongSFX", AmluongSFX.value);
             PlayerPrefs.Save();
-
         }
     }
-
 
     public void OnOffMusicBackground()
     {
@@ -85,7 +107,7 @@ public class AudioController : MonoBehaviour
 
         if (NhacNen != null && NhacNen.isOn)
         {
-            audioSources[0].Play();
+            if (!audioSources[0].isPlaying) audioSources[0].Play();
             PlayerPrefs.SetInt("MusicBackground", 1);
         }
         else
@@ -112,20 +134,20 @@ public class AudioController : MonoBehaviour
     {
         HandleMouseScroll();
     }
+
     private void HandleMouseScroll()
     {
-        // Kiểm tra nếu con trỏ chuột đang ở trên Slider AmluongNNen
         if (IsMouseOverSlider(AmluongNNen))
         {
-            float scrollAmount = Input.mouseScrollDelta.y * 0.1f; // Điều chỉnh tốc độ cuộn
-            AmluongNNen.value = Mathf.Clamp(AmluongNNen.value + scrollAmount, 0f, 1f); // Giới hạn giá trị giữa 0 và 1
-            Thietlapanluongnhacnen(); // Gọi hàm cập nhật âm lượng
+            float scrollAmount = Input.mouseScrollDelta.y * 0.1f;
+            AmluongNNen.value = Mathf.Clamp(AmluongNNen.value + scrollAmount, 0f, 1f);
+            Thietlapanluongnhacnen();
         }
         else if (IsMouseOverSlider(AmluongSFX))
         {
-            float scrollAmount = Input.mouseScrollDelta.y * 0.1f; // Điều chỉnh tốc độ cuộn
-            AmluongSFX.value = Mathf.Clamp(AmluongSFX.value + scrollAmount, 0f, 1f); // Giới hạn giá trị giữa 0 và 1
-            ThietlapanluongSFX(); // Gọi hàm cập nhật âm lượng SFX
+            float scrollAmount = Input.mouseScrollDelta.y * 0.1f;
+            AmluongSFX.value = Mathf.Clamp(AmluongSFX.value + scrollAmount, 0f, 1f);
+            ThietlapanluongSFX();
         }
     }
 
@@ -138,6 +160,7 @@ public class AudioController : MonoBehaviour
 
         return RectTransformUtility.RectangleContainsScreenPoint(sliderRect, localMousePos, Camera.main);
     }
+
     public void PlaySFX(AudioClip sfxclip)
     {
         if (sfxclip == null || vfxAudioSource.mute)
@@ -147,12 +170,20 @@ public class AudioController : MonoBehaviour
 
         vfxAudioSource.PlayOneShot(sfxclip);
     }
-
-    public void PlayButtonClickSound()
+    public void PlayButtonClick()
     {
         PlaySFX(buttonClip);
     }
+    public void PlayButtonClickAndChangeScene(string sceneName)
+    {
+        PlaySFX(buttonClip);
 
+        StartCoroutine(WaitAndLoadScene(sceneName, 0.5f));
+    }
 
-
+    private IEnumerator WaitAndLoadScene(string sceneName, float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        SceneManager.LoadScene(sceneName);
+    }
 }

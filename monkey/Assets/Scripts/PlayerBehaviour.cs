@@ -14,6 +14,9 @@ public class PlayerBehaviour : MonoBehaviour
     private float moveSpeed = 8f;
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform bulletSpawnPoint;
+    [SerializeField] private Sprite normalSprite;
+    [SerializeField] private Sprite shootSprite;
+    private SpriteRenderer spriteRenderer;
     private GameObject bulletInst;
     public GameObject hatPre;
     public GameObject jetPre;
@@ -36,8 +39,6 @@ public class PlayerBehaviour : MonoBehaviour
 
     void Start()
     {
-       
-
         playerStatus = true;
         playerCollider = GetComponent<Collider2D>();
         rb2d = GetComponent<Rigidbody2D>();
@@ -48,6 +49,17 @@ public class PlayerBehaviour : MonoBehaviour
         audioController = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioController>();
         highScore = PlayerPrefs.GetFloat("HighScore", 0f);
         isEquipped = false;
+
+        backgroundManager = FindObjectOfType<BackgroundManager>();
+    }
+
+    void FixedUpdate()
+    {
+        if (isStarted && playerStatus)
+        {
+            moveInput = Input.GetAxis("Horizontal");
+            rb2d.velocity = new Vector2(moveInput * moveSpeed, rb2d.velocity.y);
+        }
     }
 
     private void Update()
@@ -76,11 +88,7 @@ public class PlayerBehaviour : MonoBehaviour
             }
         }
     }
-    private void RestartGame()
-    {
-        // Reload the scene to reset everything
-        SceneManager.LoadScene("NightScene");
-    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("enemy"))
@@ -141,7 +149,7 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-        private void HandleShooting()
+    private void HandleShooting()
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
@@ -151,9 +159,8 @@ public class PlayerBehaviour : MonoBehaviour
                 bulletInst = Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
             }
         }
-        
     }
-    void HandleBullet()
+    private void HandleBullet()
     {
         if (Input.GetKeyDown(KeyCode.P) && bullet != null)
         {
@@ -168,17 +175,6 @@ public class PlayerBehaviour : MonoBehaviour
             }
         }
     }
-
-    private void StartGame()
-    {
-        isStarted = true;
-        playerStatus = true;
-        startText.gameObject.SetActive(false);
-        rb2d.gravityScale = 4f;
-        scoreText.gameObject.SetActive(true);
-        //audioController.OnOffMusicBackground();
-    }
-
     private void HandleMovement()
     {
         if (moveInput < 0)
@@ -205,6 +201,34 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
+    private void StartGame()
+    {
+        isStarted = true;
+        playerStatus = true;
+        startText.gameObject.SetActive(false);
+        rb2d.gravityScale = 4f;
+        scoreText.gameObject.SetActive(true);
+        //audioController.OnOffMusicBackground();
+    }
+    private void RestartGame()
+    {
+        // Reload the scene to reset everything
+        SceneManager.LoadScene("NightScene");
+    }
+    private void EndGame()
+    {
+        //gameEnded = true;
+        playerStatus = false;
+        rb2d.gravityScale = 0f;
+        rb2d.velocity = Vector2.zero;
+        // gameOver.gameObject.SetActive(true);
+        scoreText.gameObject.SetActive(false);
+
+        PlayerPrefs.SetFloat("CurrentScore", topScore);
+        PlayerPrefs.Save();
+        SceneManager.LoadScene("Endgame");
+    }
+
     void EquipHat(GameObject player)
     {
         rb2d.gravityScale = 6f;
@@ -215,7 +239,6 @@ public class PlayerBehaviour : MonoBehaviour
         isEquipped = false;
         StartCoroutine(ReactivatePlayer(1f));
     }
-
     void EquipJet(GameObject player)
     {
         rb2d.gravityScale = 7f;
@@ -266,4 +289,5 @@ public class PlayerBehaviour : MonoBehaviour
         PlayerPrefs.Save();
         SceneManager.LoadScene("Endgame");
     }
+
 }
