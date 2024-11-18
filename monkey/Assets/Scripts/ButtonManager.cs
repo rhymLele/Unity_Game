@@ -50,8 +50,20 @@ public class ButtonManager : MonoBehaviour
         if (pauseMenu != null)
         {
             bool isActive = pauseMenu.activeSelf;
-            pauseMenu.SetActive(!isActive); 
-            Time.timeScale = isActive ? 1 : 0;
+            pauseMenu.SetActive(!isActive);
+            // Cập nhật trạng thái Time.timeScale dựa trên trạng thái của pauseMenu
+            if (pauseMenu.activeSelf)
+            {
+                Time.timeScale = 0; // Tạm dừng game
+                Debug.Log("Game paused, Time.timeScale set to 0");
+            }
+            else
+            {
+                Time.timeScale = 1; // Tiếp tục game
+                Debug.Log("Game resumed, Time.timeScale set to 1");
+            }
+
+            Debug.Log("Pause Menu new state: " + pauseMenu.activeSelf);
         }
     }
     public void Resume()
