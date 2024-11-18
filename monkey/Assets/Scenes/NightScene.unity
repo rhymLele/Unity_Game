@@ -1616,7 +1616,7 @@ MonoBehaviour:
   gameoverClip: {fileID: 8300000, guid: 4a137ab32aab9bd49a9801adc88d7e94, type: 3}
   loxoClip: {fileID: 8300000, guid: 584bd349dd9382749995dcd6f60e8f1d, type: 3}
   mubayClip: {fileID: 8300000, guid: 0d2d6345ea7dc514e91a771d91ada16c, type: 3}
-  quaiClip: {fileID: 8300000, guid: d3023e0a1b81d5f488547049e6c79215, type: 3}
+  quaiClip: {fileID: 8300000, guid: 219153282b16c414a9ac37354c58ee41, type: 3}
   baloClip: {fileID: 8300000, guid: 7816ae2f524c43b45aa9033b5239b1c1, type: 3}
   bandanClip: {fileID: 8300000, guid: fb9cd36cfffcbbc48bf6a9d59e7f29a7, type: 3}
   buttonClip: {fileID: 8300000, guid: 5390f1e47ab7701428f33e7b8ba7dcfb, type: 3}
