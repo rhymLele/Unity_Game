@@ -28,7 +28,9 @@ public class PlayerBehaviour : MonoBehaviour
     public Text gameOver;
     private bool isEquipped;
     GameObject getJet;
-    BackgroundManager backgroundManager;
+
+    private BackgroundManager backgroundManager;
+
     //private bool gameEnded = false;
 
     public GameObject[] platforms;
@@ -71,10 +73,6 @@ public class PlayerBehaviour : MonoBehaviour
             if (playerStatus==true)
             {
                 StartGame();
-            }
-            else if (playerStatus==false)
-            {
-                RestartGame();
             }
 
         }
@@ -158,9 +156,25 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 timer = 0;
                 bulletInst = Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+
+                Sprite shootSprite = backgroundManager.GetPlayerShootSprite();
+                if (shootSprite != null)
+                    bulletInst = Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+                {
+                    GetComponent<SpriteRenderer>().sprite = shootSprite;
+                }
+            }
+        }
+        if (Input.GetKeyUp(KeyCode.K))
+        {
+            Sprite normalSprite = backgroundManager.GetPlayerNormalSprite();
+            if (normalSprite != null)
+            {
+                GetComponent<SpriteRenderer>().sprite = normalSprite;
             }
         }
     }
+
     private void HandleBullet()
     {
         if (Input.GetKeyDown(KeyCode.P) && bullet != null)
@@ -210,11 +224,6 @@ public class PlayerBehaviour : MonoBehaviour
         rb2d.gravityScale = 4f;
         scoreText.gameObject.SetActive(true);
         //audioController.OnOffMusicBackground();
-    }
-    private void RestartGame()
-    {
-        // Reload the scene to reset everything
-        SceneManager.LoadScene("NightScene");
     }
     private void EndGame()
     {

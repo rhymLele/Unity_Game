@@ -46,7 +46,7 @@ public class EndgameController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space)
         ){
-            SceneManager.LoadScene("NightScene");
+            SceneManager.LoadScene(ButtonSetting.selectedMode);
         }
     }
     private string GetLastPlayerNameOrDefault()
