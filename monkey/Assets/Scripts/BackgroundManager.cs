@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static BulletBehaviour;
 
 public class BackgroundManager : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class BackgroundManager : MonoBehaviour
     private SpriteRenderer spriteRenderer,spritePlayer,spriteBullet;
     public static int randomIndex;
     private GameObject player;
+    private BulletBehaviour bulletBehaviour;
+    [SerializeField] private GameObject bullet;
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -23,6 +26,20 @@ public class BackgroundManager : MonoBehaviour
         Debug.Log("Map"+randomIndex);
         spriteRenderer.sprite = backgrounds[randomIndex];
         spritePlayer.sprite = playerskin[randomIndex];
+        bulletBehaviour = bullet.GetComponent<BulletBehaviour>();
+        if (bulletBehaviour != null)
+        {
+            if (randomIndex == 1 || randomIndex == 2 || randomIndex == 3)
+            {
+                bulletBehaviour.ToggleBulletType(bulletType.Normal);
+            }
+            else
+            {
+                bulletBehaviour.ToggleBulletType(bulletType.Physics);
+            }
+        }
+            
+      
     }
 
     public Sprite GetPlayerNormalSprite()

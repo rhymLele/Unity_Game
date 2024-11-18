@@ -177,18 +177,18 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void HandleBullet()
     {
-        if (Input.GetKeyDown(KeyCode.P) && bullet != null)
-        {
-            BulletBehaviour bulletBehaviour = bullet.GetComponent<BulletBehaviour>();
-            if (bulletBehaviour != null)
-            {
-                bulletBehaviour.ToggleBulletType();
-            }
-            else
-            {
-                Debug.LogError("BulletBehaviour component is missing on bullet!");
-            }
-        }
+        //if (Input.GetKeyDown(KeyCode.P) && bullet != null)
+        //{
+        //    BulletBehaviour bulletBehaviour = bullet.GetComponent<BulletBehaviour>();
+        //    if (bulletBehaviour != null)
+        //    {
+        //        //bulletBehaviour.ToggleBulletType();
+        //    }
+        //    else
+        //    {
+        //        Debug.LogError("BulletBehaviour component is missing on bullet!");
+        //    }
+        //}
     }
     private void HandleMovement()
     {

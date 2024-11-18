@@ -20,18 +20,8 @@ public class MovePlatform : MonoBehaviour
        transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition)-offset;
     }
 
-    
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Check if the colliding object is the player
-        //if (collision.gameObject.CompareTag("Player"))
-        //{
-        //    // Toggle the direction each time the player touches the platform
-        //    moveRight = !moveRight;
-        //    // Start moving the platform
-        //    StartCoroutine(MovePlat());
-        //}
         if (collision.gameObject.CompareTag("Player") && !DestroyScript.isEquipped)
         {
             Rigidbody2D playerRb = collision.gameObject.GetComponent<Rigidbody2D>();

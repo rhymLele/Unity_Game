@@ -15,7 +15,6 @@ public class DestroyScript : MonoBehaviour
     [SerializeField] private GameObject[] enemyPrefabs;
 
     private int random;
-    //private int platformNum = 10;
     public static bool isEquipped;
 
     private int currentEnemyCount = 0;
