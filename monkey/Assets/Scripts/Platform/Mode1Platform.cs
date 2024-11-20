@@ -60,10 +60,10 @@ public class Mode1Platform : MonoBehaviour
                 break;
             case 2:
                 //case 5:
-                //Instantiate(move_platformprefab, new Vector2(Random.Range(-6f, 6f), player.transform.position.y + (3.5f + Random.Range(0f, 0.5f))), Quaternion.identity);
+                Instantiate(move_platformprefab, new Vector2(Random.Range(-6f, 6f), player.transform.position.y + (3.5f + Random.Range(0f, 0.5f))), Quaternion.identity);
                 break;
             case 5:
-                //Instantiate(move_platformprefab, new Vector2(Random.Range(-6f, 6f), player.transform.position.y + (3.5f + Random.Range(0f, 0.5f))), Quaternion.identity);
+                Instantiate(move_platformprefab, new Vector2(Random.Range(-6f, 6f), player.transform.position.y + (3.5f + Random.Range(0f, 0.5f))), Quaternion.identity);
 
                 break;
             default:

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static BulletBehaviour;
 
 public class BackgroundManager : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class BackgroundManager : MonoBehaviour
     private SpriteRenderer spriteRenderer,spritePlayer,spriteBullet;
     public static int randomIndex;
     private GameObject player;
+    private BulletBehaviour bulletBehaviour;
+    [SerializeField] private GameObject bullet;
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -20,10 +23,40 @@ public class BackgroundManager : MonoBehaviour
         }
 
         randomIndex = Random.Range(0, backgrounds.Length);
-        Debug.Log("Map"+randomIndex);
-        spriteRenderer.sprite = backgrounds[randomIndex];
-        spritePlayer.sprite = playerskin[randomIndex];
+        Debug.Log("Map" + randomIndex);
+        //spriteRenderer.sprite = backgrounds[randomIndex];
+        //spritePlayer.sprite = playerskin[randomIndex];
+
+        if (randomIndex >= 0 && randomIndex < backgrounds.Length)
+        {
+            spriteRenderer.sprite = backgrounds[randomIndex];
+        }
+
+        if (randomIndex >= 0 && randomIndex < playerskin.Length)
+        {
+            spritePlayer.sprite = playerskin[randomIndex];
+        }
+
+        if (bullet == null)
+        {
+            //Debug.LogError("Bullet has not been assigned in the Inspector.");
+            return; // Dừng lại nếu bullet chưa được gán
+        }
+
+        bulletBehaviour = bullet.GetComponent<BulletBehaviour>();
+        if (bulletBehaviour != null)
+        {
+            if (randomIndex == 1 || randomIndex == 2 || randomIndex == 3)
+            {
+                bulletBehaviour.ToggleBulletType(bulletType.Normal);
+            }
+            else
+            {
+                bulletBehaviour.ToggleBulletType(bulletType.Physics);
+            }
+        }
     }
+
 
     public Sprite GetPlayerNormalSprite()
     {

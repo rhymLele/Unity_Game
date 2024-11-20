@@ -10,6 +10,13 @@ public class OffsetPlatform : MonoBehaviour
     private bool moveRight = true;      // Direction control
     [SerializeField] private float minX = -6.5f;          // Minimum x boundary
     [SerializeField] private float maxX = 6.5f;
+    private AudioController audioController;
+    // Start is called before the first frame update
+    void Start()
+    {
+        audioController = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioController>();
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -26,6 +33,10 @@ public class OffsetPlatform : MonoBehaviour
                 if (playerRb.velocity.y <= 0)
                 {
                     playerRb.AddForce(Vector3.up * 400f);
+                    if (audioController.jumpClip != null)
+                    {
+                        audioController.PlaySFX(audioController.jumpClip);
+                    }
                 }
             }
         }

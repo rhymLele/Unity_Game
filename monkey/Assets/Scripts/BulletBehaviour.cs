@@ -77,7 +77,7 @@ public class BulletBehaviour : MonoBehaviour
         {
             rb.gravityScale = 0f; // No gravity for normal bullet
             spriteRenderer.sprite = els[1];
-            AutoShoot();
+            //AutoShoot();
         }
     }
 
@@ -134,10 +134,11 @@ public class BulletBehaviour : MonoBehaviour
         initialBulletStats(); // Initialize stats based on the new type
     }
 
-    public void ToggleBulletType()
+    public void ToggleBulletType(bulletType newType)
     {
         // Toggle between Normal and Physics bullet types
-        type = (type == bulletType.Normal) ? bulletType.Physics : bulletType.Normal;
+        //type = (type == bulletType.Normal) ? bulletType.Physics : bulletType.Normal;
+        type=newType;
         initialBulletStats(); // Reinitialize stats based on the new type
         setRBSStats();
         Debug.Log("Bullet type switched to: " + type);
