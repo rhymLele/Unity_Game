@@ -5,21 +5,46 @@ using UnityEngine;
 public class MovePlatform : MonoBehaviour
 {
     private Vector2 offset;
-    [SerializeField] private float moveDistance = 3.0f;   // Distance to move the platform
-    [SerializeField] private float speed = 2.5f;          // Speed of movement
-    private bool moveRight = true;      // Direction control
-
+    private float dragTimer = 0f;       // Timer to track drag time
+    private bool isDragging = false;   // Flag to track if dragging
+    SpriteRenderer sprite;
+    Color color;
+    private void Start()
+    {
+        sprite = GetComponent<SpriteRenderer>();
+        color=sprite.color;
+    }
     void OnMouseDown()
     {
+
         // Calculate the offset between the mouse position and the platform's position
         offset =(Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition)-(Vector2)transform.position;
+        isDragging = true; // Start dragging
+        dragTimer = 0f;    // Reset drag timer
     }
 
     void OnMouseDrag()
     {
-       transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition)-offset;
+        if (isDragging)
+        {
+            transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - offset;
+            dragTimer += Time.deltaTime;
+            if(dragTimer > 3f)
+            {
+                color.a -= 0.01f;
+                sprite.color = color;
+                if(color.a<=0.1f)
+                Destroy(gameObject);
+            }
+        }
+        
     }
-
+    void OnMouseUp()
+    {
+        // Stop dragging and reset timer
+        isDragging = false;
+        dragTimer = 0f;
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player") && !DestroyScript.isEquipped)
@@ -45,21 +70,6 @@ public class MovePlatform : MonoBehaviour
 
     }
 
-    private IEnumerator MovePlat()
-    {
-        Vector3 targetPosition;
-
-        if (moveRight)
-            targetPosition = transform.position + new Vector3(moveDistance, 0, 0); // Move right
-        else
-            targetPosition = transform.position - new Vector3(moveDistance, 0, 0); // Move left
-
-        while (Vector3.Distance(transform.position, targetPosition) > 0.01f)
-        {
-            // Move towards the target position
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
-            yield return null;
-        }
-    }
+ 
 
 }
