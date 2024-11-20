@@ -7,8 +7,14 @@ public class ButtonSetting : MonoBehaviour
 {
     public GameObject menuPanal;  // Reference to the menu panel
 
-    public Text gamemode;
+    public Text gamemode;  
     public static string selectedMode = "NightScene";
+    public static string getMode = "Normal";
+
+    private void Start()
+    {
+        gamemode.text = "Gamemode: " + getMode;
+    }
     // This method will be called when the Setting button is clicked
     public void OnSettingButtonClick()
     {
@@ -43,17 +49,20 @@ public class ButtonSetting : MonoBehaviour
     public void setNormalMode()
     {
         selectedMode = "NightScene";
-        gamemode.text = "Gamemode: Normal";
+        getMode = "Normal";
+        gamemode.text = "Gamemode: " + getMode;
     }
 
     public void setMode1()
     {
         selectedMode = "Mode1Scene";
-        gamemode.text = "Gamemode: Mode1";
+        getMode = "Mode1";
+        gamemode.text = "Gamemode: " + getMode;
     }
     public void setMode2()
     {
         selectedMode = "Mode2Scene";
-        gamemode.text = "Gamemode: Mode2";
+        getMode = "Mode2";
+        gamemode.text = "Gamemode: " + getMode;
     }
 }

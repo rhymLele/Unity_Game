@@ -3613,6 +3613,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4391121661217776008, guid: a915ab5475384a546bea79115cc53856, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4532706633842883334, guid: a915ab5475384a546bea79115cc53856, type: 3}
       propertyPath: m_Name
       value: Gametext
