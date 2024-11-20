@@ -5,10 +5,16 @@ using UnityEngine;
 public class Break_PlatScript : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
+    private AudioController audioController;
+    // Start is called before the first frame update
+
+
+    
 
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>(); // Lấy SpriteRenderer của platform
+        audioController = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioController>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -20,7 +26,11 @@ public class Break_PlatScript : MonoBehaviour
             if (playerRb.velocity.y <= 0)
             {
                 playerRb.AddForce(Vector3.up * 400f);
-                StartCoroutine(FadeOutAndDestroy()); // Bắt đầu coroutine để mờ dần và biến mất
+                StartCoroutine(FadeOutAndDestroy());
+                if (audioController.jumpClip != null)
+                {
+                    audioController.PlaySFX(audioController.jumpClip);
+                }// Bắt đầu coroutine để mờ dần và biến mất
             }
         }
     }

@@ -9,10 +9,12 @@ public class MovePlatform : MonoBehaviour
     private bool isDragging = false;   // Flag to track if dragging
     SpriteRenderer sprite;
     Color color;
+    private AudioController audioController;
     private void Start()
     {
         sprite = GetComponent<SpriteRenderer>();
         color=sprite.color;
+        audioController = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioController>();
     }
     void OnMouseDown()
     {
@@ -56,10 +58,10 @@ public class MovePlatform : MonoBehaviour
                 if (playerRb.velocity.y <= 0)
                 {
                     playerRb.AddForce(Vector3.up * 400f);
-                    //if (audioController.jumpClip != null)
-                    //{
-                    //    audioController.PlaySFX(audioController.jumpClip);
-                    //}
+                    if (audioController.jumpClip != null)
+                    {
+                        audioController.PlaySFX(audioController.jumpClip);
+                    }
                 }
                 /*else
                 {
