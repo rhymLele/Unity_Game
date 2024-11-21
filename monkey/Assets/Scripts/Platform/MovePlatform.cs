@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MovePlatform : MonoBehaviour
 {
     private Vector2 offset;
-    private float dragTimer = 0f;       // Timer to track drag time
-    private bool isDragging = false;   // Flag to track if dragging
+    private float dragTimer = 0f;
+    private bool isDragging = false;
     SpriteRenderer sprite;
     Color color;
     private AudioController audioController;
@@ -18,11 +16,9 @@ public class MovePlatform : MonoBehaviour
     }
     void OnMouseDown()
     {
-
-        // Calculate the offset between the mouse position and the platform's position
         offset =(Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition)-(Vector2)transform.position;
-        isDragging = true; // Start dragging
-        dragTimer = 0f;    // Reset drag timer
+        isDragging = true;
+        dragTimer = 0f;
     }
 
     void OnMouseDrag()
@@ -43,7 +39,6 @@ public class MovePlatform : MonoBehaviour
     }
     void OnMouseUp()
     {
-        // Stop dragging and reset timer
         isDragging = false;
         dragTimer = 0f;
     }
@@ -63,10 +58,6 @@ public class MovePlatform : MonoBehaviour
                         audioController.PlaySFX(audioController.jumpClip);
                     }
                 }
-                /*else
-                {
-                    Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
-                } */
             }
         }
 

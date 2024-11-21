@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class HatPickup : MonoBehaviour
 {
@@ -33,13 +32,10 @@ public class HatPickup : MonoBehaviour
 
     private void FlyUp(Rigidbody2D playerRb)
     {
-        // Reset vertical velocity to ensure upward force is effective
         if (playerRb.velocity.y < 0)
         {
-            playerRb.velocity = new Vector2(playerRb.velocity.x, 0); // Reset vertical velocity if falling
+            playerRb.velocity = new Vector2(playerRb.velocity.x, 0);
         }
-
-        // Apply upward force
         playerRb.AddForce(Vector2.up * 700f);
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -24,7 +23,6 @@ public class EndgameController : MonoBehaviour
 
         LoadLeaderboard();
 
-        // Hiển thị điểm hiện tại và high score
         scoreText.text = "Your Score: " + currentScore;
         DisplayHighScore();
 
@@ -46,9 +44,26 @@ public class EndgameController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space)
         ){
-            SceneManager.LoadScene(ButtonSetting.selectedMode);
+            SceneManager.LoadScene(ButtonSetting.selectedScene);
         }
     }
+    public void returnMenu()
+    {
+        AudioController audioController = FindObjectOfType<AudioController>();
+
+        if (audioController != null)
+        {
+
+            audioController.PlayButtonClickAndChangeScene("Menu");
+        }
+        else
+        {
+            SceneManager.LoadScene("Menu");
+        }
+
+        Time.timeScale = 1;
+    }
+
     private string GetLastPlayerNameOrDefault()
     {
         string lastPlayerName = PlayerPrefs.GetString("LastPlayerName", "");
@@ -64,7 +79,6 @@ public class EndgameController : MonoBehaviour
         }
         return "Player";
     }
-    // Hiển thị điểm cao nhất từ leaderboard
     private void DisplayHighScore()
     {
         if (leaderboard.Count > 0)
@@ -77,8 +91,6 @@ public class EndgameController : MonoBehaviour
             highScoreText.text = "High Score: None";
         }
     }
-
-    // Lưu leaderboard vào PlayerPrefs
     private void SaveLeaderboard()
     {
         for (int i = 0; i < leaderboard.Count; i++)
@@ -89,8 +101,6 @@ public class EndgameController : MonoBehaviour
         PlayerPrefs.SetInt("Leaderboard_Count", leaderboard.Count);
         PlayerPrefs.Save();
     }
-
-    // Tải leaderboard từ PlayerPrefs
     private void LoadLeaderboard()
     {
         leaderboard.Clear();
@@ -103,41 +113,20 @@ public class EndgameController : MonoBehaviour
             leaderboard.Add(new ScoreEntry { Name = name, Score = score });
         }
     }
-
-    public void ReturnToMenu()
-    {
-        //SaveScore();
-        AudioController audioController = FindObjectOfType<AudioController>();
-
-        if (audioController != null)
-        {
-
-            audioController.PlayButtonClickAndChangeScene("Menu");
-        }
-        else
-        {
-            SceneManager.LoadScene("Menu");
-        }
-
-    }
-
-    // Lưu điểm và tên vào leaderboard
     private void SaveScore()
     {
         string playerName = string.IsNullOrWhiteSpace(nameInput.text) ?
                         GetLastPlayerNameOrDefault() :
                         nameInput.text;
         PlayerPrefs.SetString("LastPlayerName", playerName);
-        // Thêm điểm mới vào leaderboard
         leaderboard.Add(new ScoreEntry { Name = playerName, Score = currentScore });
-
         leaderboard.Sort((a, b) => b.Score.CompareTo(a.Score));
 
-        // Giới hạn số mục trong leaderboard
         if (leaderboard.Count > MaxEntries)
         {
             leaderboard.RemoveAt(leaderboard.Count - 1);
         }
+
         SaveLeaderboard();
         DisplayHighScore();
         AudioController audioController = FindObjectOfType<AudioController>();
@@ -146,12 +135,8 @@ public class EndgameController : MonoBehaviour
         {
             audioController.PlayButtonClick();
         }
-
-        //nameInput.gameObject.SetActive(false);
-        //saveButton.gameObject.SetActive(false);
     }
 
-    // Lớp phụ để chứa điểm và tên người chơi
     [System.Serializable]
     public class ScoreEntry
     {

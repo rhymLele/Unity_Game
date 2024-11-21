@@ -8,7 +8,6 @@ public class Moving_PlatScript : MonoBehaviour
     private float leftLimit = -6f;
     private float rightLimit = 6f;
     private bool movingRight = true;
-    // Start is called before the first frame update
     void Start()
     {
         int checkSide = Random.Range(1, 3);
@@ -21,8 +20,6 @@ public class Moving_PlatScript : MonoBehaviour
             movingRight = true;
         }
     }
-
-    // Update is called once per frame
     void Update()
     {
         if (movingRight)

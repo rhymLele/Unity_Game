@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BulletBehaviour : MonoBehaviour
 {
@@ -70,14 +67,13 @@ public class BulletBehaviour : MonoBehaviour
     {
         if (type == bulletType.Physics)
         {
-            rb.gravityScale = 4f; // Gravity for physics bullet
+            rb.gravityScale = 4f;
             spriteRenderer.sprite = els[0];
         }
         else if (type == bulletType.Normal)
         {
-            rb.gravityScale = 0f; // No gravity for normal bullet
+            rb.gravityScale = 0f;
             spriteRenderer.sprite = els[1];
-            //AutoShoot();
         }
     }
 
@@ -117,7 +113,6 @@ public class BulletBehaviour : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Check if the bullet collided with an enemy
         if (other.CompareTag("enemy"))
         {
             IDamgable iDam = other.gameObject.GetComponent<IDamgable>();
@@ -128,18 +123,10 @@ public class BulletBehaviour : MonoBehaviour
         }
     }
 
-    public void SetBulletType(bulletType newType)
-    {
-        type = newType;
-        initialBulletStats(); // Initialize stats based on the new type
-    }
-
     public void ToggleBulletType(bulletType newType)
     {
-        // Toggle between Normal and Physics bullet types
-        //type = (type == bulletType.Normal) ? bulletType.Physics : bulletType.Normal;
         type=newType;
-        initialBulletStats(); // Reinitialize stats based on the new type
+        initialBulletStats();
         setRBSStats();
         Debug.Log("Bullet type switched to: " + type);
     }

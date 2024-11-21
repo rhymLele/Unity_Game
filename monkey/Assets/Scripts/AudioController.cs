@@ -16,7 +16,6 @@ public class AudioController : MonoBehaviour
 
     void Start()
     {
-        //DontDestroyOnLoad(gameObject);
         audioSources = GetComponents<AudioSource>();
         if (audioSources.Length == 0) return;
 

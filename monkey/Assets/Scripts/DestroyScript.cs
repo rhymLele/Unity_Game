@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DestroyScript : MonoBehaviour
@@ -35,12 +34,8 @@ public class DestroyScript : MonoBehaviour
         if (collision.CompareTag("platform") || collision.CompareTag("bouncePlatform") ||
             collision.CompareTag("movePlatform"))
         {
-            if (!isEquipped)
-            {
-                SpawnPlatforms(collision);
-                Destroy(collision.gameObject);
-
-            }
+            SpawnPlatforms(collision);
+            Destroy(collision.gameObject);
         }
 
         if (collision.CompareTag("hat") || collision.CompareTag("jetpack"))
@@ -60,7 +55,7 @@ public class DestroyScript : MonoBehaviour
     public void EquipItem()
     {
         isEquipped=true;
-        StartCoroutine(ResetEquipAfterTime(4f));
+        StartCoroutine(ResetEquipAfterTime(1f));
     }
 
     private IEnumerator ResetEquipAfterTime(float time)
@@ -116,10 +111,6 @@ public class DestroyScript : MonoBehaviour
                 if (!isEquipped)
                 {
                     StartCoroutine(spawnEnemy());
-                }
-                else
-                { 
-                
                 }
                 break;
             default:

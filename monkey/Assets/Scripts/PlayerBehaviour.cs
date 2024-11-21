@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -31,8 +28,6 @@ public class PlayerBehaviour : MonoBehaviour
 
     private BackgroundManager backgroundManager;
 
-    //private bool gameEnded = false;
-
     public GameObject[] platforms;
     private AudioController audioController;
     private bool playerStatus;
@@ -40,22 +35,11 @@ public class PlayerBehaviour : MonoBehaviour
     private int leftRight;
     private float timer=0;
 
-    void Start()
+    private void Start()
     {
-        playerStatus = true;
-        playerCollider = GetComponent<Collider2D>();
-        rb2d = GetComponent<Rigidbody2D>();
-        rb2d.gravityScale = 0f;
-        rb2d.velocity = Vector2.zero;
-        scoreText.gameObject.SetActive(false);
-        gameOver.gameObject.SetActive(false);
-        audioController = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioController>();
-        highScore = PlayerPrefs.GetFloat("HighScore", 0f);
-        isEquipped = false;
-
-        backgroundManager = FindObjectOfType<BackgroundManager>();
+        Initialized();
     }
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         if (isStarted && playerStatus)
         {
@@ -80,12 +64,27 @@ public class PlayerBehaviour : MonoBehaviour
         {
             HandleMovement();
             HandleShooting();
-            HandleBullet();
             if (!isEquipped)
             {
                 rb2d.gravityScale = 4f;
             }
         }
+    }
+
+    private void Initialized()
+    {
+        playerStatus = true;
+        playerCollider = GetComponent<Collider2D>();
+        rb2d = GetComponent<Rigidbody2D>();
+        rb2d.gravityScale = 0f;
+        rb2d.velocity = Vector2.zero;
+        scoreText.gameObject.SetActive(false);
+        gameOver.gameObject.SetActive(false);
+        audioController = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioController>();
+        highScore = PlayerPrefs.GetFloat("HighScore", 0f);
+        isEquipped = false;
+
+        backgroundManager = FindObjectOfType<BackgroundManager>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -129,7 +128,6 @@ public class PlayerBehaviour : MonoBehaviour
             if (!isEquipped)
             {
                 EquipHat(gameObject);
-                
             }
             else
             {
@@ -175,21 +173,6 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-    private void HandleBullet()
-    {
-        //if (Input.GetKeyDown(KeyCode.P) && bullet != null)
-        //{
-        //    BulletBehaviour bulletBehaviour = bullet.GetComponent<BulletBehaviour>();
-        //    if (bulletBehaviour != null)
-        //    {
-        //        //bulletBehaviour.ToggleBulletType();
-        //    }
-        //    else
-        //    {
-        //        Debug.LogError("BulletBehaviour component is missing on bullet!");
-        //    }
-        //}
-    }
     private void HandleMovement()
     {
         if (moveInput < 0)
@@ -223,15 +206,13 @@ public class PlayerBehaviour : MonoBehaviour
         startText.gameObject.SetActive(false);
         rb2d.gravityScale = 4f;
         scoreText.gameObject.SetActive(true);
-        //audioController.OnOffMusicBackground();
     }
+
     private void EndGame()
     {
-        //gameEnded = true;
         playerStatus = false;
         rb2d.gravityScale = 0f;
         rb2d.velocity = Vector2.zero;
-        // gameOver.gameObject.SetActive(true);
         scoreText.gameObject.SetActive(false);
 
         PlayerPrefs.SetFloat("CurrentScore", topScore);

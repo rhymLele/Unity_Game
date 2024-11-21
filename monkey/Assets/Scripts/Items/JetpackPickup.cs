@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class JetpackPickUp : MonoBehaviour
 {
@@ -36,8 +34,6 @@ public class JetpackPickUp : MonoBehaviour
         {
             playerRb.velocity = new Vector2(playerRb.velocity.x, 0); 
         }
-
-        // Apply upward force
         playerRb.AddForce(Vector2.up * 900f);
     }
 }

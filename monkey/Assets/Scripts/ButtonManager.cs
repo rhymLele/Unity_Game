@@ -6,25 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class ButtonManager : MonoBehaviour
 {
-
     [SerializeField] GameObject pauseMenu;
-    
 
-    public void startGame()
-    {
-        AudioController audioController = FindObjectOfType<AudioController>();
-
-        if (audioController != null)
-        {
-
-            audioController.PlayButtonClickAndChangeScene("NightScene");
-        }
-        else
-        {
-            SceneManager.LoadScene("NightScene");
-        }
-        Time.timeScale = 1; 
-    }
     public void returnMenu()
     {
         AudioController audioController = FindObjectOfType<AudioController>();
@@ -53,15 +36,14 @@ public class ButtonManager : MonoBehaviour
         {
             bool isActive = pauseMenu.activeSelf;
             pauseMenu.SetActive(!isActive);
-            // Cập nhật trạng thái Time.timeScale dựa trên trạng thái của pauseMenu
             if (pauseMenu.activeSelf)
             {
-                Time.timeScale = 0; // Tạm dừng game
+                Time.timeScale = 0; 
                 Debug.Log("Game paused, Time.timeScale set to 0");
             }
             else
             {
-                Time.timeScale = 1; // Tiếp tục game
+                Time.timeScale = 1; 
                 Debug.Log("Game resumed, Time.timeScale set to 1");
             }
 

@@ -1,17 +1,15 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class OffsetPlatform : MonoBehaviour
 {
     private Vector2 offset;
-    [SerializeField] private float moveDistance = 3.0f;   // Distance to move the platform
-    [SerializeField] private float speed = 2.5f;          // Speed of movement
-    private bool moveRight = true;      // Direction control
-    [SerializeField] private float minX = -6.5f;          // Minimum x boundary
+    [SerializeField] private float moveDistance = 3.0f;
+    [SerializeField] private float speed = 2.5f;          
+    private bool moveRight = true;    
+    [SerializeField] private float minX = -6.5f;       
     [SerializeField] private float maxX = 6.5f;
     private AudioController audioController;
-    // Start is called before the first frame update
     void Start()
     {
         audioController = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioController>();
@@ -49,24 +47,21 @@ public class OffsetPlatform : MonoBehaviour
 
         if (moveRight)
         {
-            targetPosition = transform.position + new Vector3(moveDistance, 0, 0); // Move right
+            targetPosition = transform.position + new Vector3(moveDistance, 0, 0); 
         }
         else
         {
-            targetPosition = transform.position - new Vector3(moveDistance, 0, 0); // Move left
+            targetPosition = transform.position - new Vector3(moveDistance, 0, 0); 
         }
 
-        // Ensure the target position is within bounds
         targetPosition.x = Mathf.Clamp(targetPosition.x, minX, maxX);
 
         while (Vector3.Distance(transform.position, targetPosition) > 0.01f)
         {
-            // Move towards the target position
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
             yield return null;
         }
 
-        // Check if the platform reached the boundary and reverse direction if needed
         if (transform.position.x <= minX || transform.position.x >= maxX)
         {
             moveRight = !moveRight;

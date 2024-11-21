@@ -5,13 +5,10 @@ using UnityEngine;
 public class BounceScript : MonoBehaviour
 {
     private AudioController audioController;
-    // Start is called before the first frame update
     void Start()
     {
         audioController = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioController>();
     }
-
-    // Update is called once per frame
     void Update()
     {
 
@@ -33,10 +30,6 @@ public class BounceScript : MonoBehaviour
                         audioController.PlaySFX(audioController.jumpClip);
                     }
                 }
-                /*else
-                {
-                    Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
-                } */
             }
         }
     }

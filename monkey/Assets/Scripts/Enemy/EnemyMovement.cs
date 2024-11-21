@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour, IDamgable
@@ -41,7 +40,6 @@ public class EnemyMovement : MonoBehaviour, IDamgable
         enemycl = GetComponent<Collider2D>();
         enemycl.enabled = true;
 
-        // Determine if this enemy can move based on the moveChance
         canMove = Random.value < moveChance;
 
         if (audioController != null && audioController.quaiClip != null)
@@ -56,13 +54,10 @@ public class EnemyMovement : MonoBehaviour, IDamgable
     {
         if (canMove)
         {
-            // Move the enemy horizontally
             transform.Translate(Vector2.right * moveSpeed * moveDirection * Time.deltaTime);
 
-            // Check if the enemy has reached the move distance limit
             if (Vector2.Distance(startingPosition, transform.position) >= moveDistance)
             {
-                // Reverse direction
                 moveDirection *= -1;
             }
         }
@@ -71,6 +66,6 @@ public class EnemyMovement : MonoBehaviour, IDamgable
     private IEnumerator DestroyAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        Destroy(gameObject); // Hủy đối tượng này
+        Destroy(gameObject);
     }
 }

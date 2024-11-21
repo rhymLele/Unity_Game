@@ -69,7 +69,7 @@ public class BackgroundManager : MonoBehaviour
 
     public Sprite GetPlayerShootSprite()
     {
-        if(ButtonSetting.selectedMode == "NightScene")
+        if(ButtonSetting.selectedScene == "NightScene")
         {
             if (randomIndex >= 0 && randomIndex < playerShootSkin.Length)
             {
