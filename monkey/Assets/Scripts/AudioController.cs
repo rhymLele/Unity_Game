@@ -19,8 +19,6 @@ public class AudioController : MonoBehaviour
         audioSources = GetComponents<AudioSource>();
         if (audioSources.Length == 0) return;
 
-        SceneManager.sceneLoaded += OnSceneLoaded;
-
         int MusicBackground = PlayerPrefs.GetInt("MusicBackground", 1);
         if (NhacNen != null) NhacNen.isOn = (MusicBackground == 1);
 
@@ -47,6 +45,11 @@ public class AudioController : MonoBehaviour
         }
 
         int SFXEnabled = PlayerPrefs.GetInt("SFXEnabled", 1);
+        if (SFXToggle != null)
+        {
+            SFXToggle.isOn = (SFXEnabled == 1);
+            vfxAudioSource.mute = !SFXToggle.isOn;
+        }
         if (SFXToggle != null) SFXToggle.isOn = (SFXEnabled == 1);
         if (SFXToggle != null)
             SFXToggle.onValueChanged.AddListener(delegate { OnOffSFX(); });
@@ -66,19 +69,19 @@ public class AudioController : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (currentSceneName == "Menu" && scene.name == "NightScene")
-        {
-            if (audioSources.Length > 0 && audioSources[0] != null)
-                audioSources[0].Stop();
-        }
-
         currentSceneName = scene.name;
 
         if (audioSources.Length > 0 && audioSources[0] != null)
         {
-            OnOffMusicBackground();
+            OnOffMusicBackground();  
+        }
+
+        if (SFXToggle != null)
+        {
+            vfxAudioSource.mute = !SFXToggle.isOn; 
         }
     }
+
 
     public void Thietlapanluongnhacnen()
     {

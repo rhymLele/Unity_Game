@@ -65,13 +65,30 @@ public class BulletBehaviour : MonoBehaviour
 
     private void setRBSStats()
     {
+        if (spriteRenderer == null)
+        {
+            return;
+        }
+
+        if (els == null || els.Length < 2)
+        {
+            return;
+        }
+
+        if (rb == null)
+        {
+            return;
+        }
         if (type == bulletType.Physics)
         {
+
             rb.gravityScale = 4f;
+            
             spriteRenderer.sprite = els[0];
         }
         else if (type == bulletType.Normal)
         {
+
             rb.gravityScale = 0f;
             spriteRenderer.sprite = els[1];
         }
@@ -103,12 +120,25 @@ public class BulletBehaviour : MonoBehaviour
 
     private void SetPhysicVelocity()
     {
-        rb.velocity = transform.up * physicsBulletSpeed;
+        if (rb != null)
+        {
+            rb.velocity = transform.up * physicsBulletSpeed;
+        }
+        else
+        {
+        }
     }
 
     private void SetStraightVelocity()
     {
-        rb.velocity = transform.up * normalBulletSpeed;
+        if (rb != null)
+        {
+            rb.velocity = transform.up * normalBulletSpeed;
+        }
+        else
+        {
+        }
+
     }
 
     private void OnTriggerEnter2D(Collider2D other)
