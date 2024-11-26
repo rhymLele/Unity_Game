@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ButtonManager : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenu;
-
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.P))
@@ -18,15 +18,16 @@ public class ButtonManager : MonoBehaviour
             }
             else
             {
-                Pause();
-            }
-            if (Input.GetKeyDown(KeyCode.Escape) && pauseMenu.activeSelf)
-            {
-                returnMenu();
-            }
+                Pause(); 
+            }  
         }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            returnMenu();
+        }
+
     }
-    public void returnMenu()
+    private void returnMenu()
     {
         AudioController audioController = FindObjectOfType<AudioController>();
 
@@ -42,7 +43,7 @@ public class ButtonManager : MonoBehaviour
 
         Time.timeScale = 1;
     }
-    public void Pause()
+    private void Pause()
     {
         AudioController audioController = FindObjectOfType<AudioController>();
 

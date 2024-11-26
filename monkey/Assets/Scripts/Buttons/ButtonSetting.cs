@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ButtonSetting : MonoBehaviour
 {
     public GameObject menuPanal;
-
+    public Text gameTitle;
     public Text gamemode;  
     public static string selectedScene = "NightScene";
     public static string getMode = "Normal";
@@ -16,6 +16,10 @@ public class ButtonSetting : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return))
         {
             startGame();
+        }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            OnSettingButtonClick();
         }
     }
 
@@ -34,6 +38,7 @@ public class ButtonSetting : MonoBehaviour
         {
             bool isActive = menuPanal.activeSelf;
             menuPanal.SetActive(!isActive);
+            gameTitle.gameObject.SetActive(isActive);
         }
     }
 

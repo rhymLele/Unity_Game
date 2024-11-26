@@ -51,6 +51,10 @@ public class EndgameController : MonoBehaviour
         ){
             SceneManager.LoadScene(ButtonSetting.selectedScene);
         }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("Menu");
+        }
     }
     public void returnMenu()
     {
