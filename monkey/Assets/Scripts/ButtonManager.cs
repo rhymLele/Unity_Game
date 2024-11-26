@@ -8,6 +8,24 @@ public class ButtonManager : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenu;
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            if (pauseMenu.activeSelf)
+            {
+                Resume();
+            }
+            else
+            {
+                Pause();
+            }
+            if (Input.GetKeyDown(KeyCode.Escape) && pauseMenu.activeSelf)
+            {
+                returnMenu();
+            }
+        }
+    }
     public void returnMenu()
     {
         AudioController audioController = FindObjectOfType<AudioController>();
@@ -38,16 +56,14 @@ public class ButtonManager : MonoBehaviour
             pauseMenu.SetActive(!isActive);
             if (pauseMenu.activeSelf)
             {
-                Time.timeScale = 0; 
-                Debug.Log("Game paused, Time.timeScale set to 0");
+                Time.timeScale = 0;
             }
             else
             {
-                Time.timeScale = 1; 
-                Debug.Log("Game resumed, Time.timeScale set to 1");
+                Time.timeScale = 1;
             }
-
             Debug.Log("Pause Menu new state: " + pauseMenu.activeSelf);
+            
         }
     }
     public void Resume()

@@ -42,6 +42,11 @@ public class EndgameController : MonoBehaviour
     }
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            SaveScore();
+            SceneManager.LoadScene(ButtonSetting.selectedScene);
+        }
         if (Input.GetKeyDown(KeyCode.Space)
         ){
             SceneManager.LoadScene(ButtonSetting.selectedScene);

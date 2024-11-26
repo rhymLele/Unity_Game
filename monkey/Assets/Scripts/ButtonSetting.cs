@@ -11,6 +11,14 @@ public class ButtonSetting : MonoBehaviour
     public static string selectedScene = "NightScene";
     public static string getMode = "Normal";
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            startGame();
+        }
+    }
+
     private void Start()
     {
         gamemode.text = "Gamemode: " + PlayerPrefs.GetString("mode").ToString();

@@ -52,6 +52,7 @@ public class PlayerBehaviour : MonoBehaviour
     private void Update()
     {
         timer += Time.deltaTime;
+        
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (playerStatus==true)
