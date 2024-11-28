@@ -35,12 +35,19 @@ public class BulletBehaviour : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if(transform.position.y>=player.transform.position.y+10)
+        {
+            Destroy(gameObject);
+        }
+    }
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         audioController = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioController>();
-
+        player = GameObject.FindGameObjectWithTag("Player");
         if (audioController != null && audioController.bandanClip != null)
         {
             audioController.PlaySFX(audioController.bandanClip);

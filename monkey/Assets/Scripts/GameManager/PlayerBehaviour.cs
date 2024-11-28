@@ -21,7 +21,7 @@ public class PlayerBehaviour : MonoBehaviour
     private bool isStarted = false;
     private float topScore = 0f;
     private float highScore = 0f;
-
+    public static float staScore;
     private float grav = 4f;
     private float mass = 0.4f;
     private bool isJumping = false;
@@ -58,7 +58,9 @@ public class PlayerBehaviour : MonoBehaviour
             }
             else
             {
-                rb2d.velocity = new Vector2(moveInput * moveSpeed, rb2d.velocity.y) * fallingSpeed;
+                rb2d.velocity = new Vector2(moveInput * moveSpeed, rb2d.velocity.y);
+
+                //rb2d.velocity = new Vector2(moveInput * moveSpeed, rb2d.velocity.y) * fallingSpeed;
             }
             if (getJet != null) UpdateJetPosition(getJet);
         }
@@ -67,8 +69,9 @@ public class PlayerBehaviour : MonoBehaviour
     private void Update()
     {
         timer += Time.deltaTime;
-        UpdateGravityBasedOnScore();
-
+        //UpdateGravityBasedOnScore();
+        if(topScore!=0) staScore = topScore; Debug.Log("Height: "+staScore);
+        Debug.Log("Gravity: " + grav);
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (playerStatus==true)
@@ -121,17 +124,17 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("platform") || collision.gameObject.CompareTag("movePlatform")
-            || collision.gameObject.CompareTag("w_plat") || collision.gameObject.CompareTag("o_plat"))
-        {
-            isJumping = true;
-            StartCoroutine(falling(0.5f));
-        }
-        else if (collision.gameObject.CompareTag("bouncePlatform"))
-        {
-            isJumping = true;
-            StartCoroutine(falling(0.6f));
-        }
+        //if (collision.gameObject.CompareTag("platform") || collision.gameObject.CompareTag("movePlatform")
+        //    || collision.gameObject.CompareTag("w_plat") || collision.gameObject.CompareTag("o_plat"))
+        //{
+        //    isJumping = true;
+        //    StartCoroutine(falling(0.5f));
+        //}
+        //else if (collision.gameObject.CompareTag("bouncePlatform"))
+        //{
+        //    isJumping = true;
+        //    StartCoroutine(falling(0.6f));
+        //}
         if (collision.gameObject.CompareTag("enemy"))
         {
             Bounds playerBounds = GetComponent<Collider2D>().bounds;
@@ -145,7 +148,7 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 Destroy(collision.gameObject);
                 isJumping = true;
-                StartCoroutine(falling(0.5f));
+                //StartCoroutine(falling(0.5f));
                 rb2d.velocity = new Vector2(rb2d.velocity.x, 0);
                 rb2d.AddForce(new Vector2(0, 800f));
                 Debug.Log("Enemy killed.");
@@ -175,7 +178,7 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 EquipHat(gameObject);
                 isJumping = true;
-                StartCoroutine(falling(1.1f));
+                //StartCoroutine(falling(1.1f));
             }
             else
             {
@@ -189,7 +192,7 @@ public class PlayerBehaviour : MonoBehaviour
             { 
                 EquipJet(gameObject);
                 isJumping = true;
-                StartCoroutine(falling(1.3f));
+                //StartCoroutine(falling(1.3f));
             }
             else
             {
