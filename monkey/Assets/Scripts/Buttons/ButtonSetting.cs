@@ -42,6 +42,11 @@ public class ButtonSetting : MonoBehaviour
         }
     }
 
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
     public void startGame()
     {
         selectedScene = PlayerPrefs.GetString("scene").ToString() ?? "NightScene";
