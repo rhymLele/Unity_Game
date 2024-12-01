@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class OffsetPlatform : MonoBehaviour
@@ -9,10 +10,21 @@ public class OffsetPlatform : MonoBehaviour
     private bool moveRight = true;    
     [SerializeField] private float minX = -6.5f;       
     [SerializeField] private float maxX = 6.5f;
+    [SerializeField] private float moveChance = 0.5f;
+
+    private bool isMoving;
     private AudioController audioController;
     void Start()
     {
         audioController = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioController>();
+        if (isMoving = Random.value < moveChance)
+        {
+            moveRight = false;
+        }
+        else
+        {
+            moveRight = true;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

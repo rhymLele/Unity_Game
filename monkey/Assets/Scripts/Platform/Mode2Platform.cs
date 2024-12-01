@@ -52,19 +52,11 @@ public class Mode2Platform : MonoBehaviour
         {
             case 1:
             case 3:
-                Instantiate(offset_platformprefab, new Vector2(Random.Range(-6f, 6f), player.transform.position.y + (3.5f + Random.Range(0f, 0.5f))), Quaternion.identity);
-                break;
             case 4:
             case 6:
-                SpawnWhitePlatformWithHat();
-                break;
             case 2:
-                //case 5:
-                Instantiate(offset_platformprefab, new Vector2(Random.Range(-6f, 6f), player.transform.position.y + (3.5f + Random.Range(0f, 0.5f))), Quaternion.identity);
-                break;
             case 5:
-                //Instantiate(offset_platformprefab, new Vector2(Random.Range(-6f, 6f), player.transform.position.y + (3.5f + Random.Range(0f, 0.5f))), Quaternion.identity);
-
+                Instantiate(offset_platformprefab, new Vector2(Random.Range(-6f, 6f), player.transform.position.y + (3.5f + Random.Range(0.5f, 1f))), Quaternion.identity);
                 break;
             default:
                 collision.transform.position = new Vector2(Random.Range(-6f, 6f), player.transform.position.y + (3.5f + Random.Range(0f, 0.5f)));

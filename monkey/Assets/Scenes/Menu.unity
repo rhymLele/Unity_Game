@@ -3127,7 +3127,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -13, y: 213}
+  m_AnchoredPosition: {x: 0, y: 191}
   m_SizeDelta: {x: 417.77, y: 79.955}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1216598468
@@ -3163,7 +3163,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Doodle Jump Unity 2D
+  m_Text: Doodle Jump X
 --- !u!222 &1216598469
 CanvasRenderer:
   m_ObjectHideFlags: 0

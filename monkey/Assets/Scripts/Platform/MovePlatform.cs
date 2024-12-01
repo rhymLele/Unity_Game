@@ -6,11 +6,13 @@ public class MovePlatform : MonoBehaviour
     private float dragTimer = 0f;
     private bool isDragging = false;
     SpriteRenderer sprite;
+    Collider2D cld;
     Color color;
     private AudioController audioController;
     private void Start()
     {
         sprite = GetComponent<SpriteRenderer>();
+        cld = GetComponent<Collider2D>();
         color=sprite.color;
         audioController = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioController>();
     }
@@ -31,6 +33,7 @@ public class MovePlatform : MonoBehaviour
             {
                 color.a -= 0.01f;
                 sprite.color = color;
+                cld.enabled = false;
                 if(color.a<=0.1f)
                 Destroy(gameObject);
             }
