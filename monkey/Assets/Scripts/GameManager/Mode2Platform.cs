@@ -7,6 +7,7 @@ public class Mode2Platform : MonoBehaviour
     public GameObject player;
     public GameObject offset_platformprefab;
     private int random;
+    private float limit = DestroyScript.limitSpawn;
     //private int platformNum = 10;
 
     private void Start()
@@ -33,7 +34,7 @@ public class Mode2Platform : MonoBehaviour
 
     private void SpawnWhitePlatformWithHat()
     {
-        Vector2 platformPosition = new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (3.5f + Random.Range(0f, 0.5f)));
+        Vector2 platformPosition = new Vector2(Random.Range(-limit/2, limit/2), player.transform.position.y + (3.5f + Random.Range(0f, 0.5f)));
         if (Random.Range(1, 3) == 1)
         {
             Instantiate(offset_platformprefab, platformPosition, Quaternion.identity);
@@ -47,7 +48,7 @@ public class Mode2Platform : MonoBehaviour
     }
     private void SpawnPlatforms(Collider2D collision)
     {
-        Vector2 platformPosition = new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (3.5f + Random.Range(0f, 0.5f)));
+        Vector2 platformPosition = new Vector2(Random.Range(-limit/2, limit/2), player.transform.position.y + (3.5f + Random.Range(0f, 0.5f)));
         switch (random)
         {
             case 1:
@@ -56,10 +57,10 @@ public class Mode2Platform : MonoBehaviour
             case 6:
             case 2:
             case 5:
-                Instantiate(offset_platformprefab, new Vector2(Random.Range(-6f, 6f), player.transform.position.y + (3.5f + Random.Range(0.5f, 1f))), Quaternion.identity);
+                Instantiate(offset_platformprefab, new Vector2(Random.Range(-limit, limit), player.transform.position.y + (3.5f + Random.Range(0.5f, 1f))), Quaternion.identity);
                 break;
             default:
-                collision.transform.position = new Vector2(Random.Range(-6f, 6f), player.transform.position.y + (3.5f + Random.Range(0f, 0.5f)));
+                collision.transform.position = new Vector2(Random.Range(-limit, limit), player.transform.position.y + (3.5f + Random.Range(0f, 0.5f)));
                 break;
         }
     }

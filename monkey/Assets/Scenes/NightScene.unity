@@ -3553,19 +3553,19 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 11335e1dd01242e40a8526ecd7e03e02, type: 3}
     - target: {fileID: 2509428105722739602, guid: a915ab5475384a546bea79115cc53856, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1404.52
+      value: 2057.18
       objectReference: {fileID: 0}
     - target: {fileID: 2509428105722739602, guid: a915ab5475384a546bea79115cc53856, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 1093.43
+      value: 1066.63
       objectReference: {fileID: 0}
     - target: {fileID: 2509428105722739602, guid: a915ab5475384a546bea79115cc53856, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 6.49
+      value: -0.09000015
       objectReference: {fileID: 0}
     - target: {fileID: 2509428105722739602, guid: a915ab5475384a546bea79115cc53856, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 3.24
+      value: 16.64
       objectReference: {fileID: 0}
     - target: {fileID: 2828637477226773177, guid: a915ab5475384a546bea79115cc53856, type: 3}
       propertyPath: m_SizeDelta.x
@@ -3728,7 +3728,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1595294164}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5077476200994512163, guid: a915ab5475384a546bea79115cc53856, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 240758197088385129, guid: a915ab5475384a546bea79115cc53856, type: 3}
       insertIndex: -1

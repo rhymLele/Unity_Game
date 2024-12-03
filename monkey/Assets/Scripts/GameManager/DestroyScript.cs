@@ -15,6 +15,7 @@ public class DestroyScript : MonoBehaviour
 
     private int random;
     public static bool isEquipped;
+    public static float limitSpawn = 7f;
 
     public static int currentEnemyCount = 0;
     private const int maxEnemyCount = 5;
@@ -68,7 +69,7 @@ public class DestroyScript : MonoBehaviour
 
     private void SpawnWhitePlatformWithHat()
     {
-        Vector2 platformPosition = new Vector2(Random.Range(-3.5f, 3.5f), player.transform.position.y + (3.5f + Random.Range(0f, 0.5f)));
+        Vector2 platformPosition = new Vector2(Random.Range(-limitSpawn /2, limitSpawn /2), player.transform.position.y + (3.5f + Random.Range(0f, 0.5f)));
         if(Random.Range(1,3) == 1)
         {
             Instantiate(white_platformprefab, platformPosition, Quaternion.identity);
@@ -92,12 +93,12 @@ public class DestroyScript : MonoBehaviour
     }
     private void SpawnPlatforms(Collider2D collision)
     {
-        Vector2 platformPosition = new Vector2(Random.Range(-6f, 6f), player.transform.position.y + (3.5f + Random.Range(0f, 0.5f)));
+        Vector2 platformPosition = new Vector2(Random.Range(-limitSpawn, limitSpawn), player.transform.position.y + (3.5f + Random.Range(0f, 0.5f)));
         switch (random)
         {
             case 1:
             case 3:
-                Instantiate(white_platformprefab, new Vector2(Random.Range(-6f, 6f), player.transform.position.y + (3.5f + Random.Range(0f, 0.5f))), Quaternion.identity);
+                Instantiate(white_platformprefab, new Vector2(Random.Range(-limitSpawn, limitSpawn), player.transform.position.y + (3.5f + Random.Range(0f, 0.5f))), Quaternion.identity);
                 break;
             case 4:
             case 6:
@@ -105,17 +106,17 @@ public class DestroyScript : MonoBehaviour
                 break;
             case 2:
                 //case 5:
-                Instantiate(bouncy_platformprefab, new Vector2(Random.Range(-6f, 6f), player.transform.position.y + (3.5f + Random.Range(0f, 0.5f))), Quaternion.identity);
+                Instantiate(bouncy_platformprefab, new Vector2(Random.Range(-limitSpawn, limitSpawn), player.transform.position.y + (3.5f + Random.Range(0f, 0.5f))), Quaternion.identity);
                 break;
             case 5:
-                Instantiate(white_platformprefab, new Vector2(Random.Range(-6f, 6f), player.transform.position.y + (3.5f + Random.Range(0f, 0.5f))), Quaternion.identity);
+                Instantiate(white_platformprefab, new Vector2(Random.Range(-limitSpawn, limitSpawn), player.transform.position.y + (3.5f + Random.Range(0f, 0.5f))), Quaternion.identity);
                 if (!isEquipped)
                 {
                     StartCoroutine(spawnEnemy());
                 }
                 break;
             default:
-                collision.transform.position = new Vector2(Random.Range(-6f, 6f), player.transform.position.y + (3.5f + Random.Range(0f, 0.5f)));
+                collision.transform.position = new Vector2(Random.Range(-limitSpawn, limitSpawn), player.transform.position.y + (3.5f + Random.Range(0f, 0.5f)));
                 break;
         }
     }
@@ -135,7 +136,7 @@ public class DestroyScript : MonoBehaviour
             Vector2 spawnPosition;
             float verticalOffset;
             bool spawnAbove = Random.value > 0.5f;
-            float xPosition = Random.Range(-3f, 3f);
+            float xPosition = Random.Range(-limitSpawn/2, limitSpawn/2);
             float baseYPosition = player.transform.position.y + (15 + Random.Range(0.1f, 0.5f));
 
             if (spawnAbove)
