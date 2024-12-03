@@ -16,12 +16,13 @@ public class DestroyScript : MonoBehaviour
     private int random;
     public static bool isEquipped;
 
-    private int currentEnemyCount = 0;
+    public static int currentEnemyCount = 0;
     private const int maxEnemyCount = 5;
 
     private void Start()
     {
         isEquipped = false;
+        currentEnemyCount = 0;
     }
 
     private void Update()

@@ -24,7 +24,10 @@ public class EnemyMovement : MonoBehaviour, IDamgable
             enemybd.velocity = Vector2.zero;
             enemybd.AddForce(new Vector2(0, 10f), ForceMode2D.Impulse);
             enemycl.enabled = false;
-
+            if(DestroyScript.currentEnemyCount >= 0)
+            {
+                DestroyScript.currentEnemyCount--;
+            }
             StartCoroutine(DestroyAfterDelay(1.5f));
         }
     }

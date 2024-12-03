@@ -70,8 +70,9 @@ public class PlayerBehaviour : MonoBehaviour
     {
         timer += Time.deltaTime;
         //UpdateGravityBasedOnScore();
-        if(topScore!=0) staScore = topScore; Debug.Log("Height: "+staScore);
-        Debug.Log("Gravity: " + grav);
+        if(topScore!=0) staScore = topScore; 
+        //Debug.Log("Height: "+staScore);
+        //Debug.Log("Gravity: " + grav);
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (playerStatus==true)
