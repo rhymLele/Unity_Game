@@ -7,20 +7,20 @@ public class ScreenWarpScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D obj)
     {
-        if (obj.CompareTag("Player") && !isTeleporting)
-        {
-            isTeleporting = true;
+        //if (obj.CompareTag("Player") && !isTeleporting)
+        //{
+        //    isTeleporting = true;
 
-            if (gameObject.CompareTag("rightWall"))
-            {
-                obj.transform.position = new Vector2(-6f, obj.transform.position.y);
-            }
-            else if (gameObject.CompareTag("leftWall"))
-            {
-                obj.transform.position = new Vector2(6f, obj.transform.position.y);
-            }
-            StartCoroutine(TeleportCooldown());
-        }
+        //    if (gameObject.CompareTag("rightWall"))
+        //    {
+        //        obj.transform.position = new Vector2(-6f, obj.transform.position.y);
+        //    }
+        //    else if (gameObject.CompareTag("leftWall"))
+        //    {
+        //        obj.transform.position = new Vector2(6f, obj.transform.position.y);
+        //    }
+        //    StartCoroutine(TeleportCooldown());
+        //}
     }
 
     private IEnumerator TeleportCooldown()
