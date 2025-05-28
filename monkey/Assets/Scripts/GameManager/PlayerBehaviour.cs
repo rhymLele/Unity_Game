@@ -31,6 +31,7 @@ public class PlayerBehaviour : MonoBehaviour
     public Text scoreText;
     public Text startText;
     public Text gameOver;
+    public Text flyUp;
     private bool isEquipped;
     GameObject getJet;
 
@@ -85,6 +86,13 @@ public class PlayerBehaviour : MonoBehaviour
         {
             HandleMovement();
             HandleShooting();
+            if (transform.position.y < topScore - 20f && Input.GetKeyDown(KeyCode.F))
+            {
+                flyUp.gameObject.SetActive(true);
+
+                rb2d.velocity = Vector2.zero;
+                rb2d.AddForce(new Vector2(0, 800f));
+            }
             if (!isEquipped)
             {
                 rb2d.gravityScale = grav;
@@ -116,6 +124,7 @@ public class PlayerBehaviour : MonoBehaviour
         rb2d.velocity = Vector2.zero;
         scoreText.gameObject.SetActive(false);
         gameOver.gameObject.SetActive(false);
+        flyUp.gameObject.SetActive(false);
         audioController = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioController>();
         highScore = PlayerPrefs.GetFloat("HighScore", 0f);
         isEquipped = false;
@@ -248,7 +257,7 @@ public class PlayerBehaviour : MonoBehaviour
 
         scoreText.text = "Score: " + Mathf.Round(topScore).ToString();
 
-        if (rb2d.velocity.y < 0 && transform.position.y < topScore - 30f)
+        if (rb2d.velocity.y < 0 && transform.position.y < topScore - 80f)
         {
             EndGame();
         }
